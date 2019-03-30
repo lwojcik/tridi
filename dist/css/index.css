@@ -1,0 +1,11 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#theContainer {
+  margin:0 auto;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}

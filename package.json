@@ -1,0 +1,50 @@
+{
+  "name": "tridi",
+  "version": "0.0.1",
+  "description": "3D Image Viewer",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "clean": "rimraf dist/js/*",
+    "compress": "uglifyjs --mangle --compress --comments '/license/' --output ./dist/js/tridi.compressed.js -- ./dist/js/tridi.js",
+    "minify": "uglifyjs --mangle -c drop_console --comments '/license/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
+    "serve": "serve dist/",
+    "test": "jest",
+    "clearTestCache": "jest --clearCache",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "build": "npm run clean && tsc && tsc -p tsconfig.build.json && npm run compress && npm run minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwojcik/tridi.git"
+  },
+  "keywords": [
+    "3d",
+    "image",
+    "product",
+    "view",
+    "js"
+  ],
+  "author": "Łukasz Wójcik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lwojcik/tridi/issues"
+  },
+  "homepage": "https://github.com/lwojcik/tridi#readme",
+  "devDependencies": {
+    "@types/jest": "24.0.11",
+    "jest": "24.5.0",
+    "jest-each": "24.5.0",
+    "prettier": "1.16.4",
+    "rimraf": "2.6.3",
+    "serve": "10.1.2",
+    "ts-jest": "24.0.0",
+    "tslint": "5.14.0",
+    "tslint-config-airbnb": "5.11.1",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "3.3.4000",
+    "uglify-js": "^3.5.2"
+  }
+}

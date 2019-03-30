@@ -1,0 +1,107 @@
+
+.tridi-viewer,
+.tridi-viewer * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  outline: none;
+}
+
+.tridi-viewer {
+  border: 4px solid #ededed;
+  /* max-width: 1000px;*/
+  overflow: hidden; 
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tridi-viewer-image {
+  width: 100%;
+  margin: auto;
+}
+
+.tridi-stash {
+  display: none;
+}
+
+.tridi-btn {
+  border: 0;
+  background-color: green;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 16px;
+  position: absolute;
+  width: 8.5%;
+  max-width: 40px;
+  height: 19.012%;
+  max-height: 40px;
+  box-sizing: border-box;
+  top:0;
+  bottom:0;
+  margin: auto;
+  cursor: pointer;
+  -webkit-transition: box-shadow .1s; /* Safari */
+  transition: box-shadow .1s;
+}
+
+@media only screen and (max-width: 480px) {
+  .tridi-btn {
+    display: none;
+  }
+}
+
+.tridi-btn:before,
+.tridi-btn:after {
+  position: absolute;
+  content: "";
+}
+
+.tridi-btn:hover,
+.tridi-btn:focus {
+  opacity: 0.9;
+  box-shadow: 0 0 16px 1px green;
+}
+
+.tridi-btn-left {
+  left: 2%;
+}
+
+.tridi-btn-right {
+  right: 2%;
+}
+
+.tridi-btn-right:before {
+  border-right-color: inherit;
+  left: 23px;
+  border: 11px solid transparent;
+  border-left-color: inherit;
+  top: 9px;
+}
+
+.tridi-btn-right:after {
+  left: 16%;
+  top: 42%;
+  background: #fff;
+  width: 61%;
+  height: 15%;
+}
+
+.tridi-btn-left:before {
+  border-left-color: inherit;
+  border-right-color: transparent;
+  right: 23px;
+  border: 11px solid transparent;
+  border-right-color: inherit;
+  top: 9px;
+}
+
+.tridi-btn-left:after {
+  right: 7px;
+  top: 17px;
+  background: #fff;
+  width: 22px;
+  height: 6px;
+}

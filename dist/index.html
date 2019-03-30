@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tridi &mdash; JavaScript 3D Image Viewer</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/tridi.css">
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm">
+          <h1><a href="./index.html">Tridi</a> - JavaScript 3D Image Viewer</h1>
+          <div id="theContainer">
+            <div class="tridi-controls">
+              <div class="tridi-btn tridi-btn-play"></div>
+              <div class="tridi-btn tridi-btn-pause"></div>
+              <div class="tridi-btn tridi-btn-stop"></div>
+            </div>
+          </div>
+          <div>
+          <p>Simple, powerful and easily customizable JavaScript library for 3D visualizations based on series of images.</p>
+          <h2>Install from npm</h2>
+          <pre><code>npm install tridi</code></pre>
+          <h2>Manual build</h2>
+          <pre><code>git clone https://github.com/lukemnet/tridi
+npm install
+npm run build</code></pre>
+          <h2>Download</h2>
+          <ul>
+            <li><a href="https://github.com/lukemnet/tridi">Source code</a> &mdash; contains full uncompiled TypeScript source code</li>
+            <li><a href="js/tridi.js">Compiled version</a> &mdash; contains unminified JS source code with verbose mode available</li>
+            <li><a href="js/tridi.compressed.js">Compressed version</a> &mdash; minified JS source code with verbose mode available</li>
+            <li><a href="js/tridi.min.js">Production-ready version</a> &mdash; minified JS source code, no verbose mode</li>
+          </ul>
+          <h2>Quick start</h2>
+          <p>Add Tridi script on your site:</p>
+          <pre><code>&lt;script src="path/to/tridi.js"&gt;&lt;/script&gt;</code></pre>
+          <p>For minimum styling add <a href="css/tridi.css"><code>tridi.css</code></a> to <code>head</code> section of your page:</p>
+          <pre><code>&lt;link rel="stylesheet" href="path/to/tridi.css"&gt;</code></pre>
+          <h2>Documentation</h2>
+          <h3>Notes</h3>
+          <ul>
+            <li><a href="notes/api.html">API documentation</a></li>
+            <li><a href="notes/styling.html">CSS styling</a></li>
+          </ul>
+          <h3>Examples</h3>
+          <ul>
+            <li><a href="examples/basic.html">Basic usage</a></li>
+            <li><a href="examples/imagearray.html">Image array</a></li>
+            <li><a href="examples/mousedrag.html">Mouse drag</a></li>
+            <li><a href="examples/touch.html">Touch support</a></li>
+            <li><a href="examples/rotate.html">Rotate buttons</a></li>
+            <li><a href="examples/controls.html">Mousewheel support</a></li>
+            <li><a href="examples/autoplay.html">Autoplay</a></li>
+            <!-- <li><a href="examples/custom.html">Custom controls</a></li> -->
+          </ul>
+          <h2>Bugs / contributions</h2>
+          <p>See <a href="https://github.com/lukemnet/tridi/issues">list of open issues</a> or <a href="https://github.com/lukemnet/tridi/issues/new">create a new issue or feature request</a></li>
+          <p>To contribute, <a href="https://github.com/lukemnet/tridi/">fork a repository</a> and submit a pull request.</p>
+          </ul>
+          <h2>License</h2>
+          <p>Licensed under MIT License. See <a href="https://github.com/lukemnet/tridi/blob/master/LICENSE">LICENSE</a> for more information.</p>
+          <p>&copy; 2019 <a href="http://www.lukaszwojcik.net/">Łukasz Wójcik</a></p>
+          <!-- <h2>CSS styles</h2>
+          <p>Tridi provides basic styling to work correctly. You can use <a href="#">tridi.css</a> as a starter or write custom CSS rules from scratch.</p> -->
+            <!-- <pre><code>const tridi = new Tridi({
+  element: '#theContainer',
+  // images: imgArray,
+  imageLocation: './images',
+  imageFormat: 'png',
+  imageCount: 51,
+  dragInterval: 3,
+  touchDragInterval: 1,
+  verbose: true,
+  draggable: true,
+  mousewheel: false,
+  buttons: true,
+  controls: true,
+  mouseleaveDetect: true,
+  mousewheel: true,
+  autoplay: false,
+  autoplaySpeed: 50,
+  stopAutoplayOnClick: true,
+  stopAutoplayOnMouseenter: true,
+  resumeAutoplayOnMouseleave: true,
+  resumeAutoplayDelay: 1000,
+})
+
+tridi.load();</code></pre> -->
+          </div>
+      </div>
+      </div>
+    </div>
+    
+
+    <script src="js/tridi.js"></script>
+    <script>
+      var imgArray = [
+        './images/1.png',
+        './images/2.png',
+        './images/3.png',
+      ];
+      new Tridi({
+        element: '#theContainer',
+        // images: imgArray,
+        imageLocation: './images',
+        imageFormat: 'png',
+        imageCount: 51,
+        dragInterval: 3,
+        touchDragInterval: 1,
+        verbose: true,
+        draggable: true,
+        mousewheel: false,
+        buttons: true,
+        controls: true,
+        mouseleaveDetect: true,
+        mousewheel: true,
+        autoplay: false,
+        autoplaySpeed: 50,
+        stopAutoplayOnClick: true,
+        stopAutoplayOnMouseenter: true,
+        resumeAutoplayOnMouseleave: true,
+        resumeAutoplayDelay: 1000,
+      }).load();
+    </script>
+  </body>
+</html>

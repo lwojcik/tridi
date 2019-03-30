@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tridi &mdash; Basic usage</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../css/tridi.css">
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm">
+          <h1><a href="../index.html">Tridi</a> &mdash; Basic usage</h1>
+          <div id="tridi-basic"></div>
+          <div>
+            <p>Basic Tridi viewer with minimum configuration. Supports mouse dragging and touch events.</p>
+          </div>
+          <h2>Code</h2>
+          <pre><code>new Tridi({
+  element: '#tridi-basic',
+  imageLocation: '../images',
+  imageFormat: 'png',
+  imageCount: 51,
+}).load();</code></pre>
+      </div>
+      </div>
+    </div>
+    
+
+    <script src="../js/tridi.min.js"></script>
+    <script>
+      new Tridi({
+        element: '#tridi-basic',
+        imageLocation: '../images',
+        imageFormat: 'png',
+        imageCount: 51,
+      }).load();
+    </script>
+  </body>
+</html>
