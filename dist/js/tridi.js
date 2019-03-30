@@ -1,4 +1,4 @@
-/*!
+/*
   Tridi
   license: MIT
   homepage: https://tridi.lukem.net
@@ -489,3 +489,4 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
+//# sourceMappingURL=tridi.js.map

@@ -4,6 +4,7 @@
     "outDir": "./dist/js",
     "target": "es5",
     "sourceMap": true,
+    "declaration": true,
     "module": "none",
     "noImplicitAny": true,
     "outFile": "./dist/js/tridi.min.js",

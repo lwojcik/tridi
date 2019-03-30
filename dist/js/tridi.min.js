@@ -1,4 +1,4 @@
-/*!
+/*
   Tridi
   license: MIT
   homepage: https://tridi.lukem.net

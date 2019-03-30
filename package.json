@@ -1,8 +1,8 @@
 {
   "name": "tridi",
   "version": "0.0.1",
-  "description": "3D Image Viewer",
-  "main": "dist/index.js",
+  "description": "JavaScript 3D Image Viewer",
+  "main": "dist/js/tridi.min.js",
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lwojcik/tridi.git"
+    "url": "git+https://github.com/lukemnet/tridi.git"
   },
   "keywords": [
     "3d",
@@ -29,9 +29,9 @@
   "author": "Łukasz Wójcik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lwojcik/tridi/issues"
+    "url": "https://github.com/lukemnet/tridi/issues"
   },
-  "homepage": "https://github.com/lwojcik/tridi#readme",
+  "homepage": "https://tridi.lukem.net",
   "devDependencies": {
     "@types/jest": "24.0.11",
     "jest": "24.5.0",
@@ -45,6 +45,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
     "typescript": "3.3.4000",
-    "uglify-js": "^3.5.2"
+    "uglify-js": "3.5.2"
   }
 }
