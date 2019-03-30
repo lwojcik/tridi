@@ -1,0 +1,16 @@
+src
+tsconfig.json
+tslint.json
+.prettierrc
+tests
+coverage
+appveyor.yml
+.travis.yml
+jest.config.js
+setupJest.ts
+dist/css/bootstrap-grid.min.css
+dist/css/index.css
+dist/examples
+dist/images
+dist/notes
+dist/index.html
