@@ -10,6 +10,10 @@ a {
   margin:0 auto;
 }
 
+pre {
+  max-width: 100%;
+}
+
 ul li {
   margin-bottom: 0.5rem;
 }
