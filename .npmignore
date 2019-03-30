@@ -1,6 +1,8 @@
 src
+.vscode
 tsconfig.json
 tslint.json
+tsconfig.build.json
 .prettierrc
 tests
 coverage
