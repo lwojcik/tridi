@@ -12,6 +12,7 @@ a {
 
 pre {
   max-width: 100%;
+  overflow: hidden;
 }
 
 ul li {
