@@ -64,6 +64,7 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
         this.buttons = options.buttons || false;
         this.scroll = options.scroll || false;
+        this.spinner = typeof options.spinner !== 'undefined' ? options.spinner : false;
         this.touch = typeof options.touch !== 'undefined' ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
         this.wheelInverse = options.wheelInverse || false;
@@ -135,6 +136,9 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.getHintOverlay = function () {
         return document.querySelector(this.element + " .tridi-hint-overlay");
     };
+    Tridi.prototype.getLoadingScreen = function () {
+        return document.querySelector(this.element + " .tridi-loading");
+    };
     Tridi.prototype.getImage = function (whichImage) {
         return this.getImages()[whichImage - 1];
     };
@@ -193,6 +197,16 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.generateLoadingScreen = function () {
+        var loadingScreen = document.createElement('div');
+        loadingScreen.className = 'tridi-loading';
+        loadingScreen.style.display = 'none';
+        var loadingSpinner = document.createElement('div');
+        loadingSpinner.className = 'tridi-spinner';
+        loadingScreen.appendChild(loadingSpinner);
+        this.getViewer().appendChild(loadingScreen);
+    };
+    Tridi.prototype.setLoadingState = function (enable) {
+        this.getLoadingScreen().style.display = enable ? 'block' : 'none';
     };
     Tridi.prototype.generateStash = function () {
         var stash = this.getStash();
@@ -534,10 +548,12 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         this.generateViewer();
         this.generateLoadingScreen();
-        // this.setLoadingState(true);
+        this.setLoadingState(true);
         this.generateViewerImage();
+        this.setLoadingState(false);
         this.displayHintOnStartup(function () {
             _this.lazyLoad(function () {
+                _this.setLoadingState(true);
                 _this.generateStash();
                 _this.populateStash();
                 _this.attachCosmeticEvents();
@@ -548,6 +564,7 @@ var Tridi = /** @class */ (function () {
                 _this.generateButtons();
                 _this.attachButtonEvents();
                 _this.startAutoplay();
+                _this.setLoadingState(false);
             });
         });
     };

@@ -23,6 +23,7 @@ interface TridiOptions {
     resumeAutoplayDelay: number;
     buttons?: boolean;
     scroll?: boolean;
+    spinner?: boolean;
     mousewheel?: boolean;
     wheelInverse?: boolean;
     dragInterval?: number;
@@ -53,6 +54,7 @@ declare class Tridi {
     resumeAutoplayDelay: number;
     buttons?: boolean;
     scroll?: boolean;
+    spinner?: boolean;
     dragInterval?: number;
     touchDragInterval?: number;
     mouseleaveDetect?: boolean;
@@ -79,6 +81,7 @@ declare class Tridi {
     private getLeftButton;
     private getRightButton;
     private getHintOverlay;
+    private getLoadingScreen;
     private getImage;
     private getFirstImage;
     private getViewerImage;
@@ -86,6 +89,7 @@ declare class Tridi {
     private getImages;
     private generateViewer;
     private generateLoadingScreen;
+    private setLoadingState;
     private generateStash;
     private displayHintOnStartup;
     private populateStash;
