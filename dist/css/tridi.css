@@ -31,7 +31,7 @@
 
 .tridi-btn {
   border: 0;
-  background-color: green;
+  background-color: #0366d6;
   color: #fff;
   border-radius: 50%;
   font-size: 16px;
@@ -64,7 +64,7 @@
 .tridi-btn:hover,
 .tridi-btn:focus {
   opacity: 0.9;
-  box-shadow: 0 0 16px 1px green;
+  box-shadow: 0 0 16px 1px #0366d6;
 }
 
 .tridi-btn-left {

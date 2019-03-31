@@ -52,10 +52,13 @@ npm run build</code></pre>
             <ul>
               <li><a href="examples/basic.html">Basic usage</a></li>
               <!-- <li><a href="examples/imagearray.html">Image array</a></li>
+              <li><a href="examples/dynamic.html">Dynamic image replacement</a></li>
               <li><a href="examples/mousedrag.html">Mouse drag</a></li>
               <li><a href="examples/touch.html">Touch support</a></li>
               <li><a href="examples/rotate.html">Rotate buttons</a></li>
               <li><a href="examples/controls.html">Mousewheel support</a></li>
+              <li><a href="examples/hint.html">Hint on startup</a></li>
+              <li><a href="examples/lazy.html">Lazy loading</a></li>
               <li><a href="examples/autoplay.html">Autoplay</a></li> -->
               <!-- <li><a href="examples/custom.html">Custom controls</a></li> -->
             </ul>
@@ -75,11 +78,6 @@ npm run build</code></pre>
 
     <script src="js/tridi.js"></script>
     <script>
-      var imgArray = [
-        './images/1.png',
-        './images/2.png',
-        './images/3.png',
-      ];
       new Tridi({
         element: '#theContainer',
         imageLocation: './images',
@@ -88,13 +86,13 @@ npm run build</code></pre>
         verbose: true,
         showHintOnStartup: true,
         hintText: 'Click to scroll',
-        lazy: true,
+        lazy: false,
         draggable: true,
-        mousewheel: false,
         buttons: true,
         controls: true,
         mouseleaveDetect: true,
         mousewheel: true,
+        wheelInverse: true,
         autoplay: false,
         autoplaySpeed: 50,
         stopAutoplayOnClick: true,
