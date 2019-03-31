@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
-    "compress": "uglifyjs --mangle --compress --comments '/license/' --output ./dist/js/tridi.compressed.js -- ./dist/js/tridi.js",
-    "minify": "uglifyjs --mangle -c drop_console --comments '/license/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
+    "compress": "uglifyjs --mangle --compress --comments '/License/' --output ./dist/js/tridi.compressed.js -- ./dist/js/tridi.js",
+    "minify": "uglifyjs --mangle -c drop_console --comments '/License/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
     "serve": "serve dist/",
     "test": "jest",
     "clearTestCache": "jest --clearCache",

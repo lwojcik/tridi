@@ -1,8 +1,8 @@
 /*
   Tridi
-  license: MIT
-  homepage: https://tridi.lukem.net
-  github: http://github.com/lukemnet/tridi
+  License: MIT
+  Homepage: https://tridi.lukem.net
+  GitHub: http://github.com/lukemnet/tridi
 */
 
 type ImageArray = ReadonlyArray<string>;
@@ -17,6 +17,8 @@ interface TridiOptions {
   imagecount?: number,
   imageLocation?: string,
   count?: number,
+  showHintOnStartup: boolean,
+  hintText: string | null,
   draggable?: boolean,
   autoplay?: boolean,
   autoPlay?: boolean,
@@ -47,6 +49,8 @@ class Tridi {
   imageLocation?: string;
   imageCount?: number;
   draggable?: boolean;
+  showHintOnStartup?: boolean;
+  hintText?: string | null;
   autoplay?: boolean;
   autoplaySpeed?: number;
   autoplayspeed?: number;
@@ -80,6 +84,8 @@ class Tridi {
     this.imageLocation = options.imageLocation || './images';
     this.imageCount = Array.isArray(this.images) ? this.images.length : (options.imageCount)! || options.imagecount || options.count;
     this.draggable = typeof options.draggable !== 'undefined' ? options.draggable : true;
+    this.showHintOnStartup = typeof options.showHintOnStartup !== 'undefined' ? options.showHintOnStartup : true
+    this.hintText = options.hintText || null;
     this.autoplay = options.autoplay || false;
     this.autoplaySpeed = typeof options.autoplaySpeed !== 'undefined' ? options.autoplaySpeed || options.autoplayspeed : 50;
     this.stopAutoplayOnClick = options.stopAutoplayOnClick || false;
@@ -150,6 +156,13 @@ class Tridi {
       console.warn(
         Tridi.header(),
         `Got array of images as initalizing parameter. 'imageCount' property will be ignored.`
+      );
+    }
+
+    if (!options.showHintOnStartup && options.hintText) {
+      console.warn(
+        Tridi.header(),
+        `'showHintOnStartup is set to 'false'. 'hintText' parameter will be ignored.`
       );
     }
 
@@ -241,6 +254,10 @@ class Tridi {
     return <HTMLElement>document.querySelector(`${this.element} .tridi-btn-right`);
   }
 
+  private getHintOverlay() {
+    return <HTMLElement>document.querySelector(`${this.element} .tridi-hint-overlay`)!;
+  }
+
   private getImages() {
     if (this.images === 'numbered') {
       const count = this.imageCount;
@@ -280,10 +297,34 @@ class Tridi {
       if (this.verbose) console.log(Tridi.header(this.element), 'Generating image stash');
       const stashElement = document.createElement('div');
       stashElement.className = 'tridi-stash';
-      stashElement.style.cssText = 'display: none;';
+      stashElement.style.cssText = 'display:none';
       this.getViewer().appendChild(stashElement);
     } else {
       console.error('Error generating stash!');
+    }
+  }
+
+  private displayHintOnStartup() {
+    if (this.showHintOnStartup) {
+      if (this.verbose) console.log(Tridi.header(this.element), 'Generating hint on startup');
+      
+      const hintOverlay = document.createElement('div');
+      hintOverlay.className = 'tridi-hint-overlay';
+      
+      const hint = document.createElement('div');
+      hint.className = 'tridi-hint';
+
+      if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text">${this.hintText}</span>`;
+
+      hintOverlay.appendChild(hint);
+      
+      this.getViewer().appendChild(hintOverlay);
+
+      document.addEventListener('click', (e) => {
+        if((e.target as HTMLElement).classList.contains(`tridi-hint-overlay`)) {
+          this.getHintOverlay().style.cssText = 'display:none';
+        }
+      });
     }
   }
 
@@ -606,7 +647,7 @@ class Tridi {
         viewerImage.addEventListener('mouseleave', (e) => {
           if (this.verbose) console.log(Tridi.header(this.element), 'Resuming autoplay on mouseleave');
 
-          if (!e.toElement.classList.contains('tridi-btn')) {
+          if (!(e.target as HTMLElement).classList.contains('tridi-btn')) {
             this.toggleAutoplay(true);
           }
         });
@@ -616,6 +657,7 @@ class Tridi {
 
   private start() {
     this.generateViewer();
+    this.displayHintOnStartup();
     this.generateStash();
     this.populateStash();
     this.generateViewerImage();

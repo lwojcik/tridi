@@ -73,7 +73,7 @@ npm run build</code></pre>
     </div>
     
 
-    <script src="js/tridi.min.js"></script>
+    <script src="js/tridi.js"></script>
     <script>
       var imgArray = [
         './images/1.png',
@@ -85,7 +85,10 @@ npm run build</code></pre>
         imageLocation: './images',
         imageFormat: 'png',
         imageCount: 51,
-        verbose: false,
+        verbose: true,
+        showHintOnStartup: true,
+        hintText: 'Click to scroll',
+        lazy: true,
         draggable: true,
         mousewheel: false,
         buttons: true,

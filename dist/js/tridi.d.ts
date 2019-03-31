@@ -9,6 +9,8 @@ interface TridiOptions {
     imagecount?: number;
     imageLocation?: string;
     count?: number;
+    showHintOnStartup: boolean;
+    hintText: string | null;
     draggable?: boolean;
     autoplay?: boolean;
     autoPlay?: boolean;
@@ -38,6 +40,8 @@ declare class Tridi {
     imageLocation?: string;
     imageCount?: number;
     draggable?: boolean;
+    showHintOnStartup?: boolean;
+    hintText?: string | null;
     autoplay?: boolean;
     autoplaySpeed?: number;
     autoplayspeed?: number;
@@ -71,9 +75,11 @@ declare class Tridi {
     private getStash;
     private getLeftButton;
     private getRightButton;
+    private getHintOverlay;
     private getImages;
     private generateViewer;
     private generateStash;
+    private displayHintOnStartup;
     private populateStash;
     private getImage;
     private getFirstImage;

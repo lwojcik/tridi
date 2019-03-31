@@ -1,8 +1,8 @@
 /*
   Tridi
-  license: MIT
-  homepage: https://tridi.lukem.net
-  github: http://github.com/lukemnet/tridi
+  License: MIT
+  Homepage: https://tridi.lukem.net
+  GitHub: http://github.com/lukemnet/tridi
 */
 var Tridi = /** @class */ (function () {
     // private loaded: boolean;
@@ -25,6 +25,9 @@ var Tridi = /** @class */ (function () {
             }
             if (Array.isArray(options.images) && options.imageCount) {
                 console.warn(Tridi.header(), "Got array of images as initalizing parameter. 'imageCount' property will be ignored.");
+            }
+            if (!options.showHintOnStartup && options.hintText) {
+                console.warn(Tridi.header(), "'showHintOnStartup is set to 'false'. 'hintText' parameter will be ignored.");
             }
             if (!options.draggable && options.mouseleaveDetect) {
                 console.warn(Tridi.header(), "'draggable is set to 'false'. 'mouseleaveDetect' parameter will be ignored.");
@@ -49,6 +52,8 @@ var Tridi = /** @class */ (function () {
         this.imageLocation = options.imageLocation || './images';
         this.imageCount = Array.isArray(this.images) ? this.images.length : (options.imageCount) || options.imagecount || options.count;
         this.draggable = typeof options.draggable !== 'undefined' ? options.draggable : true;
+        this.showHintOnStartup = typeof options.showHintOnStartup !== 'undefined' ? options.showHintOnStartup : true;
+        this.hintText = options.hintText || null;
         this.autoplay = options.autoplay || false;
         this.autoplaySpeed = typeof options.autoplaySpeed !== 'undefined' ? options.autoplaySpeed || options.autoplayspeed : 50;
         this.stopAutoplayOnClick = options.stopAutoplayOnClick || false;
@@ -124,6 +129,9 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.getRightButton = function () {
         return document.querySelector(this.element + " .tridi-btn-right");
     };
+    Tridi.prototype.getHintOverlay = function () {
+        return document.querySelector(this.element + " .tridi-hint-overlay");
+    };
     Tridi.prototype.getImages = function () {
         if (this.images === 'numbered') {
             var count = this.imageCount;
@@ -165,11 +173,31 @@ var Tridi = /** @class */ (function () {
                 console.log(Tridi.header(this.element), 'Generating image stash');
             var stashElement = document.createElement('div');
             stashElement.className = 'tridi-stash';
-            stashElement.style.cssText = 'display: none;';
+            stashElement.style.cssText = 'display:none';
             this.getViewer().appendChild(stashElement);
         }
         else {
             console.error('Error generating stash!');
+        }
+    };
+    Tridi.prototype.displayHintOnStartup = function () {
+        var _this = this;
+        if (this.showHintOnStartup) {
+            if (this.verbose)
+                console.log(Tridi.header(this.element), 'Generating hint on startup');
+            var hintOverlay = document.createElement('div');
+            hintOverlay.className = 'tridi-hint-overlay';
+            var hint = document.createElement('div');
+            hint.className = 'tridi-hint';
+            if (this.hintText)
+                hint.innerHTML = "<span class=\"tridi-hint-text\">" + this.hintText + "</span>";
+            hintOverlay.appendChild(hint);
+            this.getViewer().appendChild(hintOverlay);
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains("tridi-hint-overlay")) {
+                    _this.getHintOverlay().style.cssText = 'display:none';
+                }
+            });
         }
     };
     Tridi.prototype.populateStash = function () {
@@ -463,7 +491,7 @@ var Tridi = /** @class */ (function () {
                 viewerImage.addEventListener('mouseleave', function (e) {
                     if (_this.verbose)
                         console.log(Tridi.header(_this.element), 'Resuming autoplay on mouseleave');
-                    if (!e.toElement.classList.contains('tridi-btn')) {
+                    if (!e.target.classList.contains('tridi-btn')) {
                         _this.toggleAutoplay(true);
                     }
                 });
@@ -472,6 +500,7 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.start = function () {
         this.generateViewer();
+        this.displayHintOnStartup();
         this.generateStash();
         this.populateStash();
         this.generateViewerImage();
