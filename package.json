@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "JavaScript 3D Image Viewer",
   "main": "dist/js/tridi.min.js",
+  "types": "dist/js/tridi.min.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
@@ -21,10 +22,12 @@
   },
   "keywords": [
     "3d",
+    "360",
     "image",
+    "photo",
     "product",
     "view",
-    "js"
+    "viewer"
   ],
   "author": "Łukasz Wójcik",
   "license": "MIT",
