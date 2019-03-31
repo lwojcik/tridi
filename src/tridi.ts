@@ -1,5 +1,5 @@
 /*
-  Tridi
+  Tridi - JavaScript 3D Image Viewer
   License: MIT
   Homepage: https://tridi.lukem.net
   GitHub: http://github.com/lukemnet/tridi
@@ -297,7 +297,7 @@ class Tridi {
       if (this.verbose) console.log(Tridi.header(this.element), 'Generating image stash');
       const stashElement = document.createElement('div');
       stashElement.className = 'tridi-stash';
-      stashElement.style.cssText = 'display:none';
+      stashElement.style.display = 'none';
       this.getViewer().appendChild(stashElement);
     } else {
       console.error('Error generating stash!');
@@ -308,22 +308,32 @@ class Tridi {
     if (this.showHintOnStartup) {
       if (this.verbose) console.log(Tridi.header(this.element), 'Generating hint on startup');
       
+      const element = this.element.substr(1);
       const hintOverlay = document.createElement('div');
-      hintOverlay.className = 'tridi-hint-overlay';
+      hintOverlay.className = `tridi-hint-overlay tridi-${element}-hint-overlay`;
       
       const hint = document.createElement('div');
       hint.className = 'tridi-hint';
 
-      if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text">${this.hintText}</span>`;
+      if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text tridi-${element}-hint-text">${this.hintText}</span>`;
 
       hintOverlay.appendChild(hint);
       
       this.getViewer().appendChild(hintOverlay);
 
       document.addEventListener('click', (e) => {
-        if((e.target as HTMLElement).classList.contains(`tridi-hint-overlay`)) {
-          this.getHintOverlay().style.cssText = 'display:none';
+        console.log(e);
+        const isItHintOverlay = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-overlay`);
+        const isItHintText = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-text`);
+        if (isItHintOverlay || isItHintText) {
+          this.getHintOverlay().style.display = 'none';
         }
+        // console.log(isItMyElement);
+        // if(((e.target as HTMLElement).classList.contains(`tridi-viewer-${this.element}`)
+        //   && ((e.target as HTMLElement).classList.contains(`tridi-hint`)))
+        //   || (e.target as HTMLElement).classList.contains(`tridi-viewer-${this.element} tridi-hint-text`)) {
+        //   this.getHintOverlay().style.display = 'none';
+        // }
       });
     }
   }
