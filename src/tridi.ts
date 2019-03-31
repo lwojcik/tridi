@@ -317,9 +317,15 @@ class Tridi {
           `tridi-touch-${this.touch}`,
           `tridi-mousewheel-${this.mousewheel}`,
           `tridi-wheelInverse-${this.wheelInverse}`,
+          `tridi-showHintOnStartup-${this.showHintOnStartup}`,
+          `tridi-lazy-${this.lazy}`,
           `tridi-buttons-${this.buttons}`,
         ]);
     }
+  }
+
+  private generateLoadingScreen() {
+    
   }
 
   private generateStash() {
@@ -340,7 +346,8 @@ class Tridi {
       const element = this.element.substr(1);
       const hintOverlay = document.createElement('div');
       hintOverlay.className = `tridi-hint-overlay tridi-${element}-hint-overlay`;
-      
+      hintOverlay.tabIndex = 0;
+
       const hint = document.createElement('div');
       hint.className = 'tridi-hint';
 
@@ -350,7 +357,7 @@ class Tridi {
       
       this.getViewer().appendChild(hintOverlay);
 
-      document.addEventListener('click', (e) => {
+      const hintClickHandler = (e: Event) => {
         const isItHintOverlay = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-overlay`);
         const isItHintText = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-text`);
         
@@ -358,6 +365,12 @@ class Tridi {
           this.getHintOverlay().style.display = 'none';
           callback();
         }
+      }
+
+      document.addEventListener('click', hintClickHandler);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.which === 13) hintClickHandler(e);
       });
     } else {
       callback();
@@ -684,6 +697,8 @@ class Tridi {
 
   private start() {
     this.generateViewer();
+    this.generateLoadingScreen();
+    // this.setLoadingState(true);
     this.generateViewerImage();
     this.displayHintOnStartup(()=> {
       this.lazyLoad(() => {

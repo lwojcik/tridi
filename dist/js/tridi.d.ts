@@ -85,6 +85,7 @@ declare class Tridi {
     private lazyLoad;
     private getImages;
     private generateViewer;
+    private generateLoadingScreen;
     private generateStash;
     private displayHintOnStartup;
     private populateStash;

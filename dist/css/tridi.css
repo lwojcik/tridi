@@ -129,19 +129,26 @@
   left:0;
   right:0;
   margin: auto;
+  -webkit-transition: box-shadow .1s; /* Safari */
+  transition: box-shadow .1s;
 }
 
 .tridi-hint-text {
   display: block;
-  font-size: 14px;
+  font-size: 34px;
+  height: 34px;
   font-weight: bold;
   width: 80%;
   text-align: center;
   position: absolute;
-  padding-top: 20px;
-  top:0;
+  top:-16px;
   bottom:0;
   left:0;
   right:0;
   margin: auto;
+}
+
+.tridi-hint-overlay:hover .tridi-hint,
+.tridi-hint-overlay:focus .tridi-hint {
+  box-shadow: 0 0 16px 1px #333;
 }

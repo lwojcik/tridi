@@ -186,9 +186,13 @@ var Tridi = /** @class */ (function () {
                 "tridi-touch-" + this.touch,
                 "tridi-mousewheel-" + this.mousewheel,
                 "tridi-wheelInverse-" + this.wheelInverse,
+                "tridi-showHintOnStartup-" + this.showHintOnStartup,
+                "tridi-lazy-" + this.lazy,
                 "tridi-buttons-" + this.buttons,
             ]);
         }
+    };
+    Tridi.prototype.generateLoadingScreen = function () {
     };
     Tridi.prototype.generateStash = function () {
         var stash = this.getStash();
@@ -209,19 +213,25 @@ var Tridi = /** @class */ (function () {
             var element_1 = this.element.substr(1);
             var hintOverlay = document.createElement('div');
             hintOverlay.className = "tridi-hint-overlay tridi-" + element_1 + "-hint-overlay";
+            hintOverlay.tabIndex = 0;
             var hint = document.createElement('div');
             hint.className = 'tridi-hint';
             if (this.hintText)
                 hint.innerHTML = "<span class=\"tridi-hint-text tridi-" + element_1 + "-hint-text\">" + this.hintText + "</span>";
             hintOverlay.appendChild(hint);
             this.getViewer().appendChild(hintOverlay);
-            document.addEventListener('click', function (e) {
+            var hintClickHandler_1 = function (e) {
                 var isItHintOverlay = e.target.classList.contains("tridi-" + element_1 + "-hint-overlay");
                 var isItHintText = e.target.classList.contains("tridi-" + element_1 + "-hint-text");
                 if (isItHintOverlay || isItHintText) {
                     _this.getHintOverlay().style.display = 'none';
                     callback();
                 }
+            };
+            document.addEventListener('click', hintClickHandler_1);
+            document.addEventListener('keydown', function (e) {
+                if (e.which === 13)
+                    hintClickHandler_1(e);
             });
         }
         else {
@@ -523,6 +533,8 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.start = function () {
         var _this = this;
         this.generateViewer();
+        this.generateLoadingScreen();
+        // this.setLoadingState(true);
         this.generateViewerImage();
         this.displayHintOnStartup(function () {
             _this.lazyLoad(function () {
