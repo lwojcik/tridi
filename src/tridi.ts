@@ -497,7 +497,7 @@ class Tridi {
     });
 
     viewer.addEventListener('mouseleave', () => {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseenter event triggered');
+      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseleave event triggered');
       this.removeClassName(viewer, 'tridi-viewer-hovered');
     });
   }
