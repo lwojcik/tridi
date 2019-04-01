@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "JavaScript 3D Image Viewer",
   "main": "dist/js/tridi.min.js",
+  "types": "dist/js/tridi.min.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
@@ -21,10 +22,12 @@
   },
   "keywords": [
     "3d",
+    "360",
     "image",
+    "photo",
     "product",
     "view",
-    "js"
+    "viewer"
   ],
   "author": "Łukasz Wójcik",
   "license": "MIT",
@@ -35,7 +38,6 @@
   "devDependencies": {
     "@types/jest": "24.0.11",
     "jest": "24.5.0",
-    "jest-each": "24.5.0",
     "prettier": "1.16.4",
     "rimraf": "2.6.3",
     "serve": "10.1.2",
@@ -45,6 +47,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
     "typescript": "3.4.1",
-    "uglify-js": "3.5.2"
+    "uglify-js": "3.5.3"
   }
 }
