@@ -1,5 +1,5 @@
 /*
-  Tridi - JavaScript 3D Image Viewer
+  Tridi v0.0.2 - JavaScript 3D Product Viewer
   Author: Łukasz Wójcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -256,8 +256,8 @@ var Tridi = /** @class */ (function () {
         var stash = this.getStash();
         var images = this.getImages();
         if (stash && images) {
-            images.forEach(function (image) {
-                stash.innerHTML += "<img src=\"" + image + "\" alt=\"\" />";
+            images.forEach(function (image, index) {
+                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image-" + (index + 1) + "\" alt=\"\" />";
             });
         }
         else {
@@ -346,13 +346,17 @@ var Tridi = /** @class */ (function () {
             var viewerImage = this.getViewerImage();
             if (this.verbose)
                 console.log(Tridi.header(this.element), 'Attaching drag events');
-            viewerImage.addEventListener('mouseup', function () {
+            viewerImage.addEventListener('mouseup', function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
                 if (_this.verbose)
                     console.log(Tridi.header(_this.element), 'Mouseup triggered');
                 _this.stopDragging();
                 _this.resetMoveBuffer();
             });
             viewerImage.addEventListener('mousedown', function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
                 if (_this.verbose)
                     console.log(Tridi.header(_this.element), 'Mousedown triggered');
                 _this.startDragging();
@@ -360,6 +364,8 @@ var Tridi = /** @class */ (function () {
             });
             viewerImage.addEventListener('mousemove', function (e) {
                 if (_this.dragActive) {
+                    if (e.preventDefault)
+                        e.preventDefault();
                     if (_this.verbose)
                         console.log(Tridi.header(_this.element), 'Mousemove triggered');
                     _this.rotateViewerImage(e);
@@ -393,17 +399,23 @@ var Tridi = /** @class */ (function () {
                 console.log(Tridi.header(this.element), 'Attaching touch events');
             var viewerImage = this.getViewerImage();
             viewerImage.addEventListener('touchstart', function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
                 if (_this.verbose)
                     console.log(Tridi.header(_this.element), 'Touchstart triggered');
                 _this.startDragging();
                 _this.rotateViewerImage(e);
             });
             viewerImage.addEventListener('touchmove', function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
                 if (_this.verbose)
                     console.log(Tridi.header(_this.element), 'Touchmove triggered');
                 _this.rotateViewerImage(e);
             });
-            viewerImage.addEventListener('touchend', function () {
+            viewerImage.addEventListener('touchend', function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
                 if (_this.verbose)
                     console.log(Tridi.header(_this.element), 'Touchend triggered');
                 _this.stopDragging();
@@ -420,7 +432,8 @@ var Tridi = /** @class */ (function () {
             var nextMove_1 = function () { return _this.wheelInverse ? _this.previousFrame() : _this.nextFrame(); };
             var previousMove_1 = function () { return _this.wheelInverse ? _this.nextFrame() : _this.previousFrame(); };
             viewerImage.addEventListener('wheel', function (e) {
-                e.preventDefault();
+                if (e.preventDefault)
+                    e.preventDefault();
                 (e.deltaY / 120 > 0) ? nextMove_1() : previousMove_1();
             });
         }

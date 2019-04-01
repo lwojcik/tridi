@@ -1,5 +1,5 @@
 /*
-  Tridi - JavaScript 3D Image Viewer
+  Tridi v0.0.2 - JavaScript 3D Product Viewer
   Author: Łukasz Wójcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -401,8 +401,8 @@ class Tridi {
       const images = this.getImages();
       
       if (stash && images) {
-        images.forEach(image => {
-          stash.innerHTML += `<img src="${image}" alt="" />`;
+        images.forEach((image, index) => {
+          stash.innerHTML += `<img src="${image}" class="tridi-image-${index+1}" alt="" />`;
         });
       } else {
         console.error(this.element, 'Error populating stash!');
@@ -497,7 +497,7 @@ class Tridi {
     });
 
     viewer.addEventListener('mouseleave', () => {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseenter event triggered');
+      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseleave event triggered');
       this.removeClassName(viewer, 'tridi-viewer-hovered');
     });
   }
@@ -508,20 +508,23 @@ class Tridi {
 
       if (this.verbose) console.log(Tridi.header(this.element), 'Attaching drag events');
 
-      viewerImage.addEventListener('mouseup', () => {
+      viewerImage.addEventListener('mouseup', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Mouseup triggered');
         this.stopDragging();
         this.resetMoveBuffer();
       });
 
       viewerImage.addEventListener('mousedown', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Mousedown triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
-      viewerImage.addEventListener('mousemove', (e) =>{
+      viewerImage.addEventListener('mousemove', (e) => {
         if (this.dragActive) {
+          if (e.preventDefault) e.preventDefault();
           if (this.verbose) console.log(Tridi.header(this.element), 'Mousemove triggered');
           this.rotateViewerImage(e);
         }
@@ -555,17 +558,20 @@ class Tridi {
       const viewerImage = this.getViewerImage();
 
       viewerImage.addEventListener('touchstart', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchstart triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
       viewerImage.addEventListener('touchmove', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchmove triggered');
         this.rotateViewerImage(e);
       });
 
-      viewerImage.addEventListener('touchend', () => {
+      viewerImage.addEventListener('touchend', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchend triggered');
         this.stopDragging();
         this.resetMoveBuffer();
@@ -582,7 +588,7 @@ class Tridi {
       const previousMove = () => this.wheelInverse ? this.nextFrame() : this.previousFrame();
       
       viewerImage.addEventListener('wheel', (e) => {
-        e.preventDefault();
+        if (e.preventDefault) e.preventDefault();
         (e.deltaY / 120 > 0) ? nextMove() : previousMove();
       });
     }

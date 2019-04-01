@@ -12,6 +12,10 @@
   outline: none;
 }
 
+.tridi-draggable-true {
+  cursor: grab;
+}
+
 .tridi-viewer {
   border: 4px solid #ededed;
   overflow: hidden; 
@@ -112,15 +116,16 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
-  background: #ededed;
+  background: rgba(237, 237, 237, 0.3);
   z-index: 100;
+  cursor: pointer;
 }
 
 .tridi-hint {
   width: 80px;
   height: 80px;
   background:#333;
+  opacity: 1;
   color:#fff;
   border-radius: 50%;
   position: absolute;
@@ -131,6 +136,30 @@
   margin: auto;
   -webkit-transition: box-shadow .1s; /* Safari */
   transition: box-shadow .1s;
+}
+
+.tridi-hint:before,
+.tridi-hint:after {
+  content:'';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.tridi-hint:before {
+  border-width: 15px 15px 15px 0;
+  border-color: transparent #fff transparent transparent;
+  left: 9px;
+}
+
+.tridi-hint:after {
+  border-width: 15px 0 15px 15px;
+  border-color: transparent transparent transparent #fff;
+  right: 9px;
 }
 
 .tridi-hint-text {
@@ -188,6 +217,7 @@
   -webkit-animation: load8 1.1s infinite linear;
   animation: load8 1.1s infinite linear;
 }
+
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);

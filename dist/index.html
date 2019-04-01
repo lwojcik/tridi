@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="./">Tridi</a> - JavaScript 3D Image Viewer</h1>
+            <h1><a href="./">Tridi</a> - JavaScript 360 Product Viewer</h1>
             <div id="theContainer">
               <div class="tridi-controls">
                 <div class="tridi-btn tridi-btn-play"></div>
@@ -21,7 +21,7 @@
               </div>
             </div>
             <div>
-            <p>Powerful and customizable JavaScript library for 3D visualizations based on series of images.</p>
+            <p>Powerful and customizable JavaScript library for 360-degree 3D product visualizations based on series of images.</p>
             <h2>Install from npm</h2>
             <pre><code>npm install tridi</code></pre>
             <h2>Manual build</h2>
@@ -41,7 +41,7 @@ npm run build</code></pre>
             <pre><code>&lt;script src="path/to/tridi.js"&gt;&lt;/script&gt;</code></pre>
             <p>For minimum styling add <a href="css/tridi.css"><code>tridi.css</code></a> to <code>head</code> section of your page:</p>
             <pre><code>&lt;link rel="stylesheet" href="path/to/tridi.css"&gt;</code></pre>
-            <p>See <a href="examples/basic.html">Basic usage</a> for a minimum viable example.</p>
+            <p>See <a href="examples/basic.html">Basic viewer</a> for a minimum viable example.</p>
             <h2>Documentation</h2>
             <h3>Notes</h3>
             <ul>
@@ -50,7 +50,7 @@ npm run build</code></pre>
             </ul>
             <h3>Examples</h3>
             <ul>
-              <li><a href="examples/basic.html">Basic usage</a></li>
+              <li><a href="examples/basic.html">Basic viewer</a></li>
               <!-- <li><a href="examples/imagearray.html">Image array</a></li>
               <li><a href="examples/dynamic.html">Dynamic image replacement</a></li>
               <li><a href="examples/mousedrag.html">Mouse drag</a></li>
@@ -83,13 +83,12 @@ npm run build</code></pre>
         imageLocation: './images',
         imageFormat: 'png',
         imageCount: 51,
-        verbose: true,
+        verbose: false,
         showHintOnStartup: true,
-        hintText: '&lt; &gt;',
         lazy: false,
         draggable: true,
         buttons: true,
-        controls: true,
+        controls: false,
         spinner: true,
         mouseleaveDetect: true,
         mousewheel: true,
@@ -100,6 +99,10 @@ npm run build</code></pre>
         stopAutoplayOnMouseenter: true,
         resumeAutoplayOnMouseleave: true,
         resumeAutoplayDelay: 1000,
+        // TODO:
+        // - replace image array
+        // - external controls
+        // - arrow keys support
       }).load();
     </script>
   </body>
