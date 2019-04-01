@@ -508,20 +508,23 @@ class Tridi {
 
       if (this.verbose) console.log(Tridi.header(this.element), 'Attaching drag events');
 
-      viewerImage.addEventListener('mouseup', () => {
+      viewerImage.addEventListener('mouseup', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Mouseup triggered');
         this.stopDragging();
         this.resetMoveBuffer();
       });
 
       viewerImage.addEventListener('mousedown', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Mousedown triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
-      viewerImage.addEventListener('mousemove', (e) =>{
+      viewerImage.addEventListener('mousemove', (e) => {
         if (this.dragActive) {
+          if (e.preventDefault) e.preventDefault();
           if (this.verbose) console.log(Tridi.header(this.element), 'Mousemove triggered');
           this.rotateViewerImage(e);
         }
@@ -555,17 +558,20 @@ class Tridi {
       const viewerImage = this.getViewerImage();
 
       viewerImage.addEventListener('touchstart', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchstart triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
       viewerImage.addEventListener('touchmove', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchmove triggered');
         this.rotateViewerImage(e);
       });
 
-      viewerImage.addEventListener('touchend', () => {
+      viewerImage.addEventListener('touchend', (e) => {
+        if (e.preventDefault) e.preventDefault();
         if (this.verbose) console.log(Tridi.header(this.element), 'Touchend triggered');
         this.stopDragging();
         this.resetMoveBuffer();
@@ -582,7 +588,7 @@ class Tridi {
       const previousMove = () => this.wheelInverse ? this.nextFrame() : this.previousFrame();
       
       viewerImage.addEventListener('wheel', (e) => {
-        e.preventDefault();
+        if (e.preventDefault) e.preventDefault();
         (e.deltaY / 120 > 0) ? nextMove() : previousMove();
       });
     }

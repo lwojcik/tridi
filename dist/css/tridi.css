@@ -12,6 +12,10 @@
   outline: none;
 }
 
+.tridi-draggable-true {
+  cursor: grab;
+}
+
 .tridi-viewer {
   border: 4px solid #ededed;
   overflow: hidden; 
@@ -112,9 +116,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 0.5;
   background: #ededed;
   z-index: 100;
+  cursor: pointer;
 }
 
 .tridi-hint {
