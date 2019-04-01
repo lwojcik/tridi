@@ -22,7 +22,7 @@ ul, ol {
 
 pre {
   max-width: 100%;
-  overflow: hidden;
+  overflow-y: overlay;
   background: #ededed;
   padding-top: 5px;
   padding-bottom: 5px;

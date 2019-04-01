@@ -32,6 +32,7 @@ interface TridiOptions {
   resumeAutoplayDelay: number,
   buttons?: boolean,
   scroll?: boolean,
+  spinner? :boolean,
   mousewheel?: boolean,
   wheelInverse?: boolean,
   dragInterval?: number,
@@ -63,6 +64,7 @@ class Tridi {
   resumeAutoplayDelay: number;
   buttons?: boolean;
   scroll?: boolean;
+  spinner?: boolean;
   dragInterval?: number;
   touchDragInterval?: number;
   mouseleaveDetect?: boolean;
@@ -99,6 +101,7 @@ class Tridi {
     this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
     this.buttons = options.buttons || false;
     this.scroll = options.scroll || false;
+    this.spinner = typeof options.spinner !== 'undefined' ? options.spinner : false;
     this.touch = typeof options.touch !== 'undefined' ? options.touch : true;
     this.mousewheel = options.mousewheel || false;
     this.wheelInverse = options.wheelInverse || false;
@@ -261,7 +264,11 @@ class Tridi {
   }
 
   private getHintOverlay() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-hint-overlay`)!;
+    return <HTMLElement>document.querySelector(`${this.element} .tridi-hint-overlay`);
+  }
+
+  private getLoadingScreen() {
+    return <HTMLElement>document.querySelector(`${this.element} .tridi-loading`)
   }
 
   private getImage(whichImage: number) {
@@ -325,7 +332,19 @@ class Tridi {
   }
 
   private generateLoadingScreen() {
-    
+    const loadingScreen = document.createElement('div');
+    loadingScreen.className = 'tridi-loading';
+    loadingScreen.style.display = 'none';
+
+    const loadingSpinner = document.createElement('div');
+    loadingSpinner.className = 'tridi-spinner';
+    loadingScreen.appendChild(loadingSpinner);
+
+    this.getViewer().appendChild(loadingScreen);
+  }
+
+  private setLoadingState(enable: boolean) {
+    this.getLoadingScreen().style.display = enable ? 'block' : 'none';
   }
 
   private generateStash() {
@@ -698,20 +717,23 @@ class Tridi {
   private start() {
     this.generateViewer();
     this.generateLoadingScreen();
-    // this.setLoadingState(true);
+    this.setLoadingState(true);
     this.generateViewerImage();
+    this.setLoadingState(false);
     this.displayHintOnStartup(()=> {
       this.lazyLoad(() => {
-        this.generateStash();
-        this.populateStash();
-        this.attachCosmeticEvents();
-        this.attachDragEvents();
-        this.attachMouseLeaveDetection();
-        this.attachTouchEvents();
-        this.attachMousewheelEvents();
-        this.generateButtons();
-        this.attachButtonEvents();
-        this.startAutoplay();
+        this.setLoadingState(true);
+          this.generateStash();
+          this.populateStash();
+          this.attachCosmeticEvents();
+          this.attachDragEvents();
+          this.attachMouseLeaveDetection();
+          this.attachTouchEvents();
+          this.attachMousewheelEvents();
+          this.generateButtons();
+          this.attachButtonEvents();
+          this.startAutoplay();
+          this.setLoadingState(false);
       });
     });
   }
