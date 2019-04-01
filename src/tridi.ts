@@ -401,8 +401,8 @@ class Tridi {
       const images = this.getImages();
       
       if (stash && images) {
-        images.forEach(image => {
-          stash.innerHTML += `<img src="${image}" alt="" />`;
+        images.forEach((image, index) => {
+          stash.innerHTML += `<img src="${image}" class="tridi-image-${index+1}" alt="" />`;
         });
       } else {
         console.error(this.element, 'Error populating stash!');

@@ -256,8 +256,8 @@ var Tridi = /** @class */ (function () {
         var stash = this.getStash();
         var images = this.getImages();
         if (stash && images) {
-            images.forEach(function (image) {
-                stash.innerHTML += "<img src=\"" + image + "\" alt=\"\" />";
+            images.forEach(function (image, index) {
+                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image-" + (index + 1) + "\" alt=\"\" />";
             });
         }
         else {
