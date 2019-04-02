@@ -5,6 +5,6 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/04ddfa1de2e976e880b6/test_coverage)](https://codeclimate.com/github/lukemnet/tridi/test_coverage)
 [![Greenkeeper](https://badges.greenkeeper.io/lukemnet/tridi.svg)](https://greenkeeper.io/)
 
-JavaScript 3D Product Viewer.
+JavaScript 360-degree 3D Product Viewer.
 
 Readme coming soon. See [tridi.lukem.net](https://tridi.lukem.net) for more information.
