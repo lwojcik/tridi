@@ -4,9 +4,7 @@ interface TridiOptions {
     element: string;
     images: ImageArray | NumberedImages;
     imageFormat?: string;
-    imageformat?: string;
     imageCount?: number;
-    imagecount?: number;
     imageLocation?: string;
     count?: number;
     showHintOnStartup?: boolean;
@@ -14,9 +12,7 @@ interface TridiOptions {
     hintText?: string | null;
     draggable?: boolean;
     autoplay?: boolean;
-    autoPlay?: boolean;
     autoplaySpeed?: number;
-    autoplayspeed?: number;
     stopAutoplayOnClick?: boolean;
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
@@ -27,14 +23,12 @@ interface TridiOptions {
     mousewheel?: boolean;
     wheelInverse?: boolean;
     dragInterval?: number;
-    draginterval?: number;
     touchDragInterval?: number;
     mouseleaveDetect?: boolean;
     touch?: boolean;
     inverse?: boolean;
     playable?: boolean;
     verbose?: boolean;
-    debug?: boolean;
 }
 declare class Tridi {
     element: string;

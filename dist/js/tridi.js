@@ -72,14 +72,13 @@ var Tridi = /** @class */ (function () {
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 1;
         this.mouseleaveDetect = typeof options.mouseleaveDetect !== 'undefined' ? options.mouseleaveDetect : false;
-        this.verbose = options.verbose || options.debug || false;
+        this.verbose = options.verbose || false;
         this.imageIndex = 1;
         this.moveBuffer = [];
         this.moveState = 0;
         this.dragActive = false;
         this.intervals = [];
         this.timeouts = [];
-        // this.loaded = false;
         if (this.verbose)
             console.log(Tridi.header(this.element), 'Class intialized');
     }
