@@ -68,7 +68,7 @@ var Tridi = /** @class */ (function () {
         this.mousewheel = options.mousewheel || false;
         this.wheelInverse = options.wheelInverse || false;
         this.inverse = options.inverse || false;
-        this.dragInterval = options.dragInterval || 1;
+        this.dragInterval = options.dragInterval || 3.5;
         this.touchDragInterval = options.touchDragInterval || 1;
         this.mouseleaveDetect = typeof options.mouseleaveDetect !== 'undefined' ? options.mouseleaveDetect : false;
         this.verbose = options.verbose || false;
@@ -154,6 +154,11 @@ var Tridi = /** @class */ (function () {
             this.viewerImage().addEventListener('click', function () {
                 callback();
             });
+            if (this.touch) {
+                this.viewerImage().addEventListener('touchstart', function () {
+                    callback();
+                });
+            }
         }
         else {
             callback();
@@ -164,7 +169,7 @@ var Tridi = /** @class */ (function () {
             var count = this.imageCount;
             var location_1 = this.imageLocation;
             var format_1 = this.imageFormat;
-            return Array(count).fill(0).map(function (_a, index) { return location_1 + "/" + (index + 1) + "." + format_1; });
+            return Array.apply(null, { length: count }).map(function (_a, index) { return location_1 + "/" + (index + 1) + "." + format_1; });
         }
         else if (Array.isArray(this.images)) {
             return this.images;
@@ -228,20 +233,22 @@ var Tridi = /** @class */ (function () {
             hintOverlay.className = "tridi-hint-overlay tridi-" + element_1 + "-hint-overlay";
             hintOverlay.tabIndex = 0;
             var hint = document.createElement('div');
-            hint.className = 'tridi-hint';
+            hint.className += "tridi-hint tridi-" + element_1 + "-hint";
             if (this.hintText)
                 hint.innerHTML = "<span class=\"tridi-hint-text tridi-" + element_1 + "-hint-text\">" + this.hintText + "</span>";
             hintOverlay.appendChild(hint);
             this.viewer().appendChild(hintOverlay);
             var hintClickHandler_1 = function (e) {
                 var isItHintOverlay = e.target.classList.contains("tridi-" + element_1 + "-hint-overlay");
-                var isItHintText = e.target.classList.contains("tridi-" + element_1 + "-hint-text");
+                var isItHintText = e.target.classList.contains("tridi-" + element_1 + "-hint");
                 if (isItHintOverlay || isItHintText) {
                     _this.getHintOverlay().style.display = 'none';
                     callback();
                 }
             };
             document.addEventListener('click', hintClickHandler_1);
+            if (this.touch)
+                document.addEventListener('touchstart', hintClickHandler_1);
             document.addEventListener('keydown', function (e) {
                 if (e.which === 13)
                     hintClickHandler_1(e);
@@ -302,7 +309,12 @@ var Tridi = /** @class */ (function () {
         var nextMove = function () { return _this.inverse ? _this.prevFrame() : _this.nextFrame(); };
         var prevMove = function () { return _this.inverse ? _this.nextFrame() : _this.prevFrame(); };
         if (threshold) {
-            (newMove < oldMove) ? nextMove() : prevMove();
+            if (newMove < oldMove) {
+                nextMove();
+            }
+            else if (newMove > oldMove) {
+                prevMove();
+            }
         }
     };
     Tridi.prototype.startDragging = function () {

@@ -99,7 +99,7 @@ class Tridi {
     this.mousewheel = options.mousewheel || false;
     this.wheelInverse = options.wheelInverse || false;
     this.inverse = options.inverse || false;
-    this.dragInterval = options.dragInterval || 1;
+    this.dragInterval = options.dragInterval || 3.5;
     this.touchDragInterval = options.touchDragInterval || 1;
     this.mouseleaveDetect = typeof options.mouseleaveDetect !== 'undefined' ? options.mouseleaveDetect : false;
     this.verbose = options.verbose || false;
@@ -284,6 +284,12 @@ class Tridi {
       this.viewerImage().addEventListener('click', () => {
         callback();
       });
+
+      if (this.touch) {
+        this.viewerImage().addEventListener('touchstart', () => {
+          callback();
+        });
+      }
     } else {
       callback();
     }
@@ -294,7 +300,7 @@ class Tridi {
       const count = this.imageCount;
       const location = this.imageLocation;
       const format = this.imageFormat;
-      return Array(count).fill(0).map(({}, index) => `${location}/${index + 1}.${format}`);
+      return <string[]>Array.apply(null, { length: count }).map(({}, index: number) => `${location}/${index + 1}.${format}`);
     } else if (Array.isArray(this.images)) {
       return this.images as ReadonlyArray<string>;
     } else {
@@ -361,7 +367,7 @@ class Tridi {
       hintOverlay.tabIndex = 0;
 
       const hint = document.createElement('div');
-      hint.className = 'tridi-hint';
+      hint.className += `tridi-hint tridi-${element}-hint`;
 
       if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text tridi-${element}-hint-text">${this.hintText}</span>`;
 
@@ -371,7 +377,7 @@ class Tridi {
 
       const hintClickHandler = (e: Event) => {
         const isItHintOverlay = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-overlay`);
-        const isItHintText = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-text`);
+        const isItHintText = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint`);
         
         if (isItHintOverlay || isItHintText) {
           this.getHintOverlay().style.display = 'none';
@@ -380,6 +386,7 @@ class Tridi {
       }
 
       document.addEventListener('click', hintClickHandler);
+      if (this.touch) document.addEventListener('touchstart', hintClickHandler);
 
       document.addEventListener('keydown', (e) => {
         if (e.which === 13) hintClickHandler(e);
@@ -455,7 +462,11 @@ class Tridi {
     const prevMove = () => this.inverse ? this.nextFrame() : this.prevFrame();
 
     if (threshold) {
-      (newMove < oldMove) ? nextMove() : prevMove();
+      if (newMove < oldMove) {
+        nextMove();
+      } else if (newMove > oldMove) {
+        prevMove();
+      }
     }
   }
 
