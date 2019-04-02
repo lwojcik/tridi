@@ -51,20 +51,20 @@ var Tridi = /** @class */ (function () {
         this.images = options.images || 'numbered';
         this.imageFormat = options.imageFormat || undefined;
         this.imageLocation = options.imageLocation || './images';
-        this.imageCount = Array.isArray(this.images) ? this.images.length : (options.imageCount) || options.imagecount || options.count;
+        this.imageCount = Array.isArray(this.images) ? this.images.length : options.imageCount;
         this.draggable = typeof options.draggable !== 'undefined' ? options.draggable : true;
         this.showHintOnStartup = options.showHintOnStartup || false;
         this.hintText = options.hintText || null;
         this.lazy = options.lazy || false;
         this.autoplay = options.autoplay || false;
-        this.autoplaySpeed = typeof options.autoplaySpeed !== 'undefined' ? options.autoplaySpeed || options.autoplayspeed : 50;
+        this.autoplaySpeed = typeof options.autoplaySpeed !== 'undefined' ? options.autoplaySpeed : 50;
         this.stopAutoplayOnClick = options.stopAutoplayOnClick || false;
         this.stopAutoplayOnMouseenter = options.stopAutoplayOnMouseenter || false;
         this.resumeAutoplayOnMouseleave = options.resumeAutoplayOnMouseleave || false;
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
         this.buttons = options.buttons || false;
         this.scroll = options.scroll || false;
-        this.spinner = typeof options.spinner !== 'undefined' ? options.spinner : false;
+        this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== 'undefined' ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
         this.wheelInverse = options.wheelInverse || false;
@@ -336,7 +336,7 @@ var Tridi = /** @class */ (function () {
         });
         viewer.addEventListener('mouseleave', function () {
             if (_this.verbose)
-                console.log(Tridi.header(_this.element), 'Mouseenter event triggered');
+                console.log(Tridi.header(_this.element), 'Mouseleave event triggered');
             _this.removeClassName(viewer, 'tridi-viewer-hovered');
         });
     };
