@@ -71,9 +71,8 @@ class Tridi {
   private moveBuffer: number[];
   private moveState: number;
   private dragActive: boolean;
-  private intervals: any[];
-  private timeouts: any[];
-  // private loaded: boolean;
+  private intervals: number[];
+  private timeouts: number[];
 
   constructor(options: TridiOptions) {
     this.validateOptions(options);
@@ -111,94 +110,94 @@ class Tridi {
     this.intervals = [];
     this.timeouts = [];
 
-    if (this.verbose) console.log(Tridi.header(this.element), 'Class intialized');
+    if (this.verbose) console.log(Tridi.h(this.element), 'Class intialized');
   }
 
-  static header(element?: string) {
+  static h(element?: string) {
     return `Tridi${element ? ` [${element}]` : ''}:`;
   }
 
   private validateOptions = (options: TridiOptions) => {
     if (!options.element) {
       console.error(
-        Tridi.header(),
+        Tridi.h(),
         `'element' property is missing or invalid. Container element must be specified.`
       );
     }
 
     if (typeof options.images === 'undefined' && typeof options.imageFormat === 'undefined') {
       console.error(
-        Tridi.header(),
+        Tridi.h(),
         `'imageFormat' property is missing or invalid. Image format must be provided for 'numbered' property.`
       );
     }
 
     if (options.images === 'numbered' && !options.imageLocation) {
       console.error(
-        Tridi.header(),
+        Tridi.h(),
         `'imageLocation' property is missing or invalid. Image location must be provided for 'numbered' property.`
       );
     }
 
     if (Array.isArray(options.images) && options.imageFormat) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `Got array of images as initalizing parameter. 'imageFormat' property will be ignored.`
       );
     }
 
     if (Array.isArray(options.images) && options.imageLocation) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `Got array of images as initalizing parameter. 'imageLocation' property will be ignored.`
       );
     }
 
     if (Array.isArray(options.images) && options.imageCount) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `Got array of images as initalizing parameter. 'imageCount' property will be ignored.`
       );
     }
 
     if (!options.showHintOnStartup && options.hintText) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'showHintOnStartup is set to 'false'. 'hintText' parameter will be ignored.`
       );
     }
 
     if (!options.draggable && options.mouseleaveDetect) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'draggable is set to 'false'. 'mouseleaveDetect' parameter will be ignored.`
       );
     }
 
     if (!options.autoplay && options.autoplaySpeed) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'autoplay is set to 'false'. 'autoplaySpeed' parameter will be ignored.`
       );
     }
 
     if (!options.autoplay && options.stopAutoplayOnMouseenter) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'autoplay is set to 'false'. 'stopAutoplayOnMouseenter' parameter will be ignored.`
       );
     }
 
     if (!options.autoplay && options.resumeAutoplayOnMouseleave) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'autoplay is set to 'false'. 'resumeAutoplayOnMouseleave' parameter will be ignored.`
       );
     }
 
     if (!options.autoplay && options.resumeAutoplayDelay) {
       console.warn(
-        Tridi.header(),
+        Tridi.h(),
         `'autoplay is set to 'false'. 'resumeAutoplayDelay' parameter will be ignored.`
       );
     }
@@ -236,51 +235,53 @@ class Tridi {
     }
   }
 
-  private getContainer() {
-    return <HTMLElement>document.querySelector(this.element);
+  private getElem(cssClass?: string, child?: boolean) {
+    return <HTMLElement>document.querySelector(`${this.element}${child ? ' ' : '' }${cssClass ? cssClass : ''}`);
   }
 
-  private getViewer() {
-    return <HTMLElement>document.querySelector(`${this.element}.tridi-viewer`)!;
+  private container() {
+    return this.getElem();
   }
 
-  private getStash() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-stash`);
+  private viewer() {
+    return this.getElem('.tridi-viewer')!;
   }
 
-  private getLeftButton() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-btn-left`);
+  private stash() {
+    return this.getElem('.tridi-stash', true);
   }
 
-  private getRightButton() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-btn-right`);
+  private leftBtn() {
+    return this.getElem('.tridi-btn-left', true);
+  }
+
+  private rightBtn() {
+    return this.getElem('.tridi-btn-right', true);
   }
 
   private getHintOverlay() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-hint-overlay`);
+    return this.getElem('.tridi-hint-overlay', true);
   }
 
   private getLoadingScreen() {
-    return <HTMLElement>document.querySelector(`${this.element} .tridi-loading`)
+    return this.getElem('.tridi-loading', true);
   }
 
-  private getImage(whichImage: number) {
-    return this.getImages()![whichImage -1];
+  private image(whichImage: number) {
+    return this.imgs()![whichImage -1];
   }
 
-  private getFirstImage() {
-    return this.getImage(1);
+  private firstImage() {
+    return this.image(1);
   }
 
-  private getViewerImage() {
-    return <HTMLImageElement>document.querySelector(`${this.element}.tridi-viewer .tridi-viewer-image`)!;
+  private viewerImage() {
+    return <HTMLImageElement>this.getElem('.tridi-viewer .tridi-viewer-image');
   }
 
   private lazyLoad(callback: Function, skip?: Boolean) {
     if (this.lazy && !skip) {
-      const viewerImage = this.getViewerImage();
-
-      viewerImage.addEventListener('click', () => {
+      this.viewerImage().addEventListener('click', () => {
         callback();
       });
     } else {
@@ -288,26 +289,26 @@ class Tridi {
     }
   }
 
-  private getImages() {
+  private imgs() {
     if (this.images === 'numbered') {
       const count = this.imageCount;
       const location = this.imageLocation;
       const format = this.imageFormat;
-      return Array.from(new Array(count),({},index) => `${location}/${index + 1}.${format}`);
+      return Array(count).fill(0).map(({}, index) => `${location}/${index + 1}.${format}`);
     } else if (Array.isArray(this.images)) {
       return this.images as ReadonlyArray<string>;
     } else {
-      console.error(Tridi.header(this.element), 'Error getting images from source.');
+      console.error(Tridi.h(this.element), 'Error getting images from source.');
       return null;
     }
   }
 
   private generateViewer() {
-    const container = this.getContainer();
+    const container = this.container();
     if (!container) {
       console.error(this.element, `Viewer element not found`);
     } else {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Appending Tridi CSS classes');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Appending Tridi CSS classes');
       this.addClassName(container,
         [
           // 'tridi-loading',
@@ -333,7 +334,7 @@ class Tridi {
     loadingSpinner.className = 'tridi-spinner';
     loadingScreen.appendChild(loadingSpinner);
 
-    this.getViewer().appendChild(loadingScreen);
+    this.viewer().appendChild(loadingScreen);
   }
 
   private setLoadingState(enable: boolean) {
@@ -341,19 +342,18 @@ class Tridi {
   }
 
   private generateStash() {
-    const stash = this.getStash();
-    if (!stash) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Generating image stash');
+    if (!this.stash()) {
+      if (this.verbose) console.log(Tridi.h(this.element), 'Generating image stash');
       const stashElement = document.createElement('div');
       stashElement.className = 'tridi-stash';
       stashElement.style.display = 'none';
-      this.getViewer().appendChild(stashElement);
+      this.viewer().appendChild(stashElement);
     }
   }
 
   private displayHintOnStartup(callback: Function) {
     if (this.showHintOnStartup) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Generating hint on startup');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Generating hint on startup');
       
       const element = this.element.substr(1);
       const hintOverlay = document.createElement('div');
@@ -367,7 +367,7 @@ class Tridi {
 
       hintOverlay.appendChild(hint);
       
-      this.getViewer().appendChild(hintOverlay);
+      this.viewer().appendChild(hintOverlay);
 
       const hintClickHandler = (e: Event) => {
         const isItHintOverlay = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-overlay`);
@@ -390,8 +390,8 @@ class Tridi {
   }
 
   private populateStash() {
-      const stash = this.getStash();
-      const images = this.getImages();
+      const stash = this.stash();
+      const images = this.imgs();
       
       if (stash && images) {
         images.forEach((image, index) => {
@@ -405,32 +405,32 @@ class Tridi {
 
 
   private generateViewerImage() {
-    if (this.verbose) console.log(Tridi.header(this.element), 'Generating first image');
+    if (this.verbose) console.log(Tridi.h(this.element), 'Generating first image');
     const element = this.element.substr(1);
-    const viewer = this.getViewer();
-    const image = this.getFirstImage();
+    const viewer = this.viewer();
+    const image = this.firstImage();
 
     viewer.innerHTML = `<img src="${image}" alt="" class="tridi-viewer-image tridi-viewer-${element}-image" draggable="false" />` + viewer!.innerHTML ;
   }
 
   private nextFrame() {
-    const viewerImage = this.getViewerImage();
+    const viewerImage = this.viewerImage();
     
     this.imageIndex = this.imageIndex <= 1
       ? this.imageCount!
       : this.imageIndex - 1;
 
-    viewerImage.src = this.getImage(this.imageIndex);
+    viewerImage.src = this.image(this.imageIndex);
   }
 
-  private previousFrame() {
-    const viewerImage = this.getViewerImage();
+  private prevFrame() {
+    const viewerImage = this.viewerImage();
 
     this.imageIndex = this.imageIndex >= this.imageCount!
       ? 1
       : this.imageIndex + 1
 
-      viewerImage.src = this.getImage(this.imageIndex);
+      viewerImage.src = this.image(this.imageIndex);
   }
 
   private rotateViewerImage(e: MouseEvent | TouchEvent) {
@@ -443,7 +443,7 @@ class Tridi {
       ? (e as TouchEvent).touches[0].clientX
       : (e as MouseEvent).clientX;
 
-    const coord = (eventX - this.getViewerImage().offsetLeft);
+    const coord = (eventX - this.viewerImage().offsetLeft);
     this.moveBuffer.push(coord);
     
     const moveLength = this.moveBuffer.length;
@@ -451,27 +451,21 @@ class Tridi {
     const newMove = this.moveBuffer[moveLength - 1];
     const threshold = !(this.moveState % interval!);
 
-    const nextMove = () => this.inverse ? this.previousFrame() : this.nextFrame();
-    const previousMove = () => this.inverse ? this.nextFrame() : this.previousFrame();
+    const nextMove = () => this.inverse ? this.prevFrame() : this.nextFrame();
+    const prevMove = () => this.inverse ? this.nextFrame() : this.prevFrame();
 
     if (threshold) {
-      if (newMove < oldMove) {
-        nextMove();
-      } else if (newMove > oldMove) {
-        previousMove();
-      }
+      (newMove < oldMove) ? nextMove() : prevMove();
     }
   }
 
   private startDragging() {
-    const viewer = this.getViewer();
-    this.addClassName(viewer, 'tridi-dragging');
+    this.addClassName(this.viewer(), 'tridi-dragging');
     this.dragActive = true;
   }
 
   private stopDragging() {
-    const viewer = this.getViewer();
-    this.removeClassName(viewer, 'tridi-dragging');
+    this.removeClassName(this.viewer(), 'tridi-dragging');
     this.dragActive = false;
   }
 
@@ -480,37 +474,37 @@ class Tridi {
   }
 
   private attachCosmeticEvents() {
-    if (this.verbose) console.log(Tridi.header(this.element), 'Attaching common events');
+    if (this.verbose) console.log(Tridi.h(this.element), 'Attaching common events');
 
-    const viewer = this.getViewer();
+    const viewer = this.viewer();
 
     viewer.addEventListener('mouseenter', () => {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseenter event triggered');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Mouseenter event triggered');
       this.addClassName(viewer, 'tridi-viewer-hovered');
     });
 
     viewer.addEventListener('mouseleave', () => {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Mouseleave event triggered');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Mouseleave event triggered');
       this.removeClassName(viewer, 'tridi-viewer-hovered');
     });
   }
 
   private attachDragEvents() {
     if (this.draggable) {
-      const viewerImage = this.getViewerImage();
+      const viewerImage = this.viewerImage();
 
-      if (this.verbose) console.log(Tridi.header(this.element), 'Attaching drag events');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Attaching drag events');
 
       viewerImage.addEventListener('mouseup', (e) => {
         if (e.preventDefault) e.preventDefault();
-        if (this.verbose) console.log(Tridi.header(this.element), 'Mouseup triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Mouseup triggered');
         this.stopDragging();
         this.resetMoveBuffer();
       });
 
       viewerImage.addEventListener('mousedown', (e) => {
         if (e.preventDefault) e.preventDefault();
-        if (this.verbose) console.log(Tridi.header(this.element), 'Mousedown triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Mousedown triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
@@ -518,13 +512,13 @@ class Tridi {
       viewerImage.addEventListener('mousemove', (e) => {
         if (this.dragActive) {
           if (e.preventDefault) e.preventDefault();
-          if (this.verbose) console.log(Tridi.header(this.element), 'Mousemove triggered');
+          if (this.verbose) console.log(Tridi.h(this.element), 'Mousemove triggered');
           this.rotateViewerImage(e);
         }
       });
 
       viewerImage.addEventListener('mouseleave', () => {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Mouseleave triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Mouseleave triggered');
         this.resetMoveBuffer();
       });
     }
@@ -532,12 +526,12 @@ class Tridi {
 
   private attachMouseLeaveDetection() {
     if (this.mouseleaveDetect) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Attaching mouseleave detection');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Attaching mouseleave detection');
       
-      const viewer = this.getViewer();
+      const viewer = this.viewer();
 
       viewer.addEventListener('mouseleave', () => {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Viewer mouseleave triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Viewer mouseleave triggered');
         this.stopDragging();
         this.resetMoveBuffer();
       });
@@ -546,26 +540,26 @@ class Tridi {
 
   private attachTouchEvents() {
     if (this.touch) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Attaching touch events');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Attaching touch events');
 
-      const viewerImage = this.getViewerImage();
+      const viewerImage = this.viewerImage();
 
       viewerImage.addEventListener('touchstart', (e) => {
         if (e.preventDefault) e.preventDefault();
-        if (this.verbose) console.log(Tridi.header(this.element), 'Touchstart triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Touchstart triggered');
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
       viewerImage.addEventListener('touchmove', (e) => {
         if (e.preventDefault) e.preventDefault();
-        if (this.verbose) console.log(Tridi.header(this.element), 'Touchmove triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Touchmove triggered');
         this.rotateViewerImage(e);
       });
 
       viewerImage.addEventListener('touchend', (e) => {
         if (e.preventDefault) e.preventDefault();
-        if (this.verbose) console.log(Tridi.header(this.element), 'Touchend triggered');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Touchend triggered');
         this.stopDragging();
         this.resetMoveBuffer();
       });
@@ -574,23 +568,23 @@ class Tridi {
 
   private attachMousewheelEvents() {
     if (this.mousewheel) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Attaching mousewheel events');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Attaching mousewheel events');
       
-      const viewerImage = this.getViewerImage();
-      const nextMove = () => this.wheelInverse ? this.previousFrame() : this.nextFrame();
-      const previousMove = () => this.wheelInverse ? this.nextFrame() : this.previousFrame();
+      const viewerImage = this.viewerImage();
+      const nextMove = () => this.wheelInverse ? this.prevFrame() : this.nextFrame();
+      const prevMove = () => this.wheelInverse ? this.nextFrame() : this.prevFrame();
       
       viewerImage.addEventListener('wheel', (e) => {
         if (e.preventDefault) e.preventDefault();
-        (e.deltaY / 120 > 0) ? nextMove() : previousMove();
+        (e.deltaY / 120 > 0) ? nextMove() : prevMove();
       });
     }
   }
 
   private generateButtons() {
     if (this.buttons) {
-      if (!this.getLeftButton() && !this.getRightButton()) {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Generating buttons');
+      if (!this.leftBtn() && !this.rightBtn()) {
+        if (this.verbose) console.log(Tridi.h(this.element), 'Generating buttons');
 
         const leftBtn = document.createElement('div');
         const rightBtn = document.createElement('div');
@@ -599,45 +593,45 @@ class Tridi {
         rightBtn.className += 'tridi-btn tridi-btn-right';
         rightBtn.setAttribute('tabindex', '0');
 
-        this.getViewer().appendChild(leftBtn);
-        this.getViewer().appendChild(rightBtn);
+        this.viewer().appendChild(leftBtn);
+        this.viewer().appendChild(rightBtn);
       }
     }
   }
 
   private attachButtonEvents() {
     if (this.buttons) {
-      const leftBtn = this.getLeftButton();
-      const rightBtn = this.getRightButton();
+      const leftBtn = this.leftBtn();
+      const rightBtn = this.rightBtn();
 
       if (leftBtn) {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Attaching left button click event');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Attaching left button click event');
 
         leftBtn.addEventListener('click', () => {
-          if (this.verbose) console.log(Tridi.header(this.element), 'Left button click triggered');
-          this.inverse ? this.previousFrame() : this.nextFrame();
+          if (this.verbose) console.log(Tridi.h(this.element), 'Left button click triggered');
+          this.inverse ? this.prevFrame() : this.nextFrame();
         });
 
         leftBtn.addEventListener('keydown', (e) => {
           if (e.which === 13) {
-            if (this.verbose) console.log(Tridi.header(this.element), 'Left button Enter keydown triggered');
-            this.inverse ? this.previousFrame() : this.nextFrame();
+            if (this.verbose) console.log(Tridi.h(this.element), 'Left button Enter keydown triggered');
+            this.inverse ? this.prevFrame() : this.nextFrame();
           }
         });
       }
 
       if (rightBtn) {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Attaching right button click event');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Attaching right button click event');
 
         rightBtn.addEventListener('click', () => {
-          if (this.verbose) console.log(Tridi.header(this.element), 'Right button click triggered');
-          this.inverse ? this.nextFrame() : this.previousFrame();
+          if (this.verbose) console.log(Tridi.h(this.element), 'Right button click triggered');
+          this.inverse ? this.nextFrame() : this.prevFrame();
         });
 
         rightBtn.addEventListener('keydown', (e) => {
           if (e.which === 13) {
-            if (this.verbose) console.log(Tridi.header(this.element), 'Right button Enter keydown triggered');
-          this.inverse ? this.nextFrame() : this.previousFrame();
+            if (this.verbose) console.log(Tridi.h(this.element), 'Right button Enter keydown triggered');
+          this.inverse ? this.nextFrame() : this.prevFrame();
           }
         });
       }
@@ -645,65 +639,59 @@ class Tridi {
   }
 
   private toggleAutoplay(state:boolean, skipDelay?: boolean) {
-    const delay = this.resumeAutoplayDelay;
     const speed = this.autoplaySpeed;
 
     if (state === false) {
       this.intervals.forEach(clearInterval);
       this.intervals = [];
     } else {
-      const self = this;
       this.timeouts.forEach(clearTimeout);
       this.timeouts = [];
 
       if (skipDelay) {
-        const autoplayInterval = setInterval(() => {
-          self.nextFrame();
+        const autoplayInterval = window.setInterval(() => {
+          this.nextFrame();
         }, speed);
-        self.intervals.push(autoplayInterval);
+        this.intervals.push(autoplayInterval);
       } else {
-        const autoplayTimeout = setTimeout(() => {
-          const autoplayInterval = setInterval(() => {
-            self.nextFrame();
+        const autoplayTimeout = window.setTimeout(() => {
+          const autoplayInterval = window.setInterval(() => {
+            this.nextFrame();
           }, speed);
-          self.intervals.push(autoplayInterval);
-        }, delay);
-        self.timeouts.push(autoplayTimeout);
+          this.intervals.push(autoplayInterval);
+        }, this.resumeAutoplayDelay);
+        this.timeouts.push(autoplayTimeout);
       }
     }
   }
 
   private startAutoplay() {
     if (this.autoplay) {
-      if (this.verbose) console.log(Tridi.header(this.element), 'Starting autoplay');
+      if (this.verbose) console.log(Tridi.h(this.element), 'Starting autoplay');
 
       this.toggleAutoplay(true, true);
 
       if (this.stopAutoplayOnClick) {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Enable stop autoplay on click event');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Enable stop autoplay on click event');
 
-        const viewerImage = this.getViewerImage();
-        
-        viewerImage.addEventListener('mousedown', () => {
+        this.viewerImage().addEventListener('mousedown', () => {
           this.toggleAutoplay(false);
         });
       }
       if (this.stopAutoplayOnMouseenter) {
-        if (this.verbose) console.log(Tridi.header(this.element), 'Enable stop autoplay on hover event');
+        if (this.verbose) console.log(Tridi.h(this.element), 'Enable stop autoplay on hover event');
 
-        const viewerImage = this.getViewerImage();
-        
-        viewerImage.addEventListener('mouseenter', () => {
-          if (this.verbose) console.log(Tridi.header(this.element), 'Stopping autoplay on mouseenter');
+        this.viewerImage().addEventListener('mouseenter', () => {
+          if (this.verbose) console.log(Tridi.h(this.element), 'Stopping autoplay on mouseenter');
           this.toggleAutoplay(false);
         });
       }
 
       if(this.resumeAutoplayOnMouseleave) {
-        const viewerImage = this.getViewerImage();
+        const viewerImage = this.viewerImage();
 
         viewerImage.addEventListener('mouseleave', (e) => {
-          if (this.verbose) console.log(Tridi.header(this.element), 'Resuming autoplay on mouseleave');
+          if (this.verbose) console.log(Tridi.h(this.element), 'Resuming autoplay on mouseleave');
 
           if (!(e.target as HTMLElement).classList.contains('tridi-btn')) {
             this.toggleAutoplay(true);
