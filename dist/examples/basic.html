@@ -17,7 +17,7 @@
             <div>
               <p>Basic Tridi viewer with minimum configuration. Supports mouse dragging and touch events. Loads all images immediately.</p>
               <p>In this configuration Tridi assumes images are named by non-padded numbers from 1 to n (e.g. <code>1.png</code>, <code>2.png</code> etc.) and located in <code>imageLocation</code>.</p>
-              <p><b>Properties passed to <code>options</code> are case-sensitive.</b> E.g. if you pass <code>'png'</code> as <code>imageFormat</code>, Tridi will try to load <code>1.png</code> and not <code>1.PNG</code>.</code></p>
+              <p><b>Properties passed to <code>options</code> are case-sensitive.</b> E.g. if you pass <code>'png'</code> as <code>imageFormat</code>, Tridi will try to load <code>1.png</code> and not <code>1.PNG</code>. On Windows, which is case-insensitive by design, this is particularly important.</p>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
@@ -25,9 +25,9 @@
             <h3>JavaScript</h3>
             <pre><code>new Tridi({
   element: '#tridi-basic',
-  imageLocation: '../images',
-  imageFormat: 'png',
-  imageCount: 51,
+  imageLocation: './path/to/image/folder',
+  imageFormat: 'jpg',
+  imageCount: 36,
 }).load();</code></pre>
         </div>
       </div>
@@ -38,9 +38,9 @@
     <script>
       new Tridi({
         element: '#tridi-basic',
-        imageLocation: '../images',
-        imageFormat: 'png',
-        imageCount: 51,
+        imageLocation: '../images/white',
+        imageFormat: 'jpg',
+        imageCount: 36,
       }).load();
     </script>
   </body>

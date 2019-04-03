@@ -79,9 +79,10 @@ npm run build</code></pre>
     <script>
       new Tridi({
         element: '#theContainer',
-        imageLocation: './images',
-        imageFormat: 'png',
-        imageCount: 51,
+        imageLocation: './images/white',
+        imageFormat: 'jpg',
+        imageCount: 36,
+        dragInterval: 2,
         verbose: false,
         showHintOnStartup: true,
         lazy: false,
@@ -91,7 +92,7 @@ npm run build</code></pre>
         spinner: true,
         mouseleaveDetect: true,
         mousewheel: true,
-        wheelInverse: true,
+        wheelInverse: false,
         autoplay: false,
         autoplaySpeed: 50,
         stopAutoplayOnClick: true,
