@@ -1,5 +1,5 @@
 /*
-  Tridi v0.0.4 - 3D 360 Product Viewer
+  Tridi v0.0.5 - 360 3D Product Viewer
   Author: Łukasz Wójcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -281,16 +281,17 @@ class Tridi {
       console.error(this.element, `Viewer element not found`);
     } else {
       if (this.verbose) console.log(Tridi.h(this.element), 'Appending Tridi CSS classes');
-      container.classList.add(
-          'tridi-viewer',
-          `tridi-viewer-${this.element.substr(1)}`,
-          `tridi-draggable-${this.draggable}`,
-          `tridi-touch-${this.touch}`,
-          `tridi-mousewheel-${this.mousewheel}`,
-          `tridi-showHintOnStartup-${this.showHintOnStartup}`,
-          `tridi-lazy-${this.lazy}`,
-          `tridi-buttons-${this.buttons}`,
-        );
+      const element = this.element.substr(1);
+
+      container.className += 
+          ' tridi-viewer'
+          + ` tridi-${element}-viewer`
+          + ` tridi-draggable-${this.draggable}`
+          + ` tridi-touch-${this.touch}`
+          + ` tridi-mousewheel-${this.mousewheel}`
+          + ` tridi-showHintOnStartup-${this.showHintOnStartup}`
+          + ` tridi-lazy-${this.lazy}`
+          + ` tridi-buttons-${this.buttons}`;
     }
   }
 
@@ -314,7 +315,7 @@ class Tridi {
     if (!this.stash()) {
       if (this.verbose) console.log(Tridi.h(this.element), 'Generating image stash');
       const stashElement = document.createElement('div');
-      stashElement.classList.add('tridi-stash', `tridi-${this.element}-stash`);
+      stashElement.classList.add('tridi-stash');
       this.viewer().appendChild(stashElement);
     }
   }
@@ -324,23 +325,25 @@ class Tridi {
       if (this.verbose) console.log(Tridi.h(this.element), 'Generating hint on startup');
       
       const element = this.element.substr(1);
+      const hintOverlayClassName = `tridi-${element}-hint-overlay`;
       const hintOverlay = document.createElement('div');
-      hintOverlay.classList.add('tridi-hint-overlay',  `tridi-${element}-hint-overlay`);
+      hintOverlay.className += `tridi-hint-overlay ${hintOverlayClassName}`;
       hintOverlay.tabIndex = 0;
 
+      const hintClassName = `tridi-${element}-hint`;
       const hint = document.createElement('div');
-      hint.classList.add('tridi-hint', `tridi-${element}-hint`);
+      hint.className += `tridi-hint ${hintClassName}`;
 
-      if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text tridi-${element}-hint-text">${this.hintText}</span>`;
+      if (this.hintText) hint.innerHTML = `<span class="tridi-hint-text">${this.hintText}</span>`;
 
       hintOverlay.appendChild(hint);
       
       this.viewer().appendChild(hintOverlay);
 
       const hintClickHandler = (e: Event) => {
-        const isItHintOverlay = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint-overlay`);
-        const isItHintText = (e.target as HTMLElement).classList.contains(`tridi-${element}-hint`);
-        
+        const isItHintOverlay = (e.target as HTMLElement).classList.contains(hintOverlayClassName);
+        const isItHintText = (e.target as HTMLElement).classList.contains(hintClassName);
+
         if (isItHintOverlay || isItHintText) {
           this.getHintOverlay().style.display = 'none';
           callback();
@@ -364,7 +367,7 @@ class Tridi {
       
       if (stash && images) {
         images.forEach((image, index) => {
-          stash.innerHTML += `<img src="${image}" class="tridi-image-${index+1}" alt="" />`;
+          stash.innerHTML += `<img src="${image}" class="tridi-image tridi-image-${index+1}" alt="" />`;
         });
       } else {
         console.error(this.element, 'Error populating stash!');
@@ -374,12 +377,11 @@ class Tridi {
 
 
   private generateViewerImage() {
-    if (this.verbose) console.log(Tridi.h(this.element), 'Generating first image');
-    const element = this.element.substr(1);
+    if (this.verbose) console.log(Tridi.h(this.element), 'Generating viewer image');
     const viewer = this.viewer();
     const image = this.firstImage();
 
-    viewer.innerHTML = `<img src="${image}" alt="" class="tridi-viewer-image tridi-viewer-${element}-image" draggable="false" />${viewer.innerHTML}`;
+    viewer.innerHTML = `<img src="${image}" alt="" class="tridi-viewer-image" draggable="false" />${viewer.innerHTML}`;
   }
 
   private nextFrame() {
@@ -454,12 +456,12 @@ class Tridi {
 
     viewer.addEventListener('mouseenter', () => {
       if (this.verbose) console.log(Tridi.h(this.element), 'Mouseenter event triggered');
-      viewer.classList.toggle('tridi-viewer-hovered', true);
+      viewer.classList.add('tridi-viewer-hovered');
     });
 
     viewer.addEventListener('mouseleave', () => {
       if (this.verbose) console.log(Tridi.h(this.element), 'Mouseleave event triggered');
-      viewer.classList.toggle('tridi-viewer-hovered', false);
+      viewer.classList.remove('tridi-viewer-hovered');
     });
   }
 

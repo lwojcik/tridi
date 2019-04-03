@@ -1,5 +1,5 @@
 /*
-  Tridi v0.0.4 - 3D 360 Product Viewer
+  Tridi v0.0.5 - 360 3D Product Viewer
   Author: Łukasz Wójcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -151,7 +151,16 @@ var Tridi = /** @class */ (function () {
         else {
             if (this.verbose)
                 console.log(Tridi.h(this.element), 'Appending Tridi CSS classes');
-            container.classList.add('tridi-viewer', "tridi-viewer-" + this.element.substr(1), "tridi-draggable-" + this.draggable, "tridi-touch-" + this.touch, "tridi-mousewheel-" + this.mousewheel, "tridi-showHintOnStartup-" + this.showHintOnStartup, "tridi-lazy-" + this.lazy, "tridi-buttons-" + this.buttons);
+            var element = this.element.substr(1);
+            container.className +=
+                ' tridi-viewer'
+                    + (" tridi-" + element + "-viewer")
+                    + (" tridi-draggable-" + this.draggable)
+                    + (" tridi-touch-" + this.touch)
+                    + (" tridi-mousewheel-" + this.mousewheel)
+                    + (" tridi-showHintOnStartup-" + this.showHintOnStartup)
+                    + (" tridi-lazy-" + this.lazy)
+                    + (" tridi-buttons-" + this.buttons);
         }
     };
     Tridi.prototype.generateLoadingScreen = function () {
@@ -171,7 +180,7 @@ var Tridi = /** @class */ (function () {
             if (this.verbose)
                 console.log(Tridi.h(this.element), 'Generating image stash');
             var stashElement = document.createElement('div');
-            stashElement.classList.add('tridi-stash', "tridi-" + this.element + "-stash");
+            stashElement.classList.add('tridi-stash');
             this.viewer().appendChild(stashElement);
         }
     };
@@ -180,19 +189,21 @@ var Tridi = /** @class */ (function () {
         if (this.showHintOnStartup) {
             if (this.verbose)
                 console.log(Tridi.h(this.element), 'Generating hint on startup');
-            var element_1 = this.element.substr(1);
+            var element = this.element.substr(1);
+            var hintOverlayClassName_1 = "tridi-" + element + "-hint-overlay";
             var hintOverlay = document.createElement('div');
-            hintOverlay.classList.add('tridi-hint-overlay', "tridi-" + element_1 + "-hint-overlay");
+            hintOverlay.className += "tridi-hint-overlay " + hintOverlayClassName_1;
             hintOverlay.tabIndex = 0;
+            var hintClassName_1 = "tridi-" + element + "-hint";
             var hint = document.createElement('div');
-            hint.classList.add('tridi-hint', "tridi-" + element_1 + "-hint");
+            hint.className += "tridi-hint " + hintClassName_1;
             if (this.hintText)
-                hint.innerHTML = "<span class=\"tridi-hint-text tridi-" + element_1 + "-hint-text\">" + this.hintText + "</span>";
+                hint.innerHTML = "<span class=\"tridi-hint-text\">" + this.hintText + "</span>";
             hintOverlay.appendChild(hint);
             this.viewer().appendChild(hintOverlay);
             var hintClickHandler_1 = function (e) {
-                var isItHintOverlay = e.target.classList.contains("tridi-" + element_1 + "-hint-overlay");
-                var isItHintText = e.target.classList.contains("tridi-" + element_1 + "-hint");
+                var isItHintOverlay = e.target.classList.contains(hintOverlayClassName_1);
+                var isItHintText = e.target.classList.contains(hintClassName_1);
                 if (isItHintOverlay || isItHintText) {
                     _this.getHintOverlay().style.display = 'none';
                     callback();
@@ -215,7 +226,7 @@ var Tridi = /** @class */ (function () {
         var images = this.imgs();
         if (stash && images) {
             images.forEach(function (image, index) {
-                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image-" + (index + 1) + "\" alt=\"\" />";
+                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image tridi-image-" + (index + 1) + "\" alt=\"\" />";
             });
         }
         else {
@@ -224,11 +235,10 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.generateViewerImage = function () {
         if (this.verbose)
-            console.log(Tridi.h(this.element), 'Generating first image');
-        var element = this.element.substr(1);
+            console.log(Tridi.h(this.element), 'Generating viewer image');
         var viewer = this.viewer();
         var image = this.firstImage();
-        viewer.innerHTML = "<img src=\"" + image + "\" alt=\"\" class=\"tridi-viewer-image tridi-viewer-" + element + "-image\" draggable=\"false\" />" + viewer.innerHTML;
+        viewer.innerHTML = "<img src=\"" + image + "\" alt=\"\" class=\"tridi-viewer-image\" draggable=\"false\" />" + viewer.innerHTML;
     };
     Tridi.prototype.nextFrame = function () {
         var viewerImage = this.viewerImage();
@@ -291,12 +301,12 @@ var Tridi = /** @class */ (function () {
         viewer.addEventListener('mouseenter', function () {
             if (_this.verbose)
                 console.log(Tridi.h(_this.element), 'Mouseenter event triggered');
-            viewer.classList.toggle('tridi-viewer-hovered', true);
+            viewer.classList.add('tridi-viewer-hovered');
         });
         viewer.addEventListener('mouseleave', function () {
             if (_this.verbose)
                 console.log(Tridi.h(_this.element), 'Mouseleave event triggered');
-            viewer.classList.toggle('tridi-viewer-hovered', false);
+            viewer.classList.remove('tridi-viewer-hovered');
         });
     };
     Tridi.prototype.attachDragEvents = function () {
