@@ -59,16 +59,12 @@ declare class Tridi {
     verbose: boolean;
     private imageIndex;
     private moveBuffer;
-    private moveState;
     private dragActive;
     private intervals;
     private timeouts;
     constructor(options: TridiOptions);
     static h(element?: string): string;
-    private validateOptions;
-    private appendClass;
-    private addClassName;
-    private removeClassName;
+    private validate;
     private getElem;
     private container;
     private viewer;

@@ -10,14 +10,19 @@
     "rules": {
         "no-var-keyword": true,
         "no-parameter-reassignment": true,
-        "typedef": [true, "call-signature"],
+        "typedef": false,
         "no-unnecessary-class": true,
         "no-this": false,
-        "no-mixed-interface": true,
+        "no-mixed-interface": false,
         "no-expression-statement": false,
         "no-if-statement": false,
         "no-class": false,
-        "import-name": false
+        "import-name": false,
+        "prefer-readonly": false,
+        "readonly-array": false,
+        "readonly-keyword": false,
+        "no-object-mutation": false,
+        "function-name": false
     },
     "rulesDirectory": [
         "node_modules/tslint-eslint-rules/dist/rules"
