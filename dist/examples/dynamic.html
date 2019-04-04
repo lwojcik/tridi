@@ -36,7 +36,11 @@
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-dynamic"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-dynamic"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--white" title="Switch to white" tabindex="0"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--black" title="Switch to black" tabindex="0"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--red" title="Switch to red" tabindex="0"&gt;&lt;/div&gt;
+            </code></pre>
             <h3>JavaScript</h3>
             <pre><code>var tridi = new Tridi({
   element: '#tridi-dynamic',
@@ -59,11 +63,9 @@ var switchColor = function(color) {
   }, true);
 }
 
-switchToWhiteBtn.addEventListener('click', function() {
-  switchColor('white');
-});
+// Click event support
 
-switchToWhiteBtn.addEventListener('touchstart', function() {
+switchToWhiteBtn.addEventListener('click', function() {
   switchColor('white');
 });
 
@@ -71,12 +73,18 @@ switchToBlackBtn.addEventListener('click', function() {
   switchColor('black');
 });
 
-switchToBlackBtn.addEventListener('touchstart', function() {
-  switchColor('black');
-});
-
 switchToRedBtn.addEventListener('click', function() {
   switchColor('red');
+});
+
+// Touch event support
+
+switchToWhiteBtn.addEventListener('touchstart', function() {
+  switchColor('white');
+});
+
+switchToBlackBtn.addEventListener('touchstart', function() {
+  switchColor('black');
 });
 
 switchToRedBtn.addEventListener('touchstart', function() {
