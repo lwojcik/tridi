@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tridi &mdash; Dynamic image replacement</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../css/tridi.css">
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm">
+            <h1><a href="../">Tridi</a> &mdash; Dynamic image replacement</h1>
+            <div id="tridi-dynamic"></div>
+            <div class="tridi-external-controls">
+              <div class="color-switch color-switch--white" title="Switch to white" tabindex="0"></div>
+              <div class="color-switch color-switch--black" title="Switch to black" tabindex="0"></div>
+              <div class="color-switch color-switch--red" title="Switch to red" tabindex="0"></div>
+            </div>
+            <div>
+              <p>Each Tridi instance exposes <code>updateImageLocation(options, syncFrame)</code> method which makes it possible to update image source on the fly.</p>
+              <h3>updateImageLocation(options, syncFrame?)</h3>
+              <p>Acceptable parameters:</p>
+              <ul>
+                <li><code>options</code> (required) - object containing options to be passed. Updatable options are:
+                  <ul>
+                    <li><code>images</code> - image source</li>
+                    <li><code>imageFormat</code> - image format (file resolution)</li>
+                    <li><code>imageCount</code> - image count if using <code>'numbered'</code> as image source</li>
+                    <li><code>imageLocation</code> - folder containing images to be used</li>
+                  </ul></li>
+                <li><code>syncFrame</code> (optional, default: <code>false</code>) - if <code>true</code>, Tridi will sync frames between old and new image set for seamless switch effect</li>
+              </ul>
+            </div>
+            <h2>Code</h2>
+            <h3>HTML</h3>
+            <pre><code>&lt;div id="tridi-dynamic"&gt;&lt;/div&gt;</code></pre>
+            <h3>JavaScript</h3>
+            <pre><code>var tridi = new Tridi({
+  element: '#tridi-dynamic',
+  imageLocation: '../images/white',
+  imageFormat: 'jpg',
+  imageCount: 36,
+});
+
+tridi.load();
+
+var switchToWhiteBtn = document.querySelector('.color-switch--white');
+var switchToBlackBtn = document.querySelector('.color-switch--black');
+var switchToRedBtn = document.querySelector('.color-switch--red');
+
+var switchColor = function(color) {
+  tridi.updateImageLocation({
+    imageLocation: '../images/' + color,
+    imageFormat: 'jpg',
+    imageCount: 36,
+  }, true);
+}
+
+switchToWhiteBtn.addEventListener('click', function() {
+  switchColor('white');
+});
+
+switchToWhiteBtn.addEventListener('touchstart', function() {
+  switchColor('white');
+});
+
+switchToBlackBtn.addEventListener('click', function() {
+  switchColor('black');
+});
+
+switchToBlackBtn.addEventListener('touchstart', function() {
+  switchColor('black');
+});
+
+switchToRedBtn.addEventListener('click', function() {
+  switchColor('red');
+});
+
+switchToRedBtn.addEventListener('touchstart', function() {
+  switchColor('red');
+});</code></pre>
+        </div>
+      </div>
+      <p><a href="../">&laquo; Back to main page</a></p>
+    </div>
+    <script src="../js/tridi.js"></script>
+    <script>
+      var tridi = new Tridi({
+        element: '#tridi-dynamic',
+        imageLocation: '../images/white',
+        imageFormat: 'jpg',
+        imageCount: 36,
+      });
+
+      tridi.load();
+
+      var switchToWhiteBtn = document.querySelector('.color-switch--white');
+      var switchToBlackBtn = document.querySelector('.color-switch--black');
+      var switchToRedBtn = document.querySelector('.color-switch--red');
+
+      var switchColor = function(color) {
+        tridi.updateImageLocation({
+          imageLocation: '../images/' + color,
+          imageFormat: 'jpg',
+          imageCount: 36,
+        }, true);
+      }
+
+      switchToWhiteBtn.addEventListener('click', function() {
+        switchColor('white');
+      });
+
+      switchToWhiteBtn.addEventListener('touchstart', function() {
+        switchColor('white');
+      });
+
+      switchToBlackBtn.addEventListener('click', function() {
+        switchColor('black');
+      });
+
+      switchToBlackBtn.addEventListener('touchstart', function() {
+        switchColor('black');
+      });
+
+      switchToRedBtn.addEventListener('click', function() {
+        switchColor('red');
+      });
+
+      switchToRedBtn.addEventListener('touchstart', function() {
+        switchColor('red');
+      });
+    </script>
+  </body>
+</html>

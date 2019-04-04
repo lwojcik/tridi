@@ -44,3 +44,38 @@ pre code {
 ul li {
   margin-bottom: 0.5rem;
 }
+
+.tridi-external-controls {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.tridi-external-controls .color-switch {
+  border:2px solid #000;
+  width: 60px;
+  height: 60px;
+  margin: 0 10px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: box-shadow .1s; /* Safari */
+  transition: box-shadow .1s;
+  outline: none;
+}
+
+.color-switch:hover,
+.color-switch:focus {
+  box-shadow: 0 0 12px 1px #999;
+}
+
+.color-switch--white {
+  background: #fff;
+}
+
+.color-switch--black {
+  background: #000;
+}
+
+.color-switch--red {
+  background: #f00;
+}
