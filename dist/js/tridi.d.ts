@@ -1,12 +1,12 @@
 declare type ImageArray = ReadonlyArray<string>;
-declare type NumberedImages = 'numbered';
+declare type NumberedImages = "numbered";
 interface TridiClass {
     [key: string]: any;
 }
 interface TridiOptions {
     [key: string]: any;
     element: string;
-    images: ImageArray | NumberedImages;
+    images?: ImageArray | NumberedImages;
     imageFormat?: string;
     imageCount?: number;
     imageLocation?: string;
@@ -19,7 +19,7 @@ interface TridiOptions {
     stopAutoplayOnClick?: boolean;
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
-    resumeAutoplayDelay: number;
+    resumeAutoplayDelay?: number;
     buttons?: boolean;
     scroll?: boolean;
     spinner?: boolean;
