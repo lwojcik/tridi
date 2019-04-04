@@ -4,6 +4,10 @@ body {
   line-height: 1.5;
 }
 
+.align-right {
+  float: right;
+}
+
 a {
   color:#0366d6;
 }
