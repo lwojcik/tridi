@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="./">Tridi</a> - JavaScript 360 Product Viewer</h1>
+            <h1><a href="./">Tridi</a> - JavaScript 360 Product Viewer <a class="align-right" href="https://www.npmjs.com/package/tridi"><img alt="npm (tag)" src="https://img.shields.io/npm/v/tridi/latest.svg"></a></h1>
             <div id="theContainer">
               <div class="tridi-controls">
                 <div class="tridi-btn tridi-btn-play"></div>
@@ -22,6 +22,7 @@
             </div>
             <div>
             <p>Powerful and customizable JavaScript library for 360-degree 3D product visualizations based on series of images.</p>
+            <p>Tridi supports mobile devices as well as all major browsers (including IE10+).</p>
             <h2>Install from npm</h2>
             <pre><code>npm install tridi</code></pre>
             <h2>Manual build</h2>
@@ -51,9 +52,9 @@ npm run build</code></pre>
             <h3>Examples</h3>
             <ul>
               <li><a href="examples/basic.html">Basic viewer</a></li>
-              <!-- <li><a href="examples/imagearray.html">Image array</a></li>
+              <!-- <li><a href="examples/imagearray.html">Image array</a></li> -->
               <li><a href="examples/dynamic.html">Dynamic image replacement</a></li>
-              <li><a href="examples/mousedrag.html">Mouse drag</a></li>
+              <!-- <li><a href="examples/mousedrag.html">Mouse drag</a></li>
               <li><a href="examples/touch.html">Touch support</a></li>
               <li><a href="examples/rotate.html">Rotate buttons</a></li>
               <li><a href="examples/controls.html">Mousewheel support</a></li>
@@ -79,9 +80,10 @@ npm run build</code></pre>
     <script>
       new Tridi({
         element: '#theContainer',
-        imageLocation: './images',
-        imageFormat: 'png',
-        imageCount: 51,
+        imageLocation: './images/white',
+        imageFormat: 'jpg',
+        imageCount: 36,
+        dragInterval: 2,
         verbose: false,
         showHintOnStartup: true,
         lazy: false,
@@ -91,7 +93,7 @@ npm run build</code></pre>
         spinner: true,
         mouseleaveDetect: true,
         mousewheel: true,
-        wheelInverse: true,
+        wheelInverse: false,
         autoplay: false,
         autoplaySpeed: 50,
         stopAutoplayOnClick: true,

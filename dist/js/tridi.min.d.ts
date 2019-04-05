@@ -1,12 +1,15 @@
 declare type ImageArray = ReadonlyArray<string>;
-declare type NumberedImages = 'numbered';
+declare type NumberedImages = "numbered";
+interface TridiClass {
+    [key: string]: any;
+}
 interface TridiOptions {
+    [key: string]: any;
     element: string;
-    images: ImageArray | NumberedImages;
+    images?: ImageArray | NumberedImages;
     imageFormat?: string;
     imageCount?: number;
     imageLocation?: string;
-    count?: number;
     showHintOnStartup?: boolean;
     lazy?: boolean;
     hintText?: string | null;
@@ -16,7 +19,7 @@ interface TridiOptions {
     stopAutoplayOnClick?: boolean;
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
-    resumeAutoplayDelay: number;
+    resumeAutoplayDelay?: number;
     buttons?: boolean;
     scroll?: boolean;
     spinner?: boolean;
@@ -30,7 +33,15 @@ interface TridiOptions {
     playable?: boolean;
     verbose?: boolean;
 }
-declare class Tridi {
+interface TridiUpdatableOptions {
+    [key: string]: any;
+    images?: ImageArray | NumberedImages;
+    imageFormat?: string;
+    imageCount?: number;
+    imageLocation?: string;
+}
+declare class Tridi implements TridiClass {
+    [key: string]: any;
     element: string;
     images?: ImageArray | NumberedImages;
     imageFormat?: string;
@@ -65,6 +76,9 @@ declare class Tridi {
     constructor(options: TridiOptions);
     static h(element?: string): string;
     private validate;
+    private updateOption;
+    private validateUpdate;
+    private updateOptions;
     private getElem;
     private container;
     private viewer;
@@ -82,9 +96,11 @@ declare class Tridi {
     private generateLoadingScreen;
     private setLoadingState;
     private generateStash;
+    private destroyStash;
     private displayHintOnStartup;
     private populateStash;
     private generateViewerImage;
+    private updateViewerImage;
     private nextFrame;
     private prevFrame;
     private rotateViewerImage;
@@ -100,6 +116,8 @@ declare class Tridi {
     private attachButtonEvents;
     private toggleAutoplay;
     private startAutoplay;
+    private attachEvents;
     private start;
+    updateImageLocation(options: TridiUpdatableOptions, syncFrame?: boolean): void;
     load(): void;
 }

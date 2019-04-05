@@ -7,15 +7,18 @@
 */
 
 type ImageArray = ReadonlyArray<string>;
-type NumberedImages = 'numbered';
+type NumberedImages = "numbered";
 
+interface TridiClass {
+  [key: string]: any
+}
 interface TridiOptions {
+  [key: string]: any
   element: string,
-  images: ImageArray | NumberedImages,
+  images?: ImageArray | NumberedImages,
   imageFormat?: string,
   imageCount?: number,
   imageLocation?: string,
-  count?: number,
   showHintOnStartup?: boolean,
   lazy?: boolean,
   hintText?: string | null,
@@ -25,7 +28,7 @@ interface TridiOptions {
   stopAutoplayOnClick?: boolean,
   stopAutoplayOnMouseenter?: boolean,
   resumeAutoplayOnMouseleave?: boolean,
-  resumeAutoplayDelay: number,
+  resumeAutoplayDelay?: number,
   buttons?: boolean,
   scroll?: boolean,
   spinner? :boolean,
@@ -40,7 +43,16 @@ interface TridiOptions {
   verbose?: boolean,
 }
 
-class Tridi {
+interface TridiUpdatableOptions {
+  [key: string]: any
+  images?: ImageArray | NumberedImages,
+  imageFormat?: string,
+  imageCount?: number,
+  imageLocation?: string,
+}
+
+class Tridi implements TridiClass {
+  [key: string]: any;
   element: string;
   images?: ImageArray | NumberedImages;
   imageFormat?: string;
@@ -201,6 +213,24 @@ class Tridi {
     }
   }
 
+  private updateOption(option: string, value: any) {
+    this[option] = value;
+  }
+
+  private validateUpdate(options:TridiUpdatableOptions) {
+    if (!options.images && !options.imageFormat && !options.imageCount && !options.imageLocation) {
+      console.error(Tridi.h(), `UpdatableOptions object doesn't contain updatable options`);
+      return false;
+    }
+    return true;
+  }
+
+  private updateOptions(options:TridiOptions | TridiUpdatableOptions) {
+    Object.keys(options).forEach(key => {
+      this.updateOption(key, options[key])
+    });
+  }
+
   private getElem(cssClass?: string, child?: boolean) {
     return <HTMLElement>document.querySelector(`${this.element}${child ? ' ' : '' }${cssClass ? cssClass : ''}`);
   }
@@ -320,6 +350,10 @@ class Tridi {
     }
   }
 
+  private destroyStash() {
+    if (this.stash()) this.stash().remove();
+  }
+
   private displayHintOnStartup(callback: Function) {
     if (this.showHintOnStartup) {
       if (this.verbose) console.log(Tridi.h(this.element), 'Generating hint on startup');
@@ -382,6 +416,10 @@ class Tridi {
     const image = this.firstImage();
 
     viewer.innerHTML = `<img src="${image}" alt="" class="tridi-viewer-image" draggable="false" />${viewer.innerHTML}`;
+  }
+
+  private updateViewerImage(whichImage?: number) {
+    this.viewerImage().src = whichImage ? this.image(whichImage) : this.firstImage();
   }
 
   private nextFrame() {
@@ -677,6 +715,15 @@ class Tridi {
     }
   }
 
+  private attachEvents() {
+    this.attachCosmeticEvents();
+    this.attachDragEvents();
+    this.attachMouseLeaveDetection();
+    this.attachTouchEvents();
+    this.attachMousewheelEvents();
+   
+  }
+
   private start() {
     this.generateViewer();
     this.generateLoadingScreen();
@@ -686,19 +733,28 @@ class Tridi {
     this.displayHintOnStartup(()=> {
       this.lazyLoad(() => {
         this.setLoadingState(true);
-          this.generateStash();
-          this.populateStash();
-          this.attachCosmeticEvents();
-          this.attachDragEvents();
-          this.attachMouseLeaveDetection();
-          this.attachTouchEvents();
-          this.attachMousewheelEvents();
-          this.generateButtons();
-          this.attachButtonEvents();
-          this.startAutoplay();
-          this.setLoadingState(false);
+        this.generateStash();
+        this.populateStash();
+        this.attachEvents();
+        this.generateButtons();
+        this.attachButtonEvents();
+        this.startAutoplay();
+        this.setLoadingState(false);
       });
     });
+  }
+
+  updateImageLocation(options: TridiUpdatableOptions, syncFrame?:boolean) {
+    if (this.validateUpdate(options)) {
+      this.setLoadingState(true);
+      this.updateOptions(options);
+      this.destroyStash();
+      this.generateStash();
+      this.populateStash();
+      this.updateViewerImage(syncFrame ? this.imageIndex : 1);
+      this.attachEvents();
+      this.setLoadingState(false);
+    }
   }
 
   load() {
