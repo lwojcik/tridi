@@ -27,6 +27,7 @@ interface TridiOptions {
   resumeAutoplayDelay?: number;
   buttons?: boolean;
   scroll?: boolean;
+  passive?: boolean;
   spinner?: boolean;
   mousewheel?: boolean;
   wheelInverse?: boolean;
@@ -104,6 +105,7 @@ class Tridi {
     this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
     this.buttons = options.buttons || false;
     this.scroll = options.scroll || false;
+    this.passive = options.passive || true;
     this.spinner = options.spinner || false;
     this.touch = typeof options.touch !== "undefined" ? options.touch : true;
     this.mousewheel = options.mousewheel || false;
@@ -221,7 +223,7 @@ class Tridi {
   private lazyLoad(callback: Function, skip?: Boolean) {
     if (this.lazy && !skip) {
       this.viewerImage().addEventListener("click", (callback as EventListener));
-      if (this.touch) this.viewerImage().addEventListener("touchstart", (callback as EventListener));
+      if (this.touch) this.viewerImage().addEventListener("touchstart", (callback as EventListener), { passive: this.passive });
     } else {
       callback();
     }
@@ -475,15 +477,14 @@ class Tridi {
       const viewerImage = this.viewerImage();
 
       viewerImage.addEventListener("touchstart", e => {
-        if (e.preventDefault) e.preventDefault();
         this.startDragging();
         this.rotateViewerImage(e);
-      });
+      }, { passive: true });
 
       viewerImage.addEventListener("touchmove", e => {
-        if (e.preventDefault) e.preventDefault();
         this.rotateViewerImage(e);
-      });
+        return false;
+      }, { passive: true });
 
       viewerImage.addEventListener("touchend", e => {
         if (e.preventDefault) e.preventDefault();
@@ -498,7 +499,7 @@ class Tridi {
       this.viewerImage().addEventListener("wheel", e => {
         if (e.preventDefault) e.preventDefault();
         e.deltaY / 120 > 0 ? this.nextMove() : this.prevMove();
-      });
+      }, { passive: this.passive });
     }
   }
 

@@ -19,6 +19,7 @@ interface TridiOptions {
     resumeAutoplayDelay?: number;
     buttons?: boolean;
     scroll?: boolean;
+    passive?: boolean;
     spinner?: boolean;
     mousewheel?: boolean;
     wheelInverse?: boolean;

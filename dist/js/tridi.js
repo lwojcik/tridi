@@ -42,6 +42,7 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
         this.buttons = options.buttons || false;
         this.scroll = options.scroll || false;
+        this.passive = options.passive || true;
         this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== "undefined" ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
@@ -115,7 +116,7 @@ var Tridi = /** @class */ (function () {
         if (this.lazy && !skip) {
             this.viewerImage().addEventListener("click", callback);
             if (this.touch)
-                this.viewerImage().addEventListener("touchstart", callback);
+                this.viewerImage().addEventListener("touchstart", callback, { passive: this.passive });
         }
         else {
             callback();
@@ -327,16 +328,13 @@ var Tridi = /** @class */ (function () {
         if (this.touch) {
             var viewerImage = this.viewerImage();
             viewerImage.addEventListener("touchstart", function (e) {
-                if (e.preventDefault)
-                    e.preventDefault();
                 _this.startDragging();
                 _this.rotateViewerImage(e);
-            });
+            }, { passive: true });
             viewerImage.addEventListener("touchmove", function (e) {
-                if (e.preventDefault)
-                    e.preventDefault();
                 _this.rotateViewerImage(e);
-            });
+                return false;
+            }, { passive: true });
             viewerImage.addEventListener("touchend", function (e) {
                 if (e.preventDefault)
                     e.preventDefault();
@@ -352,7 +350,7 @@ var Tridi = /** @class */ (function () {
                 if (e.preventDefault)
                     e.preventDefault();
                 e.deltaY / 120 > 0 ? _this.nextMove() : _this.prevMove();
-            });
+            }, { passive: this.passive });
         }
     };
     Tridi.prototype.generateButton = function (btnName) {
