@@ -215,9 +215,6 @@ var Tridi = /** @class */ (function () {
                     1) + "\" alt=\"\" />";
             });
         }
-        else {
-            console.error(this.element, "Error populating stash!");
-        }
     };
     Tridi.prototype.generateViewerImage = function () {
         var viewer = this.viewer();
@@ -295,17 +292,17 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         if (this.draggable) {
             var viewerImage = this.viewerImage();
-            viewerImage.addEventListener("mouseup", function (e) {
-                if (e.preventDefault)
-                    e.preventDefault();
-                _this.stopDragging();
-                _this.resetMoveBuffer();
-            });
             viewerImage.addEventListener("mousedown", function (e) {
                 if (e.preventDefault)
                     e.preventDefault();
                 _this.startDragging();
                 _this.rotateViewerImage(e);
+            });
+            viewerImage.addEventListener("mouseup", function (e) {
+                if (e.preventDefault)
+                    e.preventDefault();
+                _this.stopDragging();
+                _this.resetMoveBuffer();
             });
             viewerImage.addEventListener("mousemove", function (e) {
                 if (_this.dragActive)
@@ -351,12 +348,11 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.attachMousewheelEvents = function () {
         var _this = this;
         if (this.mousewheel) {
-            var viewerImage = this.viewerImage();
-            viewerImage.addEventListener("wheel", function (e) {
+            this.viewerImage().addEventListener("wheel", function (e) {
                 if (e.preventDefault)
                     e.preventDefault();
                 e.deltaY / 120 > 0 ? _this.nextMove() : _this.prevMove();
-            }, { passive: true });
+            });
         }
     };
     Tridi.prototype.generateButton = function (btnName) {
@@ -474,7 +470,7 @@ var Tridi = /** @class */ (function () {
             });
         });
     };
-    Tridi.prototype.updateImageLocation = function (options, syncFrame) {
+    Tridi.prototype.update = function (options, syncFrame) {
         if (this.validateUpdate(options)) {
             this.setLoadingState(true);
             this.updateOptions(options);

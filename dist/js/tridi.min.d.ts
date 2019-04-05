@@ -115,6 +115,6 @@ declare class Tridi {
     private startAutoplay;
     private attachEvents;
     private start;
-    updateImageLocation(options: TridiUpdatableOptions, syncFrame?: boolean): void;
+    update(options: TridiUpdatableOptions, syncFrame?: boolean): void;
     load(): void;
 }

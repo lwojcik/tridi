@@ -338,8 +338,6 @@ class Tridi {
         stash.innerHTML += `<img src="${image}" class="tridi-image tridi-image-${index +
           1}" alt="" />`;
       });
-    } else {
-      console.error(this.element, "Error populating stash!");
     }
   }
 
@@ -362,9 +360,9 @@ class Tridi {
     return this.inverse ? this.prevFrame() : this.nextFrame();
   }
 
-   private prevMove() {
-    return this.inverse ? this.nextFrame() : this.prevFrame();
-   }
+  private prevMove() {
+  return this.inverse ? this.nextFrame() : this.prevFrame();
+  }
 
   private nextFrame() {
     const viewerImage = this.viewerImage();
@@ -441,16 +439,16 @@ class Tridi {
     if (this.draggable) {
       const viewerImage = this.viewerImage();
 
-      viewerImage.addEventListener("mouseup", e => {
-        if (e.preventDefault) e.preventDefault();
-        this.stopDragging();
-        this.resetMoveBuffer();
-      });
-
       viewerImage.addEventListener("mousedown", e => {
         if (e.preventDefault) e.preventDefault();
         this.startDragging();
         this.rotateViewerImage(e);
+      });
+
+      viewerImage.addEventListener("mouseup", e => {
+        if (e.preventDefault) e.preventDefault();
+        this.stopDragging();
+        this.resetMoveBuffer();
       });
 
       viewerImage.addEventListener("mousemove", e => {
@@ -497,12 +495,10 @@ class Tridi {
 
   private attachMousewheelEvents() {
     if (this.mousewheel) {
-      const viewerImage = this.viewerImage();
-
-      viewerImage.addEventListener("wheel", e => {
+      this.viewerImage().addEventListener("wheel", e => {
         if (e.preventDefault) e.preventDefault();
         e.deltaY / 120 > 0 ? this.nextMove() : this.prevMove();
-      }, { passive: true });
+      });
     }
   }
 
@@ -633,7 +629,7 @@ class Tridi {
     });
   }
 
-  updateImageLocation(options: TridiUpdatableOptions, syncFrame?: boolean) {
+  update(options: TridiUpdatableOptions, syncFrame?: boolean) {
     if (this.validateUpdate(options)) {
       this.setLoadingState(true);
       this.updateOptions(options);

@@ -20,8 +20,8 @@
               <div class="color-switch color-switch--red" title="Switch to red" tabindex="0"></div>
             </div>
             <div>
-              <p>Each Tridi instance exposes <code>updateImageLocation(options, syncFrame)</code> method which makes it possible to update image source on the fly.</p>
-              <h3>updateImageLocation(options, syncFrame?)</h3>
+              <p>Each Tridi instance exposes <code>update(options, syncFrame)</code> method which makes it possible to update image source on the fly.</p>
+              <h3>update(options, syncFrame)</h3>
               <p>Acceptable parameters:</p>
               <ul>
                 <li><code>options</code> (required) - object containing options to be passed. Updatable options are:
@@ -56,7 +56,7 @@ var switchToBlackBtn = document.querySelector('.color-switch--black');
 var switchToRedBtn = document.querySelector('.color-switch--red');
 
 var switchColor = function(color) {
-  tridi.updateImageLocation({
+  tridi.update({
     imageLocation: '../images/' + color,
     imageFormat: 'jpg',
     imageCount: 36,
