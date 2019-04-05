@@ -42,7 +42,7 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
         this.buttons = options.buttons || false;
         this.scroll = options.scroll || false;
-        this.passive = options.passive || true;
+        this.passive = typeof options.passive !== "undefined" ? options.passive : true;
         this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== "undefined" ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
