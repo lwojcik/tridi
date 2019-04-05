@@ -7,14 +7,13 @@
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
-    "compress": "uglifyjs --mangle --compress --comments '/License/' --output ./dist/js/tridi.compressed.js -- ./dist/js/tridi.js",
     "minify": "uglifyjs --mangle -c drop_console --comments '/License/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
     "serve": "serve dist/",
     "test": "jest",
     "clearTestCache": "jest --clearCache",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "build": "npm run clean && tsc && tsc -p tsconfig.build.json && npm run compress && npm run minify"
+    "build": "npm run clean && tsc && tsc -p tsconfig.build.json && npm run minify"
   },
   "repository": {
     "type": "git",

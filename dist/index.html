@@ -33,9 +33,8 @@ npm run build</code></pre>
             <ul>
               <li><a href="https://github.com/lukemnet/tridi/releases/latest">Latest release</a> &mdash; full package from GitHub</li>
               <li><a href="https://raw.githubusercontent.com/lukemnet/tridi/master/src/tridi.ts">Source code</a> &mdash; contains full uncompiled TypeScript source code</li>
-              <li><a href="js/tridi.js">Compiled version</a> &mdash; contains unminified JS source code with verbose mode available</li>
-              <li><a href="js/tridi.compressed.js">Compressed version</a> &mdash; minified JS source code with verbose mode available</li>
-              <li><a href="js/tridi.min.js">Production-ready version</a> &mdash; minified JS source code, no verbose mode</li>
+              <li><a href="js/tridi.js">Compiled version</a> &mdash; contains unminified JS code</li>
+              <li><a href="js/tridi.min.js">Production-ready version</a> &mdash; minified JS code</li>
             </ul>
             <h2>Quick start</h2>
             <p>Add Tridi script on your site:</p>
@@ -84,7 +83,6 @@ npm run build</code></pre>
         imageFormat: 'jpg',
         imageCount: 36,
         dragInterval: 2,
-        verbose: false,
         showHintOnStartup: true,
         lazy: false,
         draggable: true,
@@ -101,7 +99,6 @@ npm run build</code></pre>
         resumeAutoplayOnMouseleave: true,
         resumeAutoplayDelay: 1000,
         // TODO:
-        // - replace image array
         // - external controls
         // - arrow keys support
       }).load();
