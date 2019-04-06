@@ -12,10 +12,10 @@ interface TridiOptions {
   [key: string]: any;
   element: string;
   images?: ImageArray | NumberedImages;
-  imageFormat?: string;
-  imageCount?: number;
-  imageLocation?: string;
-  showHintOnStartup?: boolean;
+  format?: string;
+  count?: number;
+  location?: string;
+  hintOnStartup?: boolean;
   lazy?: boolean;
   hintText?: string | null;
   draggable?: boolean;
@@ -42,20 +42,20 @@ interface TridiOptions {
 interface TridiUpdatableOptions {
   [key: string]: any;
   images?: ImageArray | NumberedImages;
-  imageFormat?: string;
-  imageCount?: number;
-  imageLocation?: string;
+  format?: string;
+  count?: number;
+  location?: string;
 }
 
 class Tridi {
   [key: string]: any;
   element: string;
   images?: ImageArray | NumberedImages;
-  imageFormat?: string;
-  imageLocation?: string;
-  imageCount?: number;
+  format?: string;
+  location?: string;
+  count?: number;
   draggable?: boolean;
-  showHintOnStartup?: boolean;
+  hintOnStartup?: boolean;
   hintText?: string | null;
   lazy?: boolean;
   autoplay?: boolean;
@@ -85,14 +85,12 @@ class Tridi {
 
     this.element = options.element;
     this.images = options.images || "numbered";
-    this.imageFormat = options.imageFormat || undefined;
-    this.imageLocation = options.imageLocation || "./images";
-    this.imageCount = Array.isArray(this.images)
-      ? this.images.length
-      : options.imageCount;
+    this.format = options.format || undefined;
+    this.location = options.location || "./images";
+    this.count = Array.isArray(this.images) ? this.images.length : options.count;
     this.draggable =
       typeof options.draggable !== "undefined" ? options.draggable : true;
-    this.showHintOnStartup = options.showHintOnStartup || false;
+    this.hintOnStartup = options.hintOnStartup || false;
     this.hintText = options.hintText || null;
     this.lazy = options.lazy || false;
     this.autoplay = options.autoplay || false;
@@ -133,16 +131,16 @@ class Tridi {
 
     if (
       typeof options.images === "undefined" &&
-      typeof options.imageFormat === "undefined"
+      typeof options.format === "undefined"
     ) {
       console.error(
-        `'imageFormat' property is missing or invalid. Image format must be provided for 'numbered' property.`
+        `'format' property is missing or invalid. Image format must be provided for 'numbered' property.`
       );
     }
 
-    if (options.images === "numbered" && !options.imageLocation) {
+    if (options.images === "numbered" && !options.location) {
       console.error(
-        `'imageLocation' property is missing or invalid. Image location must be provided for 'numbered' property.`
+        `'location' property is missing or invalid. Image location must be provided for 'numbered' property.`
       );
     }
   };
@@ -154,9 +152,9 @@ class Tridi {
   private validateUpdate(options: TridiUpdatableOptions) {
     if (
       !options.images &&
-      !options.imageFormat &&
-      !options.imageCount &&
-      !options.imageLocation
+      !options.format &&
+      !options.count &&
+      !options.location
     ) {
       console.error(
         `UpdatableOptions object doesn't contain options that can be updated.`
@@ -231,12 +229,9 @@ class Tridi {
 
   private imgs() {
     if (this.images === "numbered") {
-      const count = this.imageCount;
-      const location = this.imageLocation;
-      const format = this.imageFormat;
       return <ReadonlyArray<string>>(
-        Array.apply(null, { length: count }).map(
-          ({}, index: number) => `${location}/${index + 1}.${format}`
+        Array.apply(null, { length: this.count }).map(
+          ({}, index: number) => `${this.location}/${index + 1}.${this.format!.toLowerCase()}`
         )
       );
     }
@@ -256,7 +251,7 @@ class Tridi {
         ` tridi-draggable-${this.draggable}` +
         ` tridi-touch-${this.touch}` +
         ` tridi-mousewheel-${this.mousewheel}` +
-        ` tridi-showHintOnStartup-${this.showHintOnStartup}` +
+        ` tridi-hintOnStartup-${this.hintOnStartup}` +
         ` tridi-lazy-${this.lazy}` +
         ` tridi-buttons-${this.buttons}`;
     }
@@ -291,7 +286,7 @@ class Tridi {
   }
 
   private displayHintOnStartup(callback: Function) {
-    if (this.showHintOnStartup) {
+    if (this.hintOnStartup) {
       const element = this.element.substr(1);
       const hintOverlayClassName = `tridi-${element}-hint-overlay`;
       const hintOverlay = document.createElement("div");
@@ -337,8 +332,7 @@ class Tridi {
 
     if (stash && images) {
       images.forEach((image, index) => {
-        stash.innerHTML += `<img src="${image}" class="tridi-image tridi-image-${index +
-          1}" alt="" />`;
+        stash.innerHTML += `<img src="${image}" class="tridi-image tridi-image-${index + 1}" alt="" />`;
       });
     }
   }
@@ -363,7 +357,7 @@ class Tridi {
   }
 
   private prevMove() {
-  return this.inverse ? this.nextFrame() : this.prevFrame();
+    return this.inverse ? this.nextFrame() : this.prevFrame();
   }
 
   private nextFrame() {

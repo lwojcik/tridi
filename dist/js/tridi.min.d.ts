@@ -4,10 +4,10 @@ interface TridiOptions {
     [key: string]: any;
     element: string;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageCount?: number;
-    imageLocation?: string;
-    showHintOnStartup?: boolean;
+    format?: string;
+    count?: number;
+    location?: string;
+    hintOnStartup?: boolean;
     lazy?: boolean;
     hintText?: string | null;
     draggable?: boolean;
@@ -33,19 +33,19 @@ interface TridiOptions {
 interface TridiUpdatableOptions {
     [key: string]: any;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageCount?: number;
-    imageLocation?: string;
+    format?: string;
+    count?: number;
+    location?: string;
 }
 declare class Tridi {
     [key: string]: any;
     element: string;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageLocation?: string;
-    imageCount?: number;
+    format?: string;
+    location?: string;
+    count?: number;
     draggable?: boolean;
-    showHintOnStartup?: boolean;
+    hintOnStartup?: boolean;
     hintText?: string | null;
     lazy?: boolean;
     autoplay?: boolean;

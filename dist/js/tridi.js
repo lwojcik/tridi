@@ -12,24 +12,22 @@ var Tridi = /** @class */ (function () {
                 console.error("'element' property is missing or invalid. Container element must be specified.");
             }
             if (typeof options.images === "undefined" &&
-                typeof options.imageFormat === "undefined") {
-                console.error("'imageFormat' property is missing or invalid. Image format must be provided for 'numbered' property.");
+                typeof options.format === "undefined") {
+                console.error("'format' property is missing or invalid. Image format must be provided for 'numbered' property.");
             }
-            if (options.images === "numbered" && !options.imageLocation) {
-                console.error("'imageLocation' property is missing or invalid. Image location must be provided for 'numbered' property.");
+            if (options.images === "numbered" && !options.location) {
+                console.error("'location' property is missing or invalid. Image location must be provided for 'numbered' property.");
             }
         };
         this.validate(options);
         this.element = options.element;
         this.images = options.images || "numbered";
-        this.imageFormat = options.imageFormat || undefined;
-        this.imageLocation = options.imageLocation || "./images";
-        this.imageCount = Array.isArray(this.images)
-            ? this.images.length
-            : options.imageCount;
+        this.format = options.format || undefined;
+        this.location = options.location || "./images";
+        this.count = Array.isArray(this.images) ? this.images.length : options.count;
         this.draggable =
             typeof options.draggable !== "undefined" ? options.draggable : true;
-        this.showHintOnStartup = options.showHintOnStartup || false;
+        this.hintOnStartup = options.hintOnStartup || false;
         this.hintText = options.hintText || null;
         this.lazy = options.lazy || false;
         this.autoplay = options.autoplay || false;
@@ -65,9 +63,9 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.validateUpdate = function (options) {
         if (!options.images &&
-            !options.imageFormat &&
-            !options.imageCount &&
-            !options.imageLocation) {
+            !options.format &&
+            !options.count &&
+            !options.location) {
             console.error("UpdatableOptions object doesn't contain options that can be updated.");
             return false;
         }
@@ -123,11 +121,9 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.imgs = function () {
+        var _this = this;
         if (this.images === "numbered") {
-            var count = this.imageCount;
-            var location_1 = this.imageLocation;
-            var format_1 = this.imageFormat;
-            return (Array.apply(null, { length: count }).map(function (_a, index) { return location_1 + "/" + (index + 1) + "." + format_1; }));
+            return (Array.apply(null, { length: this.count }).map(function (_a, index) { return _this.location + "/" + (index + 1) + "." + _this.format.toLowerCase(); }));
         }
         if (Array.isArray(this.images))
             return this.images;
@@ -143,7 +139,7 @@ var Tridi = /** @class */ (function () {
                     (" tridi-draggable-" + this.draggable) +
                     (" tridi-touch-" + this.touch) +
                     (" tridi-mousewheel-" + this.mousewheel) +
-                    (" tridi-showHintOnStartup-" + this.showHintOnStartup) +
+                    (" tridi-hintOnStartup-" + this.hintOnStartup) +
                     (" tridi-lazy-" + this.lazy) +
                     (" tridi-buttons-" + this.buttons);
         }
@@ -173,7 +169,7 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.displayHintOnStartup = function (callback) {
         var _this = this;
-        if (this.showHintOnStartup) {
+        if (this.hintOnStartup) {
             var element = this.element.substr(1);
             var hintOverlayClassName_1 = "tridi-" + element + "-hint-overlay";
             var hintOverlay = document.createElement("div");
@@ -212,8 +208,7 @@ var Tridi = /** @class */ (function () {
         var images = this.imgs();
         if (stash && images) {
             images.forEach(function (image, index) {
-                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image tridi-image-" + (index +
-                    1) + "\" alt=\"\" />";
+                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image tridi-image-" + (index + 1) + "\" alt=\"\" />";
             });
         }
     };
