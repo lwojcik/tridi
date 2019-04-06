@@ -229,18 +229,16 @@ var Tridi = /** @class */ (function () {
         return this.inverse ? this.nextFrame() : this.prevFrame();
     };
     Tridi.prototype.nextFrame = function () {
-        var viewerImage = this.viewerImage();
         this.imageIndex = this.imageIndex <= 1
-            ? this.imageCount
+            ? this.count
             : this.imageIndex - 1;
-        viewerImage.src = this.image(this.imageIndex);
+        this.viewerImage().src = this.image(this.imageIndex);
     };
     Tridi.prototype.prevFrame = function () {
-        var viewerImage = this.viewerImage();
-        this.imageIndex = this.imageIndex >= this.imageCount
+        this.imageIndex = this.imageIndex >= this.count
             ? 1
             : this.imageIndex + 1;
-        viewerImage.src = this.image(this.imageIndex);
+        this.viewerImage().src = this.image(this.imageIndex);
     };
     Tridi.prototype.rotateViewerImage = function (e) {
         var touch = e.touches;
@@ -328,11 +326,8 @@ var Tridi = /** @class */ (function () {
             }, { passive: true });
             viewerImage.addEventListener("touchmove", function (e) {
                 _this.rotateViewerImage(e);
-                return false;
             }, { passive: true });
-            viewerImage.addEventListener("touchend", function (e) {
-                if (e.preventDefault)
-                    e.preventDefault();
+            viewerImage.addEventListener("touchend", function () {
                 _this.stopDragging();
                 _this.resetMoveBuffer();
             });
@@ -362,27 +357,19 @@ var Tridi = /** @class */ (function () {
             }
         }
     };
-    Tridi.prototype.attachButtonEvents = function () {
-        var _this = this;
+    Tridi.prototype.attachBtnEvents = function (element, callback) {
+        element.addEventListener("click", callback);
+        element.addEventListener("keydown", function (e) {
+            if (e.which === 13)
+                callback();
+        });
+    };
+    Tridi.prototype.attachButtonsEvents = function () {
         if (this.buttons) {
-            var leftBtn = this.leftBtn();
-            var rightBtn = this.rightBtn();
-            if (leftBtn) {
-                leftBtn.addEventListener("click", this.nextMove);
-                leftBtn.addEventListener("keydown", function (e) {
-                    if (e.which === 13) {
-                        _this.nextMove();
-                    }
-                });
-            }
-            if (rightBtn) {
-                rightBtn.addEventListener("click", this.prevMove);
-                rightBtn.addEventListener("keydown", function (e) {
-                    if (e.which === 13) {
-                        _this.prevMove();
-                    }
-                });
-            }
+            if (this.leftBtn())
+                this.attachBtnEvents(this.leftBtn(), this.nextMove);
+            if (this.rightBtn())
+                this.attachBtnEvents(this.rightBtn(), this.prevMove);
         }
     };
     Tridi.prototype.toggleAutoplay = function (state, skipDelay) {
@@ -457,7 +444,7 @@ var Tridi = /** @class */ (function () {
                 _this.populateStash();
                 _this.attachEvents();
                 _this.generateButtons();
-                _this.attachButtonEvents();
+                _this.attachButtonsEvents();
                 _this.startAutoplay();
                 _this.setLoadingState(false);
             });

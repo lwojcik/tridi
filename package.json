@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
-    "minify": "uglifyjs --mangle -c drop_console --comments '/License/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
+    "minify": "uglifyjs --mangle --compress --comments '/License/' --output ./dist/js/tridi.min.js -- ./dist/js/tridi.js",
     "serve": "serve dist/",
     "test": "jest",
     "clearTestCache": "jest --clearCache",

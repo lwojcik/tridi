@@ -111,7 +111,8 @@ declare class Tridi {
     private attachMousewheelEvents;
     private generateButton;
     private generateButtons;
-    private attachButtonEvents;
+    private attachBtnEvents;
+    private attachButtonsEvents;
     private toggleAutoplay;
     private startAutoplay;
     private attachEvents;
