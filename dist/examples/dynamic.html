@@ -57,9 +57,9 @@ var switchToRedBtn = document.querySelector('.color-switch--red');
 
 var switchColor = function(color) {
   tridi.update({
-    imageLocation: '../images/' + color,
-    imageFormat: 'jpg',
-    imageCount: 36,
+    location: '../images/' + color,
+    format: 'jpg',
+    count: 36,
   }, true);
 }
 
@@ -98,9 +98,9 @@ switchToRedBtn.addEventListener('touchstart', function() {
     <script>
       var tridi = new Tridi({
         element: '#tridi-dynamic',
-        imageLocation: '../images/white',
-        imageFormat: 'jpg',
-        imageCount: 36,
+        location: '../images/white',
+        format: 'jpg',
+        count: 36,
       });
 
       tridi.load();
@@ -111,9 +111,9 @@ switchToRedBtn.addEventListener('touchstart', function() {
 
       var switchColor = function(color) {
         tridi.update({
-          imageLocation: '../images/' + color,
-          imageFormat: 'jpg',
-          imageCount: 36,
+          location: '../images/' + color,
+          format: 'jpg',
+          count: 36,
         }, true);
       }
 

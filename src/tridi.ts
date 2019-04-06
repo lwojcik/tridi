@@ -364,7 +364,7 @@ class Tridi {
     const viewerImage = this.viewerImage();
 
     this.imageIndex = this.imageIndex <= 1
-      ? this.imageCount!
+      ? this.count!
       : this.imageIndex - 1;
 
     viewerImage.src = this.image(this.imageIndex);
@@ -373,7 +373,7 @@ class Tridi {
   private prevFrame() {
     const viewerImage = this.viewerImage();
 
-    this.imageIndex = this.imageIndex >= this.imageCount!
+    this.imageIndex = this.imageIndex >= this.count!
       ? 1
       : this.imageIndex + 1;
 
