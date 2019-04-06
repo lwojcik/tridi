@@ -42,7 +42,7 @@
     "prettier": "1.16.4",
     "rimraf": "2.6.3",
     "serve": "11.0.0",
-    "ts-jest": "24.0.1",
+    "ts-jest": "24.0.2",
     "tslint": "5.14.0",
     "tslint-config-airbnb": "5.11.1",
     "tslint-config-prettier": "1.18.0",
