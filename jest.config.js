@@ -15,11 +15,6 @@ module.exports = {
     "node"
   ],
   "collectCoverage": true,
-  // "collectCoverageFrom": [
-  //   "**/*.{js,jsx,ts,tsx}",
-  //   "!**/node_modules/**",
-  //   "!**/dist/**"
-  // ],
   // "coverageThreshold": {
   //   "global": {
   //     "branches": 0,
