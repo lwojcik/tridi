@@ -8,8 +8,8 @@ body {
   line-height: 1.5;
 }
 
-.align-right {
-  float: right;
+h1 {
+  overflow: auto;
 }
 
 a {

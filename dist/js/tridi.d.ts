@@ -1,16 +1,13 @@
 declare type ImageArray = ReadonlyArray<string>;
 declare type NumberedImages = "numbered";
-interface TridiClass {
-    [key: string]: any;
-}
 interface TridiOptions {
     [key: string]: any;
     element: string;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageCount?: number;
-    imageLocation?: string;
-    showHintOnStartup?: boolean;
+    format?: string;
+    count?: number;
+    location?: string;
+    hintOnStartup?: boolean;
     lazy?: boolean;
     hintText?: string | null;
     draggable?: boolean;
@@ -22,6 +19,7 @@ interface TridiOptions {
     resumeAutoplayDelay?: number;
     buttons?: boolean;
     scroll?: boolean;
+    passive?: boolean;
     spinner?: boolean;
     mousewheel?: boolean;
     wheelInverse?: boolean;
@@ -31,24 +29,23 @@ interface TridiOptions {
     touch?: boolean;
     inverse?: boolean;
     playable?: boolean;
-    verbose?: boolean;
 }
 interface TridiUpdatableOptions {
     [key: string]: any;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageCount?: number;
-    imageLocation?: string;
+    format?: string;
+    count?: number;
+    location?: string;
 }
-declare class Tridi implements TridiClass {
+declare class Tridi {
     [key: string]: any;
     element: string;
     images?: ImageArray | NumberedImages;
-    imageFormat?: string;
-    imageLocation?: string;
-    imageCount?: number;
+    format?: string;
+    location?: string;
+    count?: number;
     draggable?: boolean;
-    showHintOnStartup?: boolean;
+    hintOnStartup?: boolean;
     hintText?: string | null;
     lazy?: boolean;
     autoplay?: boolean;
@@ -67,14 +64,12 @@ declare class Tridi implements TridiClass {
     mousewheel?: boolean;
     wheelInverse?: boolean;
     inverse?: boolean;
-    verbose: boolean;
     private imageIndex;
     private moveBuffer;
     private dragActive;
     private intervals;
     private timeouts;
     constructor(options: TridiOptions);
-    static h(element?: string): string;
     private validate;
     private updateOption;
     private validateUpdate;
@@ -101,6 +96,8 @@ declare class Tridi implements TridiClass {
     private populateStash;
     private generateViewerImage;
     private updateViewerImage;
+    private nextMove;
+    private prevMove;
     private nextFrame;
     private prevFrame;
     private rotateViewerImage;
@@ -112,12 +109,13 @@ declare class Tridi implements TridiClass {
     private attachMouseLeaveDetection;
     private attachTouchEvents;
     private attachMousewheelEvents;
+    private generateButton;
     private generateButtons;
     private attachButtonEvents;
     private toggleAutoplay;
     private startAutoplay;
     private attachEvents;
     private start;
-    updateImageLocation(options: TridiUpdatableOptions, syncFrame?: boolean): void;
+    update(options: TridiUpdatableOptions, syncFrame?: boolean): void;
     load(): void;
 }
