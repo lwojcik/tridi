@@ -1,6 +1,6 @@
 {
   "name": "tridi",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "360 3D Product Viewer",
   "main": "dist/js/tridi.min.js",
   "types": "dist/js/tridi.min.d.ts",
@@ -37,16 +37,16 @@
   "devDependencies": {
     "@types/jest": "24.0.11",
     "@types/node": "11.13.0",
-    "jest": "24.5.0",
+    "jest": "24.7.1",
     "prettier": "1.16.4",
     "rimraf": "2.6.3",
     "serve": "11.0.0",
     "ts-jest": "24.0.2",
-    "tslint": "5.14.0",
+    "tslint": "5.15.0",
     "tslint-config-airbnb": "5.11.1",
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
-    "typescript": "3.4.1",
+    "typescript": "3.4.2",
     "uglify-js": "3.5.3"
   }
 }

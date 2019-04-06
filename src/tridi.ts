@@ -1,5 +1,5 @@
 /*
-  Tridi v0.0.5 - 360 3D Product Viewer
+  Tridi v0.0.6 - 360 3D Product Viewer
   Author: Łukasz Wójcik
   License: MIT
   Homepage: https://tridi.lukem.net
