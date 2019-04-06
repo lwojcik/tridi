@@ -361,23 +361,19 @@ class Tridi {
   }
 
   private nextFrame() {
-    const viewerImage = this.viewerImage();
-
     this.imageIndex = this.imageIndex <= 1
       ? this.count!
       : this.imageIndex - 1;
 
-    viewerImage.src = this.image(this.imageIndex);
+      this.viewerImage().src = this.image(this.imageIndex);
   }
 
   private prevFrame() {
-    const viewerImage = this.viewerImage();
-
     this.imageIndex = this.imageIndex >= this.count!
       ? 1
       : this.imageIndex + 1;
 
-    viewerImage.src = this.image(this.imageIndex);
+      this.viewerImage().src = this.image(this.imageIndex);
   }
 
   private rotateViewerImage(e: MouseEvent | TouchEvent) {
@@ -477,11 +473,9 @@ class Tridi {
 
       viewerImage.addEventListener("touchmove", e => {
         this.rotateViewerImage(e);
-        return false;
       }, { passive: true });
 
-      viewerImage.addEventListener("touchend", e => {
-        if (e.preventDefault) e.preventDefault();
+      viewerImage.addEventListener("touchend", () => {
         this.stopDragging();
         this.resetMoveBuffer();
       });
@@ -513,31 +507,18 @@ class Tridi {
     }
   }
 
-  private attachButtonEvents() {
+  private attachBtnEvents(element: HTMLElement, callback: Function) {
+    element.addEventListener("click", (callback as EventListener));
+
+    element.addEventListener("keydown", e => {
+      if (e.which === 13) callback();
+    });
+  }
+
+  private attachButtonsEvents() {
     if (this.buttons) {
-      const leftBtn = this.leftBtn();
-      const rightBtn = this.rightBtn();
-
-
-      if (leftBtn) {
-        leftBtn.addEventListener("click", this.nextMove);
-
-        leftBtn.addEventListener("keydown", e => {
-          if (e.which === 13) {
-            this.nextMove();
-          }
-        });
-      }
-
-      if (rightBtn) {
-        rightBtn.addEventListener("click", this.prevMove);
-
-        rightBtn.addEventListener("keydown", e => {
-          if (e.which === 13) {
-            this.prevMove();
-          }
-        });
-      }
+      if (this.leftBtn()) this.attachBtnEvents(this.leftBtn(), this.nextMove);
+      if (this.rightBtn()) this.attachBtnEvents(this.rightBtn(), this.prevMove);
     }
   }
 
@@ -617,7 +598,7 @@ class Tridi {
         this.populateStash();
         this.attachEvents();
         this.generateButtons();
-        this.attachButtonEvents();
+        this.attachButtonsEvents();
         this.startAutoplay();
         this.setLoadingState(false);
       });
