@@ -352,20 +352,12 @@ class Tridi {
       : this.firstImage();
   }
 
-  private nextMove() {
-    return this.inverse ? this.prevFrame() : this.nextFrame();
-  }
-
-  private prevMove() {
-    return this.inverse ? this.nextFrame() : this.prevFrame();
-  }
-
   private nextFrame() {
     this.imageIndex = this.imageIndex <= 1
       ? this.count!
       : this.imageIndex - 1;
 
-      this.viewerImage().src = this.image(this.imageIndex);
+    this.viewerImage().src = this.image(this.imageIndex);
   }
 
   private prevFrame() {
@@ -373,7 +365,15 @@ class Tridi {
       ? 1
       : this.imageIndex + 1;
 
-      this.viewerImage().src = this.image(this.imageIndex);
+    this.viewerImage().src = this.image(this.imageIndex);
+  }
+
+  private nextMove() {
+    return this.inverse ? this.prevFrame() : this.nextFrame();
+  }
+
+  private prevMove() {
+    return this.inverse ? this.nextFrame() : this.prevFrame();
   }
 
   private rotateViewerImage(e: MouseEvent | TouchEvent) {
@@ -485,7 +485,7 @@ class Tridi {
   private attachMousewheelEvents() {
     if (this.mousewheel) {
       this.viewerImage().addEventListener("wheel", e => {
-        if (e.preventDefault) e.preventDefault();
+        if (e.preventDefault && !this.passive) e.preventDefault();
         e.deltaY / 120 > 0 ? this.nextMove() : this.prevMove();
       }, { passive: this.passive });
     }
@@ -517,8 +517,8 @@ class Tridi {
 
   private attachButtonsEvents() {
     if (this.buttons) {
-      if (this.leftBtn()) this.attachBtnEvents(this.leftBtn(), this.nextMove);
-      if (this.rightBtn()) this.attachBtnEvents(this.rightBtn(), this.prevMove);
+      if (this.leftBtn()) this.attachBtnEvents(this.leftBtn(), this.nextMove.bind(this));
+      if (this.rightBtn()) this.attachBtnEvents(this.rightBtn(), this.prevMove.bind(this));
     }
   }
 
@@ -534,13 +534,13 @@ class Tridi {
 
       if (skipDelay) {
         const autoplayInterval = window.setInterval(() => {
-          this.nextFrame();
+          this.nextMove();
         }, speed);
         this.intervals.push(autoplayInterval);
       } else {
         const autoplayTimeout = window.setTimeout(() => {
           const autoplayInterval = window.setInterval(() => {
-            this.nextFrame();
+            this.nextMove();
           }, speed);
           this.intervals.push(autoplayInterval);
         }, this.resumeAutoplayDelay);

@@ -96,10 +96,10 @@ declare class Tridi {
     private populateStash;
     private generateViewerImage;
     private updateViewerImage;
-    private nextMove;
-    private prevMove;
     private nextFrame;
     private prevFrame;
+    private nextMove;
+    private prevMove;
     private rotateViewerImage;
     private startDragging;
     private stopDragging;

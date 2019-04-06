@@ -123,7 +123,7 @@ switchToRedBtn.addEventListener('touchstart', function() {
 
       switchToWhiteBtn.addEventListener('touchstart', function() {
         switchColor('white');
-      });
+      }, { passive: true });
 
       switchToBlackBtn.addEventListener('click', function() {
         switchColor('black');
@@ -131,7 +131,7 @@ switchToRedBtn.addEventListener('touchstart', function() {
 
       switchToBlackBtn.addEventListener('touchstart', function() {
         switchColor('black');
-      });
+      }, { passive: true });
 
       switchToRedBtn.addEventListener('click', function() {
         switchColor('red');
@@ -139,7 +139,7 @@ switchToRedBtn.addEventListener('touchstart', function() {
 
       switchToRedBtn.addEventListener('touchstart', function() {
         switchColor('red');
-      });
+      }, { passive: true });
     </script>
   </body>
 </html>

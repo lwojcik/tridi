@@ -222,12 +222,6 @@ var Tridi = /** @class */ (function () {
             ? this.image(whichImage)
             : this.firstImage();
     };
-    Tridi.prototype.nextMove = function () {
-        return this.inverse ? this.prevFrame() : this.nextFrame();
-    };
-    Tridi.prototype.prevMove = function () {
-        return this.inverse ? this.nextFrame() : this.prevFrame();
-    };
     Tridi.prototype.nextFrame = function () {
         this.imageIndex = this.imageIndex <= 1
             ? this.count
@@ -239,6 +233,12 @@ var Tridi = /** @class */ (function () {
             ? 1
             : this.imageIndex + 1;
         this.viewerImage().src = this.image(this.imageIndex);
+    };
+    Tridi.prototype.nextMove = function () {
+        return this.inverse ? this.prevFrame() : this.nextFrame();
+    };
+    Tridi.prototype.prevMove = function () {
+        return this.inverse ? this.nextFrame() : this.prevFrame();
     };
     Tridi.prototype.rotateViewerImage = function (e) {
         var touch = e.touches;
@@ -337,7 +337,7 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         if (this.mousewheel) {
             this.viewerImage().addEventListener("wheel", function (e) {
-                if (e.preventDefault)
+                if (e.preventDefault && !_this.passive)
                     e.preventDefault();
                 e.deltaY / 120 > 0 ? _this.nextMove() : _this.prevMove();
             }, { passive: this.passive });
@@ -367,9 +367,9 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.attachButtonsEvents = function () {
         if (this.buttons) {
             if (this.leftBtn())
-                this.attachBtnEvents(this.leftBtn(), this.nextMove);
+                this.attachBtnEvents(this.leftBtn(), this.nextMove.bind(this));
             if (this.rightBtn())
-                this.attachBtnEvents(this.rightBtn(), this.prevMove);
+                this.attachBtnEvents(this.rightBtn(), this.prevMove.bind(this));
         }
     };
     Tridi.prototype.toggleAutoplay = function (state, skipDelay) {
@@ -384,14 +384,14 @@ var Tridi = /** @class */ (function () {
             this.timeouts.length = 0;
             if (skipDelay) {
                 var autoplayInterval = window.setInterval(function () {
-                    _this.nextFrame();
+                    _this.nextMove();
                 }, speed);
                 this.intervals.push(autoplayInterval);
             }
             else {
                 var autoplayTimeout = window.setTimeout(function () {
                     var autoplayInterval = window.setInterval(function () {
-                        _this.nextFrame();
+                        _this.nextMove();
                     }, speed);
                     _this.intervals.push(autoplayInterval);
                 }, this.resumeAutoplayDelay);
