@@ -426,6 +426,17 @@ describe('Event listeners', () => {
     expect(() => viewerImage.dispatchEvent(new MouseEvent('mousedown'))).not.toThrow();
   });
 
+  test(`should listen for 'mouseleave' events with 'resumeAutoplayOnMouseleave' option set to true`, () => {
+    setupTridi(containerId, {
+      ...options,
+      autoplay: true,
+      resumeAutoplayOnMouseleave: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new MouseEvent('mouseleave'))).not.toThrow();
+  });
+
   test(`should handle mouse drag events correctly`, () => {
     setupTridi(containerId, {
       ...options,
@@ -464,9 +475,9 @@ describe('Event listeners', () => {
 
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
     expect(() => {
-      viewerImage.dispatchEvent(new TouchEvent('touchstart'));
+      viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }));
+      viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: -100 } as Touch ] }));
       viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: 100 } as any ] }));
-      viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: -100 } as any ] }));
       viewerImage.dispatchEvent(new TouchEvent('touchend'));
     }).not.toThrow();
   });
