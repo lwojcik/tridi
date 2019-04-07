@@ -484,4 +484,5 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
+module.exports = Tridi;
 //# sourceMappingURL=tridi.js.map

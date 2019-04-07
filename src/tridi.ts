@@ -647,3 +647,5 @@ class Tridi {
     this.start();
   }
 }
+
+module.exports = Tridi;
