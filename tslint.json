@@ -22,7 +22,7 @@
         "readonly-keyword": false,
         "no-object-mutation": false,
         "function-name": false,
-        "variable-name": false,
+        "variable-name": false
     },
     "rulesDirectory": [
         "node_modules/tslint-eslint-rules/dist/rules"
