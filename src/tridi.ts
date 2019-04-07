@@ -499,11 +499,9 @@ class Tridi {
   }
 
   private generateButtons() {
-    if (this.buttons) {
-      if (!this.leftBtn() && !this.rightBtn()) {
-        this.generateButton("left");
-        this.generateButton("right");
-      }
+    if (this.buttons && !this.leftBtn() && !this.rightBtn()) {
+      this.generateButton("left");
+      this.generateButton("right");
     }
   }
 

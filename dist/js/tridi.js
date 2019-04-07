@@ -350,11 +350,9 @@ var Tridi = /** @class */ (function () {
         this.viewer().appendChild(btn);
     };
     Tridi.prototype.generateButtons = function () {
-        if (this.buttons) {
-            if (!this.leftBtn() && !this.rightBtn()) {
-                this.generateButton("left");
-                this.generateButton("right");
-            }
+        if (this.buttons && !this.leftBtn() && !this.rightBtn()) {
+            this.generateButton("left");
+            this.generateButton("right");
         }
     };
     Tridi.prototype.attachBtnEvents = function (element, callback) {
