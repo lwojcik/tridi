@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "./dist/js",
+    "module": "none",
     "target": "es5",
     "declaration": true,
     "sourceMap": true,
-    "module": "none",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,

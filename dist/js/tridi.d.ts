@@ -17,7 +17,6 @@ interface TridiOptions {
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
     resumeAutoplayDelay?: number;
-    buttons?: boolean;
     scroll?: boolean;
     passive?: boolean;
     spinner?: boolean;
@@ -54,7 +53,6 @@ declare class Tridi {
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
     resumeAutoplayDelay: number;
-    buttons?: boolean;
     scroll?: boolean;
     spinner?: boolean;
     dragInterval?: number;
@@ -71,19 +69,15 @@ declare class Tridi {
     private timeouts;
     constructor(options: TridiOptions);
     private validate;
-    private updateOption;
     private validateUpdate;
     private updateOptions;
     private getElem;
     private container;
     private viewer;
     private stash;
-    private leftBtn;
-    private rightBtn;
     private getHintOverlay;
     private getLoadingScreen;
     private image;
-    private firstImage;
     private viewerImage;
     private lazyLoad;
     private imgs;
@@ -109,10 +103,6 @@ declare class Tridi {
     private attachMouseLeaveDetection;
     private attachTouchEvents;
     private attachMousewheelEvents;
-    private generateButton;
-    private generateButtons;
-    private attachBtnEvents;
-    private attachButtonsEvents;
     private clearIntervals;
     private setAutoplayInterval;
     private clearTimeouts;
