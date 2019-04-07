@@ -474,11 +474,42 @@ describe('Event listeners', () => {
     }).load();
 
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+
     expect(() => {
       viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }));
       viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: -100 } as Touch ] }));
       viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: 100 } as any ] }));
       viewerImage.dispatchEvent(new TouchEvent('touchend'));
+    }).not.toThrow();
+  });
+
+  test(`should listen for click events on hint overlay`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      touch: true,
+      hintOnStartup: true
+    }).load();
+
+    const hintOverlay = document.querySelector(`#${containerId} .tridi-hint-overlay`)!;
+
+    expect(() => (hintOverlay as HTMLElement).click()).not.toThrow();
+  });
+
+  test(`should listen for Enter keypresses on hint overlay`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      touch: true,
+      hintOnStartup: true
+    }).load();
+
+    // const hintOverlay = document.querySelector(`#${containerId} .tridi-hint-overlay`)!;
+
+    expect(() => {
+      document.dispatchEvent(new Event('keydown', {
+        key: 'Enter',
+      } as KeyboardEventInit));
     }).not.toThrow();
   });
 });

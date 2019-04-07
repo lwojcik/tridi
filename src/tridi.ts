@@ -313,7 +313,7 @@ class Tridi {
       if (this.touch) document.addEventListener("touchstart", hintClickHandler);
 
       document.addEventListener("keydown", e => {
-        if (e.which === 13) hintClickHandler(e);
+        if (e.key === 'Enter') hintClickHandler(e);
       });
     } else {
       callback();

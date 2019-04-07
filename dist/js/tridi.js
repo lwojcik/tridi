@@ -189,7 +189,7 @@ var Tridi = /** @class */ (function () {
             if (this.touch)
                 document.addEventListener("touchstart", hintClickHandler_1);
             document.addEventListener("keydown", function (e) {
-                if (e.which === 13)
+                if (e.key === 'Enter')
                     hintClickHandler_1(e);
             });
         }
