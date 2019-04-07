@@ -50,41 +50,46 @@
 
 tridi.load();
 
+var prevBtn = document.querySelector('.custom-control-prev');
+var nextBtn = document.querySelector('.custom-control-next');
+var startBtn = document.querySelector('.custom-control-start');
+var stopBtn = document.querySelector('.custom-control-stop');
+
 // Click events
 
-document.querySelector('.custom-control-prev').addEventListener('click', function() {
+prevBtn.addEventListener('click', function() {
   tridi.prev();
 })
 
-document.querySelector('.custom-control-next').addEventListener('click', function() {
+nextBtn.addEventListener('click', function() {
   tridi.next();
 })
 
-document.querySelector('.custom-control-start').addEventListener('click', function() {
+startBtn.addEventListener('click', function() {
   tridi.autoplayStart();
 });
 
-document.querySelector('.custom-control-stop').addEventListener('click', function() {
+stopBtn.addEventListener('click', function() {
   tridi.autoplayStop();
 });
 
 // Touch events
 
-document.querySelector('.custom-control-prev').addEventListener('touchend', function() {
+prevBtn.addEventListener('touchend', function() {
   tridi.prev();
-});
+}, { passive: true });
 
-document.querySelector('.custom-control-next').addEventListener('touchend', function() {
+nextBtn.addEventListener('touchend', function() {
   tridi.next();
-});
+}, { passive: true });
 
-document.querySelector('.custom-control-start').addEventListener('touchend', function() {
+startBtn.addEventListener('touchend', function() {
   tridi.autoplayStart();
-});
+}, { passive: true });
 
-document.querySelector('.custom-control-stop').addEventListener('touchend', function() {
+stopBtn.addEventListener('touchend', function() {
   tridi.autoplayStop();
-});
+}, { passive: true });
 </code></pre>
         </div>
       </div>
@@ -101,54 +106,58 @@ document.querySelector('.custom-control-stop').addEventListener('touchend', func
 
       tridi.load();
 
-      document.querySelector('.custom-control-prev').addEventListener('click', function() {
+      var prevBtn = document.querySelector('.custom-control-prev');
+      var nextBtn = document.querySelector('.custom-control-next');
+      var startBtn = document.querySelector('.custom-control-start');
+      var stopBtn = document.querySelector('.custom-control-stop');
+
+      prevBtn.addEventListener('click', function() {
         tridi.prev();
       })
 
-      document.querySelector('.custom-control-prev').addEventListener('touchend', function() {
+      prevBtn.addEventListener('touchend', function() {
         tridi.prev();
       }, { passive: true });
 
-      document.querySelector('.custom-control-prev').addEventListener('keydown', function(e) {
+      prevBtn.addEventListener('keydown', function(e) {
         if (e.which === 13) tridi.prev();
       })
 
-      document.querySelector('.custom-control-next').addEventListener('click', function() {
+      nextBtn.addEventListener('click', function() {
         tridi.next();
       })
 
-      document.querySelector('.custom-control-next').addEventListener('touchend', function() {
+      nextBtn.addEventListener('touchend', function() {
         tridi.next();
       }, { passive: true });
 
-      document.querySelector('.custom-control-next').addEventListener('keydown', function(e) {
+      nextBtn.addEventListener('keydown', function(e) {
         if (e.which === 13) tridi.next();
       })
 
-      document.querySelector('.custom-control-start').addEventListener('click', function() {
+      startBtn.addEventListener('click', function() {
         tridi.autoplayStart();
       });
 
-      document.querySelector('.custom-control-start').addEventListener('touchend', function() {
-        tridi.next();
+      startBtn.addEventListener('touchend', function() {
+        tridi.autoplayStart();
       }, { passive: true });
 
-      document.querySelector('.custom-control-start').addEventListener('keydown', function(e) {
+      startBtn.addEventListener('keydown', function(e) {
         if (e.which === 13) tridi.autoplayStart();
       });
 
-      document.querySelector('.custom-control-stop').addEventListener('click', function() {
+      stopBtn.addEventListener('click', function() {
         tridi.autoplayStop();
       });
 
-      document.querySelector('.custom-control-stop').addEventListener('touchend', function() {
+      stopBtn.addEventListener('touchend', function() {
         tridi.autoplayStop();
       }, { passive: true });
 
-      document.querySelector('.custom-control-stop').addEventListener('keydown', function(e) {
+      stopBtn.addEventListener('keydown', function(e) {
         if (e.which === 13) tridi.autoplayStop();
       });
-
     </script>
   </body>
 </html>
