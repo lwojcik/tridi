@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tridi &mdash; Custom controls</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../css/tridi.css">
+    <link rel="stylesheet" href="../css/index.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm">
+            <h1><a href="../">Tridi</a> &mdash; Custom controls</h1>
+            <div id="tridi-custom"></div>
+            <div class="tridi-external-controls">
+              <div class="custom-control custom-control-prev" title="Previous frame" tabindex="0">Previous frame</div>
+              <div class="custom-control custom-control-next" title="Next frame" tabindex="0">Next frame</div>
+              <div class="custom-control custom-control-start" title="Start autoplay" tabindex="0">Start autoplay</div>
+              <div class="custom-control custom-control-stop" title="Stop autoplay" tabindex="0">Stop autoplay</div>
+            </div>
+            <div>
+              <p>Each Tridi instance exposes a few methods which make it possible to control Tridi viewer programatically:</p>
+              <h3>next()</h3>
+              <p>Shows next frame from the image array.</p>
+              <h3>prev()</h3>
+              <p>Shows previous frame from the image array.</p>
+              <h3>autoplayStart()</h3>
+              <p>Starts autoplay sequence.</p>
+              <h3>autoplayStop()</h3>
+              <p>Stops autoplay sequence.</p>
+            </div>
+            <h2>Code</h2>
+            <h3>HTML</h3>
+            <pre><code>&lt;div id="tridi-custom"&gt;&lt;/div&gt;
+
+&lt;div class="custom-control-prev"&gt;Previous frame&lt;/div&gt;
+&lt;div class="custom-control-next"&gt;Next frame&lt;/div&gt;
+&lt;div class="custom-control-start"&gt;Start autoplay&lt;/div&gt;
+&lt;div class="custom-control-stop"&gt;Stop autoplay&lt;/div&gt;
+            </code></pre>
+            <h3>JavaScript</h3>
+            <pre><code>var tridi = new Tridi({
+  element: '#tridi-dynamic',
+  imageLocation: './path/to/images',
+  imageFormat: 'jpg',
+  imageCount: 36,
+});
+
+tridi.load();
+
+// Click events
+
+document.querySelector('.custom-control-prev').addEventListener('click', function() {
+  tridi.prev();
+})
+
+document.querySelector('.custom-control-next').addEventListener('click', function() {
+  tridi.next();
+})
+
+document.querySelector('.custom-control-start').addEventListener('click', function() {
+  tridi.autoplayStart();
+});
+
+document.querySelector('.custom-control-stop').addEventListener('click', function() {
+  tridi.autoplayStop();
+});
+
+// Touch events
+
+document.querySelector('.custom-control-prev').addEventListener('touchend', function() {
+  tridi.prev();
+});
+
+document.querySelector('.custom-control-next').addEventListener('touchend', function() {
+  tridi.next();
+});
+
+document.querySelector('.custom-control-start').addEventListener('touchend', function() {
+  tridi.autoplayStart();
+});
+
+document.querySelector('.custom-control-stop').addEventListener('touchend', function() {
+  tridi.autoplayStop();
+});
+</code></pre>
+        </div>
+      </div>
+      <p><a href="../">&laquo; Back to main page</a></p>
+    </div>
+    <script src="../js/tridi.min.js"></script>
+    <script>
+      var tridi = new Tridi({
+        element: '#tridi-custom',
+        location: '../images/white',
+        format: 'jpg',
+        count: 36
+      });
+
+      tridi.load();
+
+      document.querySelector('.custom-control-prev').addEventListener('click', function() {
+        tridi.prev();
+      })
+
+      document.querySelector('.custom-control-prev').addEventListener('touchend', function() {
+        tridi.prev();
+      }, { passive: true });
+
+      document.querySelector('.custom-control-prev').addEventListener('keydown', function(e) {
+        if (e.which === 13) tridi.prev();
+      })
+
+      document.querySelector('.custom-control-next').addEventListener('click', function() {
+        tridi.next();
+      })
+
+      document.querySelector('.custom-control-next').addEventListener('touchend', function() {
+        tridi.next();
+      }, { passive: true });
+
+      document.querySelector('.custom-control-next').addEventListener('keydown', function(e) {
+        if (e.which === 13) tridi.next();
+      })
+
+      document.querySelector('.custom-control-start').addEventListener('click', function() {
+        tridi.autoplayStart();
+      });
+
+      document.querySelector('.custom-control-start').addEventListener('touchend', function() {
+        tridi.next();
+      }, { passive: true });
+
+      document.querySelector('.custom-control-start').addEventListener('keydown', function(e) {
+        if (e.which === 13) tridi.autoplayStart();
+      });
+
+      document.querySelector('.custom-control-stop').addEventListener('click', function() {
+        tridi.autoplayStop();
+      });
+
+      document.querySelector('.custom-control-stop').addEventListener('touchend', function() {
+        tridi.autoplayStop();
+      }, { passive: true });
+
+      document.querySelector('.custom-control-stop').addEventListener('keydown', function(e) {
+        if (e.which === 13) tridi.autoplayStop();
+      });
+
+    </script>
+  </body>
+</html>

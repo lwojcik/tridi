@@ -113,10 +113,18 @@ declare class Tridi {
     private generateButtons;
     private attachBtnEvents;
     private attachButtonsEvents;
+    private clearIntervals;
+    private setAutoplayInterval;
+    private clearTimeouts;
+    private setAutoplayTimeout;
     private toggleAutoplay;
     private startAutoplay;
     private attachEvents;
     private start;
+    next(): void;
+    prev(): void;
+    autoplayStart(): void;
+    autoplayStop(): void;
     update(options: TridiUpdatableOptions, syncFrame?: boolean): void;
     load(): void;
 }

@@ -372,31 +372,39 @@ var Tridi = /** @class */ (function () {
                 this.attachBtnEvents(this.rightBtn(), this.prevMove.bind(this));
         }
     };
-    Tridi.prototype.toggleAutoplay = function (state, skipDelay) {
+    Tridi.prototype.clearIntervals = function () {
+        this.intervals.forEach(clearInterval);
+        this.intervals.length = 0;
+    };
+    Tridi.prototype.setAutoplayInterval = function () {
         var _this = this;
-        var speed = this.autoplaySpeed;
-        if (!state) {
-            this.intervals.forEach(clearInterval);
-            this.intervals.length = 0;
+        var autoplayInterval = window.setInterval(function () {
+            _this.nextMove();
+        }, this.autoplaySpeed);
+        this.intervals.push(autoplayInterval);
+    };
+    Tridi.prototype.clearTimeouts = function () {
+        this.timeouts.forEach(clearTimeout);
+        this.timeouts.length = 0;
+    };
+    Tridi.prototype.setAutoplayTimeout = function () {
+        var _this = this;
+        var autoplayTimeout = window.setTimeout(function () {
+            _this.setAutoplayInterval();
+        }, this.resumeAutoplayDelay);
+        this.timeouts.push(autoplayTimeout);
+    };
+    Tridi.prototype.toggleAutoplay = function (state, skipDelay) {
+        if (state) {
+            this.clearTimeouts();
+            if (this.intervals.length === 0) {
+                skipDelay
+                    ? this.setAutoplayInterval()
+                    : this.setAutoplayTimeout();
+            }
         }
         else {
-            this.timeouts.forEach(clearTimeout);
-            this.timeouts.length = 0;
-            if (skipDelay) {
-                var autoplayInterval = window.setInterval(function () {
-                    _this.nextMove();
-                }, speed);
-                this.intervals.push(autoplayInterval);
-            }
-            else {
-                var autoplayTimeout = window.setTimeout(function () {
-                    var autoplayInterval = window.setInterval(function () {
-                        _this.nextMove();
-                    }, speed);
-                    _this.intervals.push(autoplayInterval);
-                }, this.resumeAutoplayDelay);
-                this.timeouts.push(autoplayTimeout);
-            }
+            this.clearIntervals();
         }
     };
     Tridi.prototype.startAutoplay = function () {
@@ -449,6 +457,18 @@ var Tridi = /** @class */ (function () {
                 _this.setLoadingState(false);
             });
         });
+    };
+    Tridi.prototype.next = function () {
+        this.nextMove();
+    };
+    Tridi.prototype.prev = function () {
+        this.prevMove();
+    };
+    Tridi.prototype.autoplayStart = function () {
+        this.toggleAutoplay(true);
+    };
+    Tridi.prototype.autoplayStop = function () {
+        this.toggleAutoplay(false);
     };
     Tridi.prototype.update = function (options, syncFrame) {
         if (this.validateUpdate(options)) {
