@@ -1,7 +1,7 @@
 {
   "name": "tridi",
-  "version": "0.0.7",
-  "description": "360 3D Product Viewer",
+  "version": "0.0.8",
+  "description": "JavaScript 360 3D Product Viewer",
   "main": "dist/js/tridi.min.js",
   "types": "dist/js/tridi.min.d.ts",
   "scripts": {
