@@ -25,7 +25,6 @@ interface TridiOptions {
   stopAutoplayOnMouseenter?: boolean;
   resumeAutoplayOnMouseleave?: boolean;
   resumeAutoplayDelay?: number;
-  buttons?: boolean;
   scroll?: boolean;
   passive?: boolean;
   spinner?: boolean;
@@ -64,7 +63,6 @@ class Tridi {
   stopAutoplayOnMouseenter?: boolean;
   resumeAutoplayOnMouseleave?: boolean;
   resumeAutoplayDelay: number;
-  buttons?: boolean;
   scroll?: boolean;
   spinner?: boolean;
   dragInterval?: number;
@@ -101,7 +99,6 @@ class Tridi {
     this.resumeAutoplayOnMouseleave =
       options.resumeAutoplayOnMouseleave || false;
     this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
-    this.buttons = options.buttons || false;
     this.scroll = options.scroll || false;
     this.passive = typeof options.passive !== "undefined" ? options.passive : true;
     this.spinner = options.spinner || false;
@@ -186,14 +183,6 @@ class Tridi {
     return this.getElem(".tridi-stash", true);
   }
 
-  private leftBtn() {
-    return this.getElem(".tridi-btn-left", true);
-  }
-
-  private rightBtn() {
-    return this.getElem(".tridi-btn-right", true);
-  }
-
   private getHintOverlay() {
     return this.getElem(".tridi-hint-overlay", true);
   }
@@ -246,8 +235,7 @@ class Tridi {
         ` tridi-touch-${this.touch}` +
         ` tridi-mousewheel-${this.mousewheel}` +
         ` tridi-hintOnStartup-${this.hintOnStartup}` +
-        ` tridi-lazy-${this.lazy}` +
-        ` tridi-buttons-${this.buttons}`;
+        ` tridi-lazy-${this.lazy}`;
     }
   }
 
@@ -485,35 +473,6 @@ class Tridi {
     }
   }
 
-  private generateButton(btnName: string) {
-    const btn = document.createElement("div");
-    btn.setAttribute("tabindex", "0");
-    btn.className += `tridi-btn tridi-btn-${btnName}`;
-    this.viewer().appendChild(btn);
-  }
-
-  private generateButtons() {
-    if (this.buttons && !this.leftBtn() && !this.rightBtn()) {
-      this.generateButton("left");
-      this.generateButton("right");
-    }
-  }
-
-  private attachBtnEvents(element: HTMLElement, callback: Function) {
-    element.addEventListener("click", (callback as EventListener));
-
-    element.addEventListener("keydown", e => {
-      if (e.which === 13) callback();
-    });
-  }
-
-  private attachButtonsEvents() {
-    if (this.buttons) {
-      if (this.leftBtn()) this.attachBtnEvents(this.leftBtn(), this.nextMove.bind(this));
-      if (this.rightBtn()) this.attachBtnEvents(this.rightBtn(), this.prevMove.bind(this));
-    }
-  }
-
   private clearIntervals() {
     this.intervals.forEach(clearInterval);
     this.intervals.length = 0;
@@ -600,8 +559,6 @@ class Tridi {
         this.generateStash();
         this.populateStash();
         this.attachEvents();
-        this.generateButtons();
-        this.attachButtonsEvents();
         this.startAutoplay();
         this.setLoadingState(false);
       });

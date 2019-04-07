@@ -255,15 +255,6 @@ describe('Init options validation', () => {
     expect(() => setupTridi(containerId, options).load()).not.toThrow();
   });
 
-  test(`should accept 'buttons' option`, () => {
-    const options = {
-      ...commonValidOptions,
-      buttons: true,
-    };
-
-    expect(() => setupTridi(containerId, options).load()).not.toThrow();
-  });
-
   test(`should accept 'inverse' option`, () => {
     const options = {
       ...commonValidOptions,
@@ -501,14 +492,14 @@ describe('Event listeners', () => {
       ...options,
       draggable: true,
       touch: true,
-      hintOnStartup: true
+      hintOnStartup: true,
+      hintText: 'test',
     }).load();
-
-    // const hintOverlay = document.querySelector(`#${containerId} .tridi-hint-overlay`)!;
 
     expect(() => {
       document.dispatchEvent(new Event('keydown', {
         key: 'Enter',
+        which: 13,
       } as KeyboardEventInit));
     }).not.toThrow();
   });

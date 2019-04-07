@@ -38,7 +38,6 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayOnMouseleave =
             options.resumeAutoplayOnMouseleave || false;
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
-        this.buttons = options.buttons || false;
         this.scroll = options.scroll || false;
         this.passive = typeof options.passive !== "undefined" ? options.passive : true;
         this.spinner = options.spinner || false;
@@ -86,12 +85,6 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.stash = function () {
         return this.getElem(".tridi-stash", true);
     };
-    Tridi.prototype.leftBtn = function () {
-        return this.getElem(".tridi-btn-left", true);
-    };
-    Tridi.prototype.rightBtn = function () {
-        return this.getElem(".tridi-btn-right", true);
-    };
     Tridi.prototype.getHintOverlay = function () {
         return this.getElem(".tridi-hint-overlay", true);
     };
@@ -135,8 +128,7 @@ var Tridi = /** @class */ (function () {
                     (" tridi-touch-" + this.touch) +
                     (" tridi-mousewheel-" + this.mousewheel) +
                     (" tridi-hintOnStartup-" + this.hintOnStartup) +
-                    (" tridi-lazy-" + this.lazy) +
-                    (" tridi-buttons-" + this.buttons);
+                    (" tridi-lazy-" + this.lazy);
         }
     };
     Tridi.prototype.generateLoadingScreen = function () {
@@ -337,33 +329,6 @@ var Tridi = /** @class */ (function () {
             }, { passive: this.passive });
         }
     };
-    Tridi.prototype.generateButton = function (btnName) {
-        var btn = document.createElement("div");
-        btn.setAttribute("tabindex", "0");
-        btn.className += "tridi-btn tridi-btn-" + btnName;
-        this.viewer().appendChild(btn);
-    };
-    Tridi.prototype.generateButtons = function () {
-        if (this.buttons && !this.leftBtn() && !this.rightBtn()) {
-            this.generateButton("left");
-            this.generateButton("right");
-        }
-    };
-    Tridi.prototype.attachBtnEvents = function (element, callback) {
-        element.addEventListener("click", callback);
-        element.addEventListener("keydown", function (e) {
-            if (e.which === 13)
-                callback();
-        });
-    };
-    Tridi.prototype.attachButtonsEvents = function () {
-        if (this.buttons) {
-            if (this.leftBtn())
-                this.attachBtnEvents(this.leftBtn(), this.nextMove.bind(this));
-            if (this.rightBtn())
-                this.attachBtnEvents(this.rightBtn(), this.prevMove.bind(this));
-        }
-    };
     Tridi.prototype.clearIntervals = function () {
         this.intervals.forEach(clearInterval);
         this.intervals.length = 0;
@@ -443,8 +408,6 @@ var Tridi = /** @class */ (function () {
                 _this.generateStash();
                 _this.populateStash();
                 _this.attachEvents();
-                _this.generateButtons();
-                _this.attachButtonsEvents();
                 _this.startAutoplay();
                 _this.setLoadingState(false);
             });
