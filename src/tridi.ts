@@ -195,10 +195,6 @@ class Tridi {
     return this.imgs()![whichImage - 1];
   }
 
-  private firstImage() {
-    return this.image(1);
-  }
-
   private viewerImage() {
     return <HTMLImageElement>this.getElem(".tridi-viewer .tridi-viewer-image");
   }
@@ -301,6 +297,7 @@ class Tridi {
       if (this.touch) document.addEventListener("touchstart", hintClickHandler);
 
       document.addEventListener("keydown", e => {
+        /* istanbul ignore next */
         if (e.key === 'Enter') hintClickHandler(e);
       });
     } else {
@@ -321,17 +318,15 @@ class Tridi {
 
   private generateViewerImage() {
     const viewer = this.viewer();
-    const image = this.firstImage();
+    const image = this.image(1);
 
     viewer.innerHTML = `<img src="${image}" alt="" class="tridi-viewer-image" draggable="false" />${
       viewer.innerHTML
     }`;
   }
 
-  private updateViewerImage(whichImage?: number) {
-    this.viewerImage().src = whichImage
-      ? this.image(whichImage)
-      : this.firstImage();
+  private updateViewerImage(whichImage: number) {
+    this.viewerImage().src = this.image(whichImage);
   }
 
   private nextFrame() {
@@ -414,12 +409,14 @@ class Tridi {
       const viewerImage = this.viewerImage();
 
       viewerImage.addEventListener("mousedown", e => {
+        /* istanbul ignore next */
         if (e.preventDefault) e.preventDefault();
         this.startDragging();
         this.rotateViewerImage(e);
       });
 
       viewerImage.addEventListener("mouseup", e => {
+        /* istanbul ignore next */
         if (e.preventDefault) e.preventDefault();
         this.stopDragging();
         this.resetMoveBuffer();
@@ -479,9 +476,7 @@ class Tridi {
   }
 
   private setAutoplayInterval() {
-    const autoplayInterval = window.setInterval(() => {
-      this.nextMove();
-    }, this.autoplaySpeed);
+    const autoplayInterval = window.setInterval(this.nextMove.bind(this), this.autoplaySpeed);
     this.intervals.push(autoplayInterval);
   }
 
@@ -491,9 +486,7 @@ class Tridi {
   }
 
   private setAutoplayTimeout() {
-    const autoplayTimeout = window.setTimeout(() => {
-      this.setAutoplayInterval();
-    }, this.resumeAutoplayDelay);
+    const autoplayTimeout = window.setTimeout(this.setAutoplayInterval.bind(this), this.resumeAutoplayDelay);
     this.timeouts.push(autoplayTimeout);
   }
 
@@ -599,4 +592,5 @@ class Tridi {
   }
 }
 
+/* istanbul ignore next */
 if (typeof module !== 'undefined') module.exports = Tridi;

@@ -78,7 +78,6 @@ declare class Tridi {
     private getHintOverlay;
     private getLoadingScreen;
     private image;
-    private firstImage;
     private viewerImage;
     private lazyLoad;
     private imgs;

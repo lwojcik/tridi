@@ -3,8 +3,14 @@ const tridi = require('../src/tridi');
 
 console = <any>{
   log: jest.fn(),
-  error: jest.fn()
+  error: jest.fn(),
+  warn: jest.fn()
 }
+
+window = <any>{
+  setInterval: jest.fn(),
+  setTimeout: jest.fn(),
+};
 
 const map = <any>{};
 
@@ -178,6 +184,15 @@ describe('Init options validation', () => {
     expect(() => setupTridi(containerId, options).load()).not.toThrow();
   });
 
+  test(`should accept 'touchDragInterval' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      touchDragInterval: true
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
   test(`should accept 'autoplaySpeed' option`, () => {
     const options = {
       ...commonValidOptions,
@@ -303,17 +318,18 @@ describe('Behavior', () => {
     element: `#${containerId}`,
     location: './images/1',
     format: 'jpg',
+    inverse: true,
     count: 5,
   };
   
   const tridiInstance = setupTridi(containerId, options);
   tridiInstance.load();
 
-  test('prev() should not throw', () => {
+  test(`prev() should not throw if 'inverse' option set to true`, () => {
     expect(() => tridiInstance.prev()).not.toThrow();
   });
 
-  test('next() should not throw', () => {
+  test(`next() should not throw if 'inverse' option set to true`, () => {
     expect(() => tridiInstance.next()).not.toThrow();
   });
 
@@ -323,6 +339,16 @@ describe('Behavior', () => {
 
   test('autoplayStop() should not throw', () => {
     expect(() => tridiInstance.autoplayStop()).not.toThrow();
+  });
+
+  test('viewer image should be cycled back to first frame when hitting array limit', () => {
+    const viewerImage = <HTMLImageElement>document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    const oldSrc = viewerImage.src;
+    tridiInstance.prev();
+    tridiInstance.next();
+    const newSrc = viewerImage.src;
+    
+    expect(oldSrc).toMatch(newSrc);
   });
 });
 
@@ -352,8 +378,12 @@ describe('Update', () => {
     expect(() => tridiInstance.update(newOptions)).not.toThrow();
   });
 
-  test(`should accept 'syncFrame' parameter`, () => {
+  test(`should accept 'syncFrame' parameter to true`, () => {
     expect(() => tridiInstance.update(newOptions, true)).not.toThrow();
+  });
+
+  test(`should accept 'syncFrame' parameter set to false`, () => {
+    expect(() => tridiInstance.update(newOptions, false)).not.toThrow();
   });
 
   test(`should return false for missing updatable options`, () => {
@@ -393,6 +423,20 @@ describe('Event listeners', () => {
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
     expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: 100 }))).not.toThrow();
     expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
+  });
+
+  test(`should not react to touch events when 'touch' option is set to false`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      touch: false,
+      lazy: true,
+      skip: false,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+
+    expect(() => viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
   });
 
   test(`should listen for 'mouseenter' events with 'stopAutoplayOnMouseenter' option set to true`, () => {
@@ -444,6 +488,18 @@ describe('Event listeners', () => {
     }).not.toThrow();
   });
 
+  test(`should do nothing when drag event was not initiated`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => {
+      viewerImage.dispatchEvent(new MouseEvent('mousemove', { clientX: 100 }));
+    }).not.toThrow();
+  });
+
   test(`should handle 'mouseleave' event correctly when 'mouseleaveDetect' option is set to true`, () => {
     setupTridi(containerId, {
       ...options,
@@ -461,7 +517,7 @@ describe('Event listeners', () => {
     setupTridi(containerId, {
       ...options,
       draggable: true,
-      touch: true
+      touch: true,
     }).load();
 
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
@@ -502,5 +558,19 @@ describe('Event listeners', () => {
         which: 13,
       } as KeyboardEventInit));
     }).not.toThrow();
+  });
+
+  test(`should ignore touch events on hint overlay when 'touch' option is set to false`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      touch: false,
+      hintOnStartup: true,
+      hintText: 'test',
+    }).load();
+
+    const hintOverlay = document.querySelector(`#${containerId} .tridi-hint-overlay`)!
+
+    expect(() => hintOverlay.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
   });
 });
