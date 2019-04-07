@@ -226,6 +226,35 @@ describe('Init options validation', () => {
     expect(() => setupTridi(containerId, options).load()).not.toThrow();
   });
 
+  test(`should accept 'autoplay' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      autoplay: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'stopAutoplayOnMouseenter' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      autoplay: true,
+      stopAutoplayOnMouseenter: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'resumeAutoPlayOnMouseleave' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      autoplay: true,
+      resumeAutoPlayOnMouseleave: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
   test(`should accept 'buttons' option`, () => {
     const options = {
       ...commonValidOptions,
@@ -375,15 +404,70 @@ describe('Event listeners', () => {
     expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
   });
 
-  test(`should listen for 'click' events for generated buttons`, () => {
+  test(`should listen for 'mouseenter' events with 'stopAutoplayOnMouseenter' option set to true`, () => {
     setupTridi(containerId, {
       ...options,
-      mousewheel: true,
-      passive: false,
+      autoplay: true,
+      stopAutoplayOnMouseenter: true,
     }).load();
 
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
-    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: 100 }))).not.toThrow();
-    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
+    expect(() => viewerImage.dispatchEvent(new MouseEvent('mouseenter'))).not.toThrow();
+  });
+
+  test(`should listen for 'mousedown' events with 'stopAutoplayOnClick' option set to true`, () => {
+    setupTridi(containerId, {
+      ...options,
+      autoplay: true,
+      stopAutoplayOnClick: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new MouseEvent('mousedown'))).not.toThrow();
+  });
+
+  test(`should handle mouse drag events correctly`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => {
+      viewerImage.dispatchEvent(new MouseEvent('mousedown'));
+      viewerImage.dispatchEvent(new MouseEvent('mousemove', { clientX: 100 }));
+      viewerImage.dispatchEvent(new MouseEvent('mousemove', { clientX: -100 }));
+      viewerImage.dispatchEvent(new MouseEvent('mouseup'));
+      viewerImage.dispatchEvent(new MouseEvent('mouseleave'));
+    }).not.toThrow();
+  });
+
+  test(`should handle 'mouseleave' event correctly when 'mouseleaveDetect' option is set to true`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      mouseleaveDetect: true,
+    }).load();
+
+    const viewer = document.querySelector(`#${containerId}`)!;
+    expect(() => {
+      viewer.dispatchEvent(new MouseEvent('mouseleave'));
+    }).not.toThrow();
+  });
+
+  test(`should handle touch drag events correctly`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: true,
+      touch: true
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => {
+      viewerImage.dispatchEvent(new TouchEvent('touchstart'));
+      viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: 100 } as any ] }));
+      viewerImage.dispatchEvent(new TouchEvent('touchmove', { touches: [ { clientX: -100 } as any ] }));
+      viewerImage.dispatchEvent(new TouchEvent('touchend'));
+    }).not.toThrow();
   });
 });
