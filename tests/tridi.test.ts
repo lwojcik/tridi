@@ -84,8 +84,8 @@ describe('Tridi.load()', () => {
   });
 
   test('Viewer image is generated', () => {
-    const viewer = document.querySelector(`#${containerId} .tridi-viewer-image`);
-    expect(viewer).toBeInTheDocument();
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`);
+    expect(viewerImage).toBeInTheDocument();
   });
 
   test('Loading screen is generated', () => {
@@ -96,7 +96,7 @@ describe('Tridi.load()', () => {
     expect(spinner).toBeInTheDocument();
   });
 
-  test('Loading screen is not visible', () => {
+  test('Loading screen is hidden', () => {
     const loadingScreen = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-loading`);
     expect(loadingScreen.style.display).toEqual('none');
   });
@@ -151,7 +151,7 @@ describe('Init options validation', () => {
 
     setupTridi(containerId, options).load();
 
-    expect(console.error).toHaveBeenCalledWith(`'location' property is missing or invalid. Image location must be provided for 'numbered' property.`);
+    expect(console.error).toHaveBeenCalled();
   });
 
   test(`should accept array of strings as image source`, () => {
@@ -225,6 +225,55 @@ describe('Init options validation', () => {
 
     expect(() => setupTridi(containerId, options).load()).not.toThrow();
   });
+
+  test(`should accept 'buttons' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      buttons: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'inverse' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      inverse: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'skip' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      lazy: true,
+      skip: false,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'hintOnStartup' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      lazy: true,
+      hintOnStartup: true,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept 'hintText' option`, () => {
+    const options = {
+      ...commonValidOptions,
+      lazy: true,
+      hintOnStartup: true,
+      hintText: 'test',
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
 });
 
 describe('Behavior', () => {
@@ -291,4 +340,50 @@ describe('Update', () => {
     const emptyOptionsObject = {};
     expect(() => tridiInstance.update(emptyOptionsObject)).not.toThrow();
   })
+});
+
+describe('Event listeners', () => {
+  const containerId = 'tridi-test-container-6';
+
+  const options = {
+    element: `#${containerId}`,
+    format: 'jpg',
+    count: 5,
+  };
+
+  
+  test(`should listen for 'wheel' events`, () => {
+    setupTridi(containerId, {
+      ...options,
+      mousewheel: true
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: 100 }))).not.toThrow();
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
+  });
+
+  test(`should listen for 'wheel' events with 'passive' option set to false`, () => {
+    setupTridi(containerId, {
+      ...options,
+      mousewheel: true,
+      passive: false,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: 100 }))).not.toThrow();
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
+  });
+
+  test(`should listen for 'click' events for generated buttons`, () => {
+    setupTridi(containerId, {
+      ...options,
+      mousewheel: true,
+      passive: false,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: 100 }))).not.toThrow();
+    expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
+  });
 });

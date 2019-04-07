@@ -231,9 +231,7 @@ class Tridi {
         )
       );
     }
-
-    if (Array.isArray(this.images)) return this.images as ReadonlyArray<string>;
-    return null;
+    return this.images as ReadonlyArray<string>;
   }
 
   private generateViewer() {

@@ -122,9 +122,7 @@ var Tridi = /** @class */ (function () {
         if (this.images === "numbered") {
             return (Array.apply(null, { length: this.count }).map(function (_a, index) { return _this.location + "/" + (index + 1) + "." + _this.format.toLowerCase(); }));
         }
-        if (Array.isArray(this.images))
-            return this.images;
-        return null;
+        return this.images;
     };
     Tridi.prototype.generateViewer = function () {
         var container = this.container();
