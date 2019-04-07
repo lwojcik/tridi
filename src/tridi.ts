@@ -134,7 +134,7 @@ class Tridi {
       typeof options.format === "undefined"
     ) {
       console.error(
-        `'format' property is missing or invalid. Image format must be provided for 'numbered' property.`
+        `'format' 2property is missing or invalid. Image format must be provided for 'numbered' property.`
       );
     }
 
@@ -644,4 +644,4 @@ class Tridi {
   }
 }
 
-module.exports = Tridi;
+if (typeof module !== 'undefined') module.exports = Tridi;

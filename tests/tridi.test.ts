@@ -2,8 +2,15 @@ import 'jest-dom/extend-expect';
 const tridi = require('../src/tridi');
 
 console = <any>{
+  log: jest.fn(),
   error: jest.fn()
 }
+
+const map = <any>{};
+
+window.addEventListener = jest.fn((event, cb) => {
+  map[event] = cb;
+});
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -23,7 +30,7 @@ describe('Tridi class', () => {
       location: './images/1',
       format: 'jpg',
       count: 5
-  }
+  };
 
   const tridiInstance = setupTridi(containerId, options);
 
@@ -67,7 +74,7 @@ describe('Tridi.load()', () => {
     location: './images/1',
     format: 'jpg',
     count: 5,
-  }
+  };
 
   setupTridi(containerId, options).load();
 
@@ -122,7 +129,7 @@ describe('Init options validation', () => {
       location: './images/1',
       format: 'jpg',
       count: 5,
-    }
+    };
   
     expect(() => setupTridi(containerId, options).load()).toThrow();
   });
@@ -228,7 +235,7 @@ describe('Behavior', () => {
     location: './images/1',
     format: 'jpg',
     count: 5,
-  }
+  };
   
   const tridiInstance = setupTridi(containerId, options);
   tridiInstance.load();
@@ -257,19 +264,18 @@ describe('Update', () => {
     element: `#${containerId}`,
     format: 'jpg',
     count: 5,
-  }
+  };
 
   const oldOptions = {
     ...options,
     location: './images/1',
-  }
+  };
 
   const newOptions = {
     ...options,
     location: './images/2',
-  }
+  };
 
-  
   const tridiInstance = setupTridi(containerId, oldOptions);
   tridiInstance.load();
 
@@ -280,4 +286,9 @@ describe('Update', () => {
   test(`should accept 'syncFrame' parameter`, () => {
     expect(() => tridiInstance.update(newOptions, true)).not.toThrow();
   });
+
+  test(`should return false for missing updatable options`, () => {
+    const emptyOptionsObject = {};
+    expect(() => tridiInstance.update(emptyOptionsObject)).not.toThrow();
+  })
 });

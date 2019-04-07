@@ -13,7 +13,7 @@ var Tridi = /** @class */ (function () {
             }
             if (typeof options.images === "undefined" &&
                 typeof options.format === "undefined") {
-                console.error("'format' property is missing or invalid. Image format must be provided for 'numbered' property.");
+                console.error("'format' 2property is missing or invalid. Image format must be provided for 'numbered' property.");
             }
             if (options.images === "numbered" && !options.location) {
                 console.error("'location' property is missing or invalid. Image location must be provided for 'numbered' property.");
@@ -481,5 +481,6 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
-module.exports = Tridi;
+if (typeof module !== 'undefined')
+    module.exports = Tridi;
 //# sourceMappingURL=tridi.js.map
