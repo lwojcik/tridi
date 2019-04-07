@@ -24,6 +24,10 @@ ul, ol {
   padding-left: 1.5rem;
 }
 
+.badges {
+  margin: 22px 0;
+}
+
 #theContainer {
   margin:0 auto;
 }
