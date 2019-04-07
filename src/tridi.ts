@@ -1,6 +1,6 @@
 /*
-  Tridi v0.0.7 - 360 3D Product Viewer
-  Author: Łukasz Wójcik
+  Tridi v0.0.7 - JavaScript 360 3D Product Viewer
+  Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
   GitHub: http://github.com/lukemnet/tridi
@@ -282,7 +282,7 @@ class Tridi {
   }
 
   private destroyStash() {
-    if (this.stash()) this.stash().remove();
+    this.stash().parentNode!.removeChild(this.stash());
   }
 
   private displayHintOnStartup(callback: Function) {
@@ -499,11 +499,9 @@ class Tridi {
   }
 
   private generateButtons() {
-    if (this.buttons) {
-      if (!this.leftBtn() && !this.rightBtn()) {
-        this.generateButton("left");
-        this.generateButton("right");
-      }
+    if (this.buttons && !this.leftBtn() && !this.rightBtn()) {
+      this.generateButton("left");
+      this.generateButton("right");
     }
   }
 
@@ -522,30 +520,41 @@ class Tridi {
     }
   }
 
+  private clearIntervals() {
+    this.intervals.forEach(clearInterval);
+    this.intervals.length = 0;
+  }
+
+  private setAutoplayInterval() {
+    const autoplayInterval = window.setInterval(() => {
+      this.nextMove();
+    }, this.autoplaySpeed);
+    this.intervals.push(autoplayInterval);
+  }
+
+  private clearTimeouts() {
+    this.timeouts.forEach(clearTimeout);
+    this.timeouts.length = 0;
+  }
+
+  private setAutoplayTimeout() {
+    const autoplayTimeout = window.setTimeout(() => {
+      this.setAutoplayInterval();
+    }, this.resumeAutoplayDelay);
+    this.timeouts.push(autoplayTimeout);
+  }
+
   private toggleAutoplay(state: boolean, skipDelay?: boolean) {
-    const speed = this.autoplaySpeed;
+    if (state) {
+      this.clearTimeouts();
 
-    if (!state) {
-      this.intervals.forEach(clearInterval);
-      this.intervals.length = 0;
-    } else {
-      this.timeouts.forEach(clearTimeout);
-      this.timeouts.length = 0;
-
-      if (skipDelay) {
-        const autoplayInterval = window.setInterval(() => {
-          this.nextMove();
-        }, speed);
-        this.intervals.push(autoplayInterval);
-      } else {
-        const autoplayTimeout = window.setTimeout(() => {
-          const autoplayInterval = window.setInterval(() => {
-            this.nextMove();
-          }, speed);
-          this.intervals.push(autoplayInterval);
-        }, this.resumeAutoplayDelay);
-        this.timeouts.push(autoplayTimeout);
+      if (this.intervals.length === 0) {
+        skipDelay
+          ? this.setAutoplayInterval()
+          : this.setAutoplayTimeout();
       }
+    } else {
+      this.clearIntervals();
     }
   }
 
@@ -603,6 +612,22 @@ class Tridi {
         this.setLoadingState(false);
       });
     });
+  }
+
+  next() {
+    this.nextMove();
+  }
+
+  prev() {
+    this.prevMove();
+  }
+
+  autoplayStart() {
+    this.toggleAutoplay(true);
+  }
+
+  autoplayStop() {
+    this.toggleAutoplay(false);
   }
 
   update(options: TridiUpdatableOptions, syncFrame?: boolean) {
