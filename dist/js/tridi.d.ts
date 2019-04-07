@@ -71,7 +71,6 @@ declare class Tridi {
     private timeouts;
     constructor(options: TridiOptions);
     private validate;
-    private updateOption;
     private validateUpdate;
     private updateOptions;
     private getElem;

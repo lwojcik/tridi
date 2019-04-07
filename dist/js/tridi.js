@@ -58,9 +58,6 @@ var Tridi = /** @class */ (function () {
         this.intervals = [];
         this.timeouts = [];
     }
-    Tridi.prototype.updateOption = function (option, value) {
-        this[option] = value;
-    };
     Tridi.prototype.validateUpdate = function (options) {
         if (!options.images &&
             !options.format &&
@@ -74,7 +71,7 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.updateOptions = function (options) {
         var _this = this;
         Object.keys(options).forEach(function (key) {
-            _this.updateOption(key, options[key]);
+            _this[key] = options[key];
         });
     };
     Tridi.prototype.getElem = function (cssClass, child) {

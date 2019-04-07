@@ -1,17 +1,27 @@
 import 'jest-dom/extend-expect';
 const tridi = require('../src/tridi');
 
-const tridiContainer = document.createElement('div');
-tridiContainer.id = 'tridi-test-container';
+console = <any>{
+  error: jest.fn()
+}
+
+const setupTridi = (containerId: string, options: object) => {
+  const tridiContainer = document.createElement('div');
+  tridiContainer.id = containerId;
+  document.body.appendChild(tridiContainer);
+  return new tridi(options);
+}
 
 describe('Tridi class', () => {  
-  document.body.appendChild(tridiContainer);
-  const tridiInstance = new tridi({
-    element: '#tridi-test-container',
-    location: './images/1',
-    format: 'jpg',
-    count: 5
-  });
+  const containerId = 'tridi-test-container-1';
+  const options = {
+      element: `#${containerId}`,
+      location: './images/1',
+      format: 'jpg',
+      count: 5
+  }
+
+  const tridiInstance = setupTridi(containerId, options);
 
   test('should be defined', () => {
     expect(tridi).toBeDefined();
@@ -47,49 +57,78 @@ describe('Tridi class', () => {
 });
 
 describe('Tridi.load()', () => {
-  document.body.appendChild(tridiContainer);
+  const containerId = 'tridi-test-container-2';
   const options = {
-    element: '#tridi-test-container',
+    element: `#${containerId}`,
     location: './images/1',
     format: 'jpg',
     count: 5,
   }
 
-  const tridiInstance = new tridi(options);
-  tridiInstance.load();
+  setupTridi(containerId, options).load();
 
   test('Viewer is generated', () => {
-    const viewer = document.querySelector('#tridi-test-container.tridi-viewer');
+    const viewer = document.querySelector(`#${containerId}.tridi-viewer`);
     expect(viewer).toBeInTheDocument();
   });
 
   test('Viewer image is generated', () => {
-    const viewer = document.querySelector('#tridi-test-container .tridi-viewer-image');
+    const viewer = document.querySelector(`#${containerId} .tridi-viewer-image`);
     expect(viewer).toBeInTheDocument();
   });
 
   test('Loading screen is generated', () => {
-    const loadingScreen = document.querySelector('#tridi-test-container .tridi-loading');
-    const spinner = document.querySelector('#tridi-test-container .tridi-spinner');
+    const loadingScreen = document.querySelector(`#${containerId} .tridi-loading`);
+    const spinner = document.querySelector(`#${containerId} .tridi-spinner`);
     
     expect(loadingScreen).toBeInTheDocument();
     expect(spinner).toBeInTheDocument();
   });
 
   test('Loading screen is not visible', () => {
-    const loadingScreen = <HTMLDivElement>document.querySelector('#tridi-test-container .tridi-loading');
+    const loadingScreen = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-loading`);
     expect(loadingScreen.style.display).toEqual('none');
   });
 
   test('Stash is generated', () => {
-    const stash = <HTMLDivElement>document.querySelector('#tridi-test-container .tridi-stash');
+    const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
     expect(stash).toBeInTheDocument();
   });
 
 
   test('Stash is populated', () => {
-    const stash = <HTMLDivElement>document.querySelector('#tridi-test-container .tridi-stash');
+    const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
     const stashedImages = stash.querySelectorAll('.tridi-image').length; 
     expect(stashedImages).toEqual(options.count);
+  });
+});
+
+describe('Init options validation', () => {
+  const containerId = 'tridi-test-container-3';
+
+  test(`should throw for missing 'element' property`, () => {
+    const options = {
+      location: './images/1',
+      format: 'jpg',
+      count: 5,
+    }
+  
+    expect(() => setupTridi(containerId, options).load()).toThrow();
+  });
+
+  test(`should throw when 'images' and 'format' properties are missing`, () => {
+    const options = {
+      count: 5
+    };
+
+    expect(() => setupTridi(containerId, options).load()).toThrow();
+  });
+
+  test(`should throw when setting images as 'numbered' and 'location' is missing`, () => {
+    const options = {
+      images: 'numbered'
+    };
+
+    expect(() => setupTridi(containerId, options).load()).toThrow();
   });
 });

@@ -145,10 +145,6 @@ class Tridi {
     }
   };
 
-  private updateOption(option: string, value: any) {
-    this[option] = value;
-  }
-
   private validateUpdate(options: TridiUpdatableOptions) {
     if (
       !options.images &&
@@ -166,7 +162,7 @@ class Tridi {
 
   private updateOptions(options: TridiOptions | TridiUpdatableOptions) {
     Object.keys(options).forEach(key => {
-      this.updateOption(key, options[key]);
+      this[key] = options[key];
     });
   }
 
