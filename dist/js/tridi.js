@@ -164,8 +164,7 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.destroyStash = function () {
-        if (this.stash())
-            this.stash().remove();
+        this.stash().parentNode.removeChild(this.stash());
     };
     Tridi.prototype.displayHintOnStartup = function (callback) {
         var _this = this;

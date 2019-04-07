@@ -282,7 +282,7 @@ class Tridi {
   }
 
   private destroyStash() {
-    if (this.stash()) this.stash().remove();
+    this.stash().parentNode!.removeChild(this.stash());
   }
 
   private displayHintOnStartup(callback: Function) {
