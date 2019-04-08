@@ -15,29 +15,39 @@
             <h1><a href="../">Tridi</a> &mdash; Autoplay</h1>
             <div id="tridi-autoplay"></div>
             <div>
-              <p>Tridi container can be set up to start cycling through image array immediately after launch. It can also respond </p>
+              <p>Tridi container can be set up to start cycling through image array immediately after startup. It can also respond to user interactions (mouse and touch events).</p>
+              <p>To enable autoplay, use <code>autoplay: true</code>.</p>
+              <p>Other relevant options:</p>
+              <ul>
+                <li><code>autoplaySpeed</code> (ms) - number of miliseconds between each image rotation cycle.</li>
+                <li><code>stopAutoplayOnClick</code> (boolean) - if <code>true</code>, Tridi will stop autoplay when user clicks or taps viewer image</li>
+                <li><code>stopAutoplayOnMouseenter</code> (boolean) - if <code>true</code>, Tridi will stop autoplay when user hovers viewer image</li>
+                <li><code>resumeAutoplayOnMouseleave</code> (boolean) - if <code>true</code>, Tridi will resume autoplay when user hovers away from viewer image</li>
+                <li><code>resumeAutoplayDelay</code> (ms) - if <code>true</code>, Tridi will wait <code>n</code> miliseconds before resuming autoplay.</li>
+              </ul>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-array"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-autoplay"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>var imgArray = new Array(36)
-  .join()
-  .split(',')
-  .map(function(item, index) {
-    return '../images/white/' + ++index + '.jpg';
-  });
-
-new Tridi({
-  element: '#tridi-array',
-  images: imgArray
+            <pre><code>new Tridi({
+  element: '#tridi-autoplay',
+  location: '../images/white',
+  format: 'jpg',
+  count: 36,
+  autoplay: true,
+  autoplaySpeed: 40,
+  stopAutoplayOnClick: true,
+  stopAutoplayOnMouseenter: true,
+  resumeAutoplayOnMouseleave: true,
+  resumeAutoplayDelay: 1000
 }).load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
 
         </div>
       </div>
     </div>
-    <script src="../js/tridi.js"></script>
+    <script src="../js/tridi.min.js"></script>
     <script>
       new Tridi({
         element: '#tridi-autoplay',
@@ -45,7 +55,6 @@ new Tridi({
         format: 'jpg',
         count: 36,
         autoplay: true,
-        touch: false,
         autoplaySpeed: 40,
         stopAutoplayOnClick: true,
         stopAutoplayOnMouseenter: true,
