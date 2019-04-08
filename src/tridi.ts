@@ -532,6 +532,11 @@ class Tridi {
         this.viewerImage().addEventListener("mousedown", () => {
           this.toggleAutoplay(false);
         });
+
+        this.viewerImage().addEventListener("touchstart", () => {
+          this.clearTimeouts();
+          this.toggleAutoplay(false);
+        }, { passive: this.passive });
       }
 
       if (this.stopAutoplayOnMouseenter) {
@@ -544,6 +549,12 @@ class Tridi {
         const viewerImage = this.viewerImage();
 
         viewerImage.addEventListener("mouseleave", e => {
+          if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
+            this.toggleAutoplay(true);
+          }
+        });
+
+        viewerImage.addEventListener("touchend", e => {
           if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
             this.toggleAutoplay(true);
           }
