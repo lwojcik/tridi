@@ -144,6 +144,7 @@ var Tridi = /** @class */ (function () {
         if (!this.stash()) {
             var stash = document.createElement("div");
             stash.classList.add("tridi-stash");
+            stash.style.display = 'none';
             this.viewer().appendChild(stash);
         }
     };

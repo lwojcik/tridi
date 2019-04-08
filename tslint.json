@@ -5,15 +5,12 @@
         "tslint-config-prettier",
         "tslint-plugin-prettier"
     ],
-    "jsRules": {},
     "rules": {
         "no-var-keyword": true,
         "no-parameter-reassignment": true,
-        "typedef": false,
-        "no-unnecessary-class": true,
-        "no-this": false,
+        "typedef": true,
+        "no-unnecessary-class": false,
         "no-mixed-interface": false,
-        "no-expression-statement": false,
         "no-if-statement": false,
         "no-class": false,
         "import-name": false,

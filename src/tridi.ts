@@ -255,6 +255,7 @@ class Tridi {
     if (!this.stash()) {
       const stash = document.createElement("div");
       stash.classList.add("tridi-stash");
+      stash.style.display = 'none';
       this.viewer().appendChild(stash);
     }
   }
