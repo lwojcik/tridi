@@ -12,7 +12,7 @@
     "test": "jest",
     "clearTestCache": "jest --clearCache",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -c tslint.json --project tsconfig.json src/*.ts",
     "build": "npm run clean && tsc && tsc -p tsconfig.build.json && npm run minify"
   },
   "repository": {
