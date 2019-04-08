@@ -524,25 +524,22 @@ class Tridi {
     }
   }
 
+  private stopAutoplaySequence() {
+    this.clearTimeouts();
+    this.toggleAutoplay(false);
+  }
+
   private startAutoplay() {
     if (this.autoplay) {
       this.toggleAutoplay(true, true);
 
       if (this.stopAutoplayOnClick) {
-        this.viewerImage().addEventListener("mousedown", () => {
-          this.toggleAutoplay(false);
-        });
-
-        this.viewerImage().addEventListener("touchstart", () => {
-          this.clearTimeouts();
-          this.toggleAutoplay(false);
-        }, { passive: this.passive });
+        this.viewerImage().addEventListener("mousedown", this.stopAutoplaySequence.bind(this));
+        if (this.touch) this.viewerImage().addEventListener("touchstart", this.stopAutoplaySequence.bind(this), { passive: this.passive });
       }
 
       if (this.stopAutoplayOnMouseenter) {
-        this.viewerImage().addEventListener("mouseenter", () => {
-          this.toggleAutoplay(false);
-        });
+        this.viewerImage().addEventListener("mouseenter", this.stopAutoplaySequence.bind(this));
       }
 
       if (this.resumeAutoplayOnMouseleave) {
@@ -554,11 +551,13 @@ class Tridi {
           }
         });
 
-        viewerImage.addEventListener("touchend", e => {
-          if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
-            this.toggleAutoplay(true);
-          }
-        });
+        if (this.touch) {
+          viewerImage.addEventListener("touchend", e => {
+            if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
+              this.toggleAutoplay(true);
+            }
+          });
+        }
       }
     }
   }

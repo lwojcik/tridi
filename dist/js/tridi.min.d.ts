@@ -110,6 +110,7 @@ declare class Tridi {
     private clearTimeouts;
     private setAutoplayTimeout;
     private toggleAutoplay;
+    private stopAutoplaySequence;
     private startAutoplay;
     private attachEvents;
     private start;

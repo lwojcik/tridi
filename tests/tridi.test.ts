@@ -243,18 +243,6 @@ describe('Init options validation', () => {
     const options = {
       ...commonValidOptions,
       autoplay: true,
-      stopAutoplayOnClick: true,
-      stopAutoplayOnMouseenter: true,
-      resumeAutoPlayOnMouseleave: true,
-    };
-
-    expect(() => setupTridi(containerId, options).load()).not.toThrow();
-  });
-
-  test(`should accept 'autoplay' option`, () => {
-    const options = {
-      ...commonValidOptions,
-      autoplay: true,
     };
 
     expect(() => setupTridi(containerId, options).load()).not.toThrow();
@@ -460,6 +448,29 @@ describe('Event listeners', () => {
     expect(() => viewerImage.dispatchEvent(new MouseEvent('mouseenter'))).not.toThrow();
   });
 
+  test(`should listen for 'touchstart' events with 'stopAutoplayOnMouseenter' option set to true`, () => {
+    setupTridi(containerId, {
+      ...options,
+      autoplay: true,
+      stopAutoplayOnMouseenter: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
+  });
+
+  test(`should do nothing with 'touchstart' events with 'stopAutoplayOnClick' set to true and 'touch' set to false`, () => {
+    setupTridi(containerId, {
+      ...options,
+      autoplay: true,
+      touch: false,
+      stopAutoplayOnClick: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
+  });
+
   test(`should listen for 'mousedown' events with 'stopAutoplayOnClick' option set to true`, () => {
     setupTridi(containerId, {
       ...options,
@@ -480,6 +491,17 @@ describe('Event listeners', () => {
 
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
     expect(() => viewerImage.dispatchEvent(new MouseEvent('mouseleave'))).not.toThrow();
+  });
+
+  test(`should listen for 'touchend' events with 'resumeAutoplayOnMouseleave' option set to true`, () => {
+    setupTridi(containerId, {
+      ...options,
+      autoplay: true,
+      resumeAutoplayOnMouseleave: true,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new TouchEvent('touchend'))).not.toThrow();
   });
 
   test(`should handle mouse drag events correctly`, () => {

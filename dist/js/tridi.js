@@ -375,23 +375,21 @@ var Tridi = /** @class */ (function () {
             this.clearIntervals();
         }
     };
+    Tridi.prototype.stopAutoplaySequence = function () {
+        this.clearTimeouts();
+        this.toggleAutoplay(false);
+    };
     Tridi.prototype.startAutoplay = function () {
         var _this = this;
         if (this.autoplay) {
             this.toggleAutoplay(true, true);
             if (this.stopAutoplayOnClick) {
-                this.viewerImage().addEventListener("mousedown", function () {
-                    _this.toggleAutoplay(false);
-                });
-                this.viewerImage().addEventListener("touchstart", function () {
-                    _this.clearTimeouts();
-                    _this.toggleAutoplay(false);
-                }, { passive: this.passive });
+                this.viewerImage().addEventListener("mousedown", this.stopAutoplaySequence.bind(this));
+                if (this.touch)
+                    this.viewerImage().addEventListener("touchstart", this.stopAutoplaySequence.bind(this), { passive: this.passive });
             }
             if (this.stopAutoplayOnMouseenter) {
-                this.viewerImage().addEventListener("mouseenter", function () {
-                    _this.toggleAutoplay(false);
-                });
+                this.viewerImage().addEventListener("mouseenter", this.stopAutoplaySequence.bind(this));
             }
             if (this.resumeAutoplayOnMouseleave) {
                 var viewerImage = this.viewerImage();
@@ -400,11 +398,13 @@ var Tridi = /** @class */ (function () {
                         _this.toggleAutoplay(true);
                     }
                 });
-                viewerImage.addEventListener("touchend", function (e) {
-                    if (!e.target.classList.contains("tridi-btn")) {
-                        _this.toggleAutoplay(true);
-                    }
-                });
+                if (this.touch) {
+                    viewerImage.addEventListener("touchend", function (e) {
+                        if (!e.target.classList.contains("tridi-btn")) {
+                            _this.toggleAutoplay(true);
+                        }
+                    });
+                }
             }
         }
     };
