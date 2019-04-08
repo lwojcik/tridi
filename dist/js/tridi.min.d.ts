@@ -62,6 +62,7 @@ declare class Tridi {
     mousewheel?: boolean;
     wheelInverse?: boolean;
     inverse?: boolean;
+    private stashedImgs;
     private imageIndex;
     private moveBuffer;
     private dragActive;
@@ -87,6 +88,7 @@ declare class Tridi {
     private generateStash;
     private destroyStash;
     private displayHintOnStartup;
+    private stashImage;
     private populateStash;
     private generateViewerImage;
     private updateViewerImage;

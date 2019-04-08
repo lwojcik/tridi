@@ -72,6 +72,7 @@ class Tridi {
   mousewheel?: boolean;
   wheelInverse?: boolean;
   inverse?: boolean;
+  private stashedImgs: number;
   private imageIndex: number;
   private moveBuffer: number[];
   private dragActive: boolean;
@@ -117,6 +118,8 @@ class Tridi {
     this.dragActive = false;
     this.intervals = [];
     this.timeouts = [];
+    this.stashedImgs = 0;
+    this.stashReady = false;
   }
 
   private validate = (options: TridiOptions) => {
@@ -253,6 +256,8 @@ class Tridi {
 
   private generateStash() {
     if (!this.stash()) {
+      this.stashedImgs = 0;
+
       const stash = document.createElement("div");
       stash.classList.add("tridi-stash");
       stash.style.display = 'none';
@@ -261,6 +266,8 @@ class Tridi {
   }
 
   private destroyStash() {
+    this.stashReady = false;
+    this.stashedImgs = 0;
     this.stash().parentNode!.removeChild(this.stash());
   }
 
@@ -306,13 +313,24 @@ class Tridi {
     }
   }
 
+  private stashImage(stash: HTMLElement, imageSrc: string, index: number, callback: Function) {
+    const img = new Image();
+    img.src = imageSrc;
+    img.className += `tridi-image tridi-image-${index + 1}`;
+    stash.innerHTML += img.outerHTML;
+    img.onload = callback.bind(this);
+  }
+
   private populateStash() {
     const stash = this.stash();
     const images = this.imgs();
 
     if (stash && images) {
       images.forEach((image, index) => {
-        stash.innerHTML += `<img src="${image}" class="tridi-image tridi-image-${index + 1}" alt="" />`;
+        this.stashImage(stash, image, index, () => {
+          this.stashedImgs += 1;
+          if (this.stashedImgs === images.length) this.setLoadingState(false);
+        });
       });
     }
   }
@@ -552,6 +570,7 @@ class Tridi {
         this.setLoadingState(true);
         this.generateStash();
         this.populateStash();
+        this.setLoadingState(true);
         this.attachEvents();
         this.startAutoplay();
         this.setLoadingState(false);
@@ -582,6 +601,7 @@ class Tridi {
       this.destroyStash();
       this.generateStash();
       this.populateStash();
+      this.setLoadingState(true);
       this.updateViewerImage(syncFrame ? this.imageIndex : 1);
       this.attachEvents();
       this.setLoadingState(false);

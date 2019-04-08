@@ -56,6 +56,8 @@ var Tridi = /** @class */ (function () {
         this.dragActive = false;
         this.intervals = [];
         this.timeouts = [];
+        this.stashedImgs = 0;
+        this.stashReady = false;
     }
     Tridi.prototype.validateUpdate = function (options) {
         if (!options.images &&
@@ -142,6 +144,7 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.generateStash = function () {
         if (!this.stash()) {
+            this.stashedImgs = 0;
             var stash = document.createElement("div");
             stash.classList.add("tridi-stash");
             stash.style.display = 'none';
@@ -149,6 +152,8 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.destroyStash = function () {
+        this.stashReady = false;
+        this.stashedImgs = 0;
         this.stash().parentNode.removeChild(this.stash());
     };
     Tridi.prototype.displayHintOnStartup = function (callback) {
@@ -188,12 +193,24 @@ var Tridi = /** @class */ (function () {
             callback();
         }
     };
+    Tridi.prototype.stashImage = function (stash, imageSrc, index, callback) {
+        var img = new Image();
+        img.src = imageSrc;
+        img.className += "tridi-image tridi-image-" + (index + 1);
+        stash.innerHTML += img.outerHTML;
+        img.onload = callback.bind(this);
+    };
     Tridi.prototype.populateStash = function () {
+        var _this = this;
         var stash = this.stash();
         var images = this.imgs();
         if (stash && images) {
             images.forEach(function (image, index) {
-                stash.innerHTML += "<img src=\"" + image + "\" class=\"tridi-image tridi-image-" + (index + 1) + "\" alt=\"\" />";
+                _this.stashImage(stash, image, index, function () {
+                    _this.stashedImgs += 1;
+                    if (_this.stashedImgs === images.length)
+                        _this.setLoadingState(false);
+                });
             });
         }
     };
@@ -400,6 +417,7 @@ var Tridi = /** @class */ (function () {
                 _this.setLoadingState(true);
                 _this.generateStash();
                 _this.populateStash();
+                _this.setLoadingState(true);
                 _this.attachEvents();
                 _this.startAutoplay();
                 _this.setLoadingState(false);
@@ -425,6 +443,7 @@ var Tridi = /** @class */ (function () {
             this.destroyStash();
             this.generateStash();
             this.populateStash();
+            this.setLoadingState(true);
             this.updateViewerImage(syncFrame ? this.imageIndex : 1);
             this.attachEvents();
             this.setLoadingState(false);
