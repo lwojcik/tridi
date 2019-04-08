@@ -112,6 +112,10 @@ describe('Tridi.load()', () => {
     expect(stash).toBeInTheDocument();
   });
 
+  test('Stash is not visible', () => {
+    const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
+    expect(stash.style.display).toBe('none');
+  });
 
   test('Stash is populated', () => {
     const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
