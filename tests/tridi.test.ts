@@ -80,6 +80,7 @@ describe('Tridi.load()', () => {
     location: './images/1',
     format: 'jpg',
     count: 5,
+    lazy: false,
   };
 
   setupTridi(containerId, options).load();
@@ -121,6 +122,15 @@ describe('Tridi.load()', () => {
     const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
     const stashedImages = stash.querySelectorAll('.tridi-image').length; 
     expect(stashedImages).toEqual(options.count);
+  });
+
+  test('Loading state is set to false after stash is populated', () => {
+    // const stash = <HTMLDivElement>document.querySelector(`#${containerId} .tridi-stash`);
+    // const stashedImages = stash.querySelectorAll('.tridi-image').length; 
+    const loadingScreen = <HTMLElement>document.querySelector(`#${containerId} .tridi-loading`);
+    
+
+    expect(loadingScreen.style.display).toEqual('none');
   });
 });
 
