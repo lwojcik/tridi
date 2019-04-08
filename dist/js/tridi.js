@@ -206,6 +206,7 @@ var Tridi = /** @class */ (function () {
         var images = this.imgs();
         if (stash && images) {
             images.forEach(function (image, index) {
+                /* istanbul ignore next */
                 _this.stashImage(stash, image, index, function () {
                     _this.stashedImgs += 1;
                     if (_this.stashedImgs === images.length)

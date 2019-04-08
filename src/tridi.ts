@@ -327,6 +327,7 @@ class Tridi {
 
     if (stash && images) {
       images.forEach((image, index) => {
+        /* istanbul ignore next */
         this.stashImage(stash, image, index, () => {
           this.stashedImgs += 1;
           if (this.stashedImgs === images.length) this.setLoadingState(false);
