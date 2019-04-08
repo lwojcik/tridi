@@ -1,5 +1,5 @@
 /*
-  Tridi v0.0.9 - JavaScript 360 3D Product Viewer
+  Tridi v0.0.10 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
