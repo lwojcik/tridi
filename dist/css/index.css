@@ -148,3 +148,7 @@ ul li {
     animation: octocat-wave 560ms ease-in-out
   }
 }
+
+#tridi-spinner .tridi-loading {
+  display: block !important;
+}

@@ -116,7 +116,6 @@ class Tridi {
     this.intervals = [];
     this.timeouts = [];
     this.stashedImgs = 0;
-    this.stashReady = false;
   }
 
   private validate = (options: TridiOptions) => {
@@ -236,12 +235,13 @@ class Tridi {
   }
 
   private generateLoadingScreen() {
+    const element = this.element.substr(1);
     const loadingScreen = document.createElement("div");
-    loadingScreen.className = "tridi-loading";
+    loadingScreen.className += `tridi-loading tridi-${element}-loading`;
     loadingScreen.style.display = "none";
 
     const loadingSpinner = document.createElement("div");
-    loadingSpinner.className = "tridi-spinner";
+    loadingSpinner.className += `tridi-spinner tridi-${element}-spinner`;
     loadingScreen.appendChild(loadingSpinner);
 
     this.viewer().appendChild(loadingScreen);
@@ -263,7 +263,6 @@ class Tridi {
   }
 
   private destroyStash() {
-    this.stashReady = false;
     this.stashedImgs = 0;
     this.stash().parentNode!.removeChild(this.stash());
   }

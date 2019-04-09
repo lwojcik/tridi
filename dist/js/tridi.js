@@ -56,7 +56,6 @@ var Tridi = /** @class */ (function () {
         this.intervals = [];
         this.timeouts = [];
         this.stashedImgs = 0;
-        this.stashReady = false;
     }
     Tridi.prototype.validateUpdate = function (options) {
         if (!options.images &&
@@ -130,11 +129,12 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.generateLoadingScreen = function () {
+        var element = this.element.substr(1);
         var loadingScreen = document.createElement("div");
-        loadingScreen.className = "tridi-loading";
+        loadingScreen.className += "tridi-loading tridi-" + element + "-loading";
         loadingScreen.style.display = "none";
         var loadingSpinner = document.createElement("div");
-        loadingSpinner.className = "tridi-spinner";
+        loadingSpinner.className += "tridi-spinner tridi-" + element + "-spinner";
         loadingScreen.appendChild(loadingSpinner);
         this.viewer().appendChild(loadingScreen);
     };
@@ -151,7 +151,6 @@ var Tridi = /** @class */ (function () {
         }
     };
     Tridi.prototype.destroyStash = function () {
-        this.stashReady = false;
         this.stashedImgs = 0;
         this.stash().parentNode.removeChild(this.stash());
     };
