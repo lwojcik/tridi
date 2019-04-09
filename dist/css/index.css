@@ -12,6 +12,11 @@ h1 {
   overflow: auto;
 }
 
+h2 a {
+  color: #000;
+  text-decoration: none;
+}
+
 a {
   color: #0366d6;
 }
@@ -151,4 +156,47 @@ ul li {
 
 #tridi-spinner .tridi-loading {
   display: block !important;
+}
+
+/* Table */
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-spacing: 0;
+}
+
+.table tr {
+  border-top: 1px solid #dee2e6;
+}
+
+.table tr:hover {
+  background: #ededed;
+}
+
+.table th {
+  font-size: 100%;
+  background: #ededed;
+}
+
+.table td {
+  font-size: 80%;
+}
+
+.table th,
+.table td {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.table thead th {
+  vertical-align: bottom;
+}
+
+.table code {
+  background: none;
+  padding:0;
 }

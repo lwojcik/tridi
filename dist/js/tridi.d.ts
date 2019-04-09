@@ -17,7 +17,6 @@ interface TridiOptions {
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
     resumeAutoplayDelay?: number;
-    scroll?: boolean;
     passive?: boolean;
     spinner?: boolean;
     mousewheel?: boolean;
@@ -52,7 +51,6 @@ declare class Tridi {
     stopAutoplayOnMouseenter?: boolean;
     resumeAutoplayOnMouseleave?: boolean;
     resumeAutoplayDelay: number;
-    scroll?: boolean;
     spinner?: boolean;
     dragInterval?: number;
     touchDragInterval?: number;

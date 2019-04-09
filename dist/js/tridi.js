@@ -38,7 +38,6 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayOnMouseleave =
             options.resumeAutoplayOnMouseleave || false;
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
-        this.scroll = options.scroll || false;
         this.passive = typeof options.passive !== "undefined" ? options.passive : true;
         this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== "undefined" ? options.touch : true;
@@ -46,10 +45,7 @@ var Tridi = /** @class */ (function () {
         this.inverse = options.inverse || false;
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 2;
-        this.mouseleaveDetect =
-            typeof options.mouseleaveDetect !== "undefined"
-                ? options.mouseleaveDetect
-                : false;
+        this.mouseleaveDetect = options.mouseleaveDetect || false;
         this.imageIndex = 1;
         this.moveBuffer = [];
         this.dragActive = false;
