@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Autoplay</title>
+    <title>Tridi &mdash; Touch support</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/tridi.css">
@@ -12,54 +12,40 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Autoplay</h1>
-            <div id="tridi-autoplay"></div>
+            <h1><a href="../">Tridi</a> &mdash; Touch support</h1>
+            <div id="tridi-touch"></div>
             <div>
-              <p>Tridi container can be set up to start cycling through image array immediately after startup. It can also respond to mouse and touch events.</p>
-              <p>To enable autoplay, use <code>autoplay: true</code>.</p>
-              <p>Other relevant options:</p>
+              <p>Tridi supports touch events out of the box with no configuration required. Touch support can be disabled by setting <code>touch</code> option to <code>false</code>.</p>
+              <p>Rotation speed for touch events can be adjusted by passing an integer to <code>touchDragInterval</code> option. Setting <code>touchDragInterval</code> does not affect <code>dragInterval</code> option which affects mouse events only. It is therefore possible to fine-tune rotation speeds for desktop and mobile users independently.</p>
+              <h2>Options</h2>
               <ul>
-                <li><code>autoplaySpeed</code> (ms) - number of miliseconds between each image rotation cycle.</li>
-                <li><code>stopAutoplayOnClick</code> (boolean) - if <code>true</code>, Tridi will stop autoplay when user clicks or taps viewer image</li>
-                <li><code>stopAutoplayOnMouseenter</code> (boolean) - if <code>true</code>, Tridi will stop autoplay when user hovers viewer image</li>
-                <li><code>resumeAutoplayOnMouseleave</code> (boolean) - if <code>true</code>, Tridi will resume autoplay when user hovers away from viewer image</li>
-                <li><code>resumeAutoplayDelay</code> (ms) - if <code>true</code>, Tridi will wait <code>n</code> miliseconds before resuming autoplay.</li>
+                <li><code>touch</code> (boolean) - enables / disables touch events. Optional, defaults to <code>true</code></li>
+                <li><code>touchDragInterval</code> (number) - adjusts rotation speed. Higher number means more touchmove is required for a single rotation cycle. Optional, defaults to <code>2</code></li>
               </ul>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-autoplay"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-touch"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
             <pre><code>new Tridi({
-  element: '#tridi-autoplay',
-  location: '../images/white',
+  element: '#tridi-touch',
+  location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
-  autoplay: true,
-  autoplaySpeed: 40,
-  stopAutoplayOnClick: true,
-  stopAutoplayOnMouseenter: true,
-  resumeAutoplayOnMouseleave: true,
-  resumeAutoplayDelay: 1000
+  touchDragInterval: 1
 }).load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
-
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
       new Tridi({
-        element: '#tridi-autoplay',
+        element: '#tridi-touch',
         location: '../images/white',
         format: 'jpg',
         count: 36,
-        autoplay: true,
-        autoplaySpeed: 40,
-        stopAutoplayOnClick: true,
-        stopAutoplayOnMouseenter: true,
-        resumeAutoplayOnMouseleave: true,
-        resumeAutoplayDelay: 1000
+        touchDragInterval: 2,
       }).load();
     </script>
 
