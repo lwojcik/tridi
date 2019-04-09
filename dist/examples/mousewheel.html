@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Mouse drag</title>
+    <title>Tridi &mdash; Mousewheel support</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/tridi.css">
@@ -12,27 +12,28 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Mouse drag</h1>
-            <div id="tridi-drag"></div>
+            <h1><a href="../">Tridi</a> &mdash; Mousewheel support</h1>
+            <div id="tridi-mousewheel"></div>
             <div>
-              <p>Tridi supports mouse drag events out of the box. This setting can be disabled by passing <code>false</code> to <code>draggable</code> option. If you want to disable all drag events entirely, remember to set <code>touch</code> to <code>false</code> as well.</p>
-              <p>Rotation speed can be adjusted by passing an integer to <code>dragInterval</code> option. Note that this setting does not affect touch events. For more information on touch see <a href="touch.html">Touch support</a>.</p>
+              <p>Tridi offers an option to rotate images on mousewheel events. To enable this set <code>mousewheel</code> option to <code>true</code>.</p>
+              <p>By default, mousewheel events are triggered with <code>passive</code> option set to <code>true</code>, which <a href="https://developers.google.com/web/tools/lighthouse/audits/passive-event-listeners">minimizes performance impact</a>. You can override this by setting <code>passive</code> option to <code>false</code>.</p>
               <h2>Options</h2>
               <ul>
-                <li><code>draggable</code> (boolean) - enables / disables mouse drag events. Optional, defaults to <code>true</code></li>
-                <li><code>dragInterval</code> (number) - adjusts rotation speed. Higher number means more mouse drag movement is required for a single rotation cycle. Optional, defaults to <code>1</code></li>
+                <li><code>mousewheel</code> (boolean) - enables / disables mousewheel events. Optional, defaults to <code>false</code></li>
+                <li><code>passive</code> (boolean) - if <code>true</code>, Tridi won't call <code>event.preventDefault</code> method on wheel events. Note that this may affect scrolling performance.</li>
               </ul>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-drag"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-mousewheel"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
             <pre><code>new Tridi({
-  element: '#tridi-drag',
+  element: '#tridi-mousewheel',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
-  dragInterval: 1
+  mousewheel: true,
+  passive: false
 }).load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
@@ -41,12 +42,12 @@
     <script src="../js/tridi.min.js"></script>
     <script>
       new Tridi({
-        element: '#tridi-drag',
+        element: '#tridi-mousewheel',
         location: '../images/white',
         format: 'jpg',
         count: 36,
-        draggable: false,
-        dragInterval: 2,
+        mousewheel: true,
+        passive: false
       }).load();
     </script>
 
