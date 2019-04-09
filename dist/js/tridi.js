@@ -168,14 +168,14 @@ var Tridi = /** @class */ (function () {
             var hint = document.createElement("div");
             hint.className += "tridi-hint " + hintClassName_1;
             if (this.hintText) {
-                hint.innerHTML = "<span class=\"tridi-hint-text\">" + this.hintText + "</span>";
+                hint.innerHTML = "<span class=\"tridi-hint-text tridi-" + element + "-hint-text\">" + this.hintText + "</span>";
             }
             hintOverlay.appendChild(hint);
             this.viewer().appendChild(hintOverlay);
             var hintClickHandler_1 = function (e) {
                 var isItHintOverlay = e.target.classList.contains(hintOverlayClassName_1);
-                var isItHintText = e.target.classList.contains(hintClassName_1);
-                if (isItHintOverlay || isItHintText) {
+                var isItHint = e.target.classList.contains(hintClassName_1);
+                if (isItHintOverlay || isItHint) {
                     _this.getHintOverlay().style.display = "none";
                     callback();
                 }

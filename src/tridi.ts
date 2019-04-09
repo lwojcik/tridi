@@ -284,7 +284,7 @@ class Tridi {
       hint.className += `tridi-hint ${hintClassName}`;
 
       if (this.hintText) {
-        hint.innerHTML = `<span class="tridi-hint-text">${this.hintText}</span>`;
+        hint.innerHTML = `<span class="tridi-hint-text tridi-${element}-hint-text">${this.hintText}</span>`;
       }
 
       hintOverlay.appendChild(hint);
@@ -293,9 +293,9 @@ class Tridi {
 
       const hintClickHandler = (e: Event) => {
         const isItHintOverlay = (e.target as HTMLElement).classList.contains(hintOverlayClassName);
-        const isItHintText = (e.target as HTMLElement).classList.contains(hintClassName);
+        const isItHint = (e.target as HTMLElement).classList.contains(hintClassName);
 
-        if (isItHintOverlay || isItHintText) {
+        if (isItHintOverlay || isItHint) {
           this.getHintOverlay().style.display = "none";
           callback();
         }
