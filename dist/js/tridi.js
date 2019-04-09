@@ -43,7 +43,6 @@ var Tridi = /** @class */ (function () {
         this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== "undefined" ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
-        this.wheelInverse = options.wheelInverse || false;
         this.inverse = options.inverse || false;
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 2;

@@ -29,7 +29,6 @@ interface TridiOptions {
   passive?: boolean;
   spinner?: boolean;
   mousewheel?: boolean;
-  wheelInverse?: boolean;
   dragInterval?: number;
   touchDragInterval?: number;
   mouseleaveDetect?: boolean;
@@ -70,7 +69,6 @@ class Tridi {
   mouseleaveDetect?: boolean;
   touch?: boolean;
   mousewheel?: boolean;
-  wheelInverse?: boolean;
   inverse?: boolean;
   private stashedImgs: number;
   private imageIndex: number;
@@ -105,7 +103,6 @@ class Tridi {
     this.spinner = options.spinner || false;
     this.touch = typeof options.touch !== "undefined" ? options.touch : true;
     this.mousewheel = options.mousewheel || false;
-    this.wheelInverse = options.wheelInverse || false;
     this.inverse = options.inverse || false;
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;

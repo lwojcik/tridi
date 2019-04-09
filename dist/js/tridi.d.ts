@@ -21,7 +21,6 @@ interface TridiOptions {
     passive?: boolean;
     spinner?: boolean;
     mousewheel?: boolean;
-    wheelInverse?: boolean;
     dragInterval?: number;
     touchDragInterval?: number;
     mouseleaveDetect?: boolean;
@@ -60,7 +59,6 @@ declare class Tridi {
     mouseleaveDetect?: boolean;
     touch?: boolean;
     mousewheel?: boolean;
-    wheelInverse?: boolean;
     inverse?: boolean;
     private stashedImgs;
     private imageIndex;
