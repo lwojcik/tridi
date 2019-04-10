@@ -1,15 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400');
+body {
+  font-family: 'Lato', sans-serif;
+  line-height: 1.6;
+  color: #222;
+  max-width: 64rem;
+  padding: 2rem;
+  margin: auto;
+  background: #fafafa;
+}
+
 /*
   These are site-specific styles. You do not need them for Tridi to work.
 */
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.5;
 }
 
 h1 {
   overflow: auto;
+}
+
+h2 a {
+  color: #000;
+  text-decoration: none;
 }
 
 a {
@@ -147,4 +162,51 @@ ul li {
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out
   }
+}
+
+#tridi-spinner .tridi-loading {
+  display: block !important;
+}
+
+/* Table */
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-spacing: 0;
+}
+
+.table tr {
+  border-top: 1px solid #dee2e6;
+}
+
+.table tr:hover {
+  background: #ededed;
+}
+
+.table th {
+  font-size: 100%;
+  background: #ededed;
+}
+
+.table td {
+  font-size: 80%;
+}
+
+.table th,
+.table td {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.table thead th {
+  vertical-align: bottom;
+}
+
+.table code {
+  background: none;
+  padding:0;
 }

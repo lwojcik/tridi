@@ -28,11 +28,18 @@
   width: 100%;
   margin: auto;
   animation: fadeIn 0.5s ease forwards;
+  border:2px solid #ededed;
+}
+
+.tridi-viewer-image:focus {
+  border:2px solid #999;
 }
 
 .tridi-stash {
   display: none;
 }
+
+/* Hint */
 
 .tridi-hint-overlay {
   position: absolute;
@@ -105,6 +112,8 @@
 .tridi-hint-overlay:focus .tridi-hint {
   box-shadow: 0 0 16px 1px #333;
 }
+
+/* Loading state */
 
 .tridi-loading {
   position: absolute;
