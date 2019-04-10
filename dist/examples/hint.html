@@ -24,6 +24,7 @@
               <ul>
                 <li><code>hintOnStartup</code> (boolean) - enables / disables visual hint on startup. Optional, defaults to <code>false</code></li>
                 <li><code>hintText</code> (string) - if not empty, Tridi will generate additional <code>&lt;span&gt;</code> with a string passed as a parameter. Optional, defaults to <code>null</code></li>
+                <li><code>focusOnHintClose (boolean)</code> &mdash; when <a href="keyboard.html">keyboard support</a> is enabled and <code>focusOnHintClose</code> set to <code>true</code>, Tridi will set focus on main image once <a href="hint.html">hint on startup</a> is closed</li>
               </ul>
             </div>
             <h2>Code</h2>
@@ -81,7 +82,9 @@
         format: 'jpg',
         count: 36,
         hintOnStartup: true,
-        hintText: '&nbsp;'
+        hintText: '&nbsp;',
+        keys: true,
+        focusOnHintClose: true
       }).load();
     </script>
 

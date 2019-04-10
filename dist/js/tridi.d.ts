@@ -10,7 +10,9 @@ interface TridiOptions {
     hintOnStartup?: boolean;
     lazy?: boolean;
     hintText?: string | null;
+    focusOnHintClose?: boolean;
     draggable?: boolean;
+    keys?: boolean;
     autoplay?: boolean;
     autoplaySpeed?: number;
     stopAutoplayOnClick?: boolean;
@@ -42,8 +44,10 @@ declare class Tridi {
     location?: string;
     count?: number;
     draggable?: boolean;
+    keys?: boolean;
     hintOnStartup?: boolean;
     hintText?: string | null;
+    focusOnHintClose?: boolean;
     lazy?: boolean;
     autoplay?: boolean;
     autoplaySpeed?: number;
@@ -58,6 +62,7 @@ declare class Tridi {
     touch?: boolean;
     mousewheel?: boolean;
     inverse?: boolean;
+    private elementName;
     private stashedImgs;
     private imageIndex;
     private moveBuffer;
@@ -101,6 +106,7 @@ declare class Tridi {
     private attachMouseLeaveDetection;
     private attachTouchEvents;
     private attachMousewheelEvents;
+    private attachKeyEvents;
     private clearIntervals;
     private setAutoplayInterval;
     private clearTimeouts;

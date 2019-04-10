@@ -54,6 +54,7 @@ npm run build</code></pre>
               <li><a href="examples/mousedrag.html">Mouse drag</a></li>
               <li><a href="examples/touch.html">Touch support</a></li>
               <li><a href="examples/mousewheel.html">Mousewheel support</a></li>
+              <li><a href="examples/keyboard.html">Keyboard support</a></li>
               <li><a href="examples/hint.html">Hint on startup</a></li>
               <li><a href="examples/loading.html">Lazy loading</a></li>
               <li><a href="examples/spinner.html">Loading spinner</a></li>
@@ -72,7 +73,7 @@ npm run build</code></pre>
     </div>
     
 
-    <script src="js/tridi.min.js"></script>
+    <script src="js/tridi.js"></script>
     <script>
       new Tridi({
         element: '#theContainer',
@@ -81,8 +82,10 @@ npm run build</code></pre>
         count: 36,
         dragInterval: 2,
         hintOnStartup: true,
+        focusOnHintClose: true,
         lazy: false,
         draggable: true,
+        keys: true,
         scroll: true,
         passive: false,
         spinner: true,
