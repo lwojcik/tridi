@@ -411,6 +411,17 @@ describe('Event listeners', () => {
     expect(() => viewerImage.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }))).not.toThrow();
   });
 
+  test(`should listen for 'keydown' events`, () => {
+    setupTridi(containerId, {
+      ...options,
+      keys: true
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => viewerImage.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }))).not.toThrow();
+    expect(() => viewerImage.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))).not.toThrow();
+  });
+
   test(`should listen for 'wheel' events with 'passive' option set to false`, () => {
     setupTridi(containerId, {
       ...options,
@@ -435,6 +446,16 @@ describe('Event listeners', () => {
     const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
 
     expect(() => viewerImage.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
+  });
+
+  test(`should add 'tridi-viewer-hovered'  class on 'mouseenter' event on viewer`, () => {
+    setupTridi(containerId, {
+      ...options,
+    }).load();
+
+    const viewer = document.querySelector(`#${containerId}`)!;
+    viewer.dispatchEvent(new MouseEvent('mouseenter'));
+    expect(viewer).toHaveClass('tridi-viewer-hovered');
   });
 
   test(`should listen for 'mouseenter' events with 'stopAutoplayOnMouseenter' option set to true`, () => {

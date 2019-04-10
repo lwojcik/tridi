@@ -172,6 +172,7 @@ var Tridi = /** @class */ (function () {
                 if (isItHintOverlay || isItHint) {
                     _this.getHintOverlay().style.display = "none";
                     callback();
+                    /* istanbul ignore next */
                     if (_this.focusOnHintClose)
                         _this.viewerImage().focus();
                 }
