@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Tridi &mdash; JavaScript 360 3D Image Viewer</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-grid.min.css"> -->
     <link rel="stylesheet" href="css/tridi.css">
     <link rel="stylesheet" href="css/index.css">
   </head>
@@ -43,23 +43,24 @@ npm run build</code></pre>
             <h2>Documentation</h2>
             <h3>Notes</h3>
             <ul>
-              <li><a href="notes/api.html">API documentation</a></li>
+              <li><a href="notes/api.html">API options and methods</a></li>
               <li><a href="notes/styling.html">CSS styling</a></li>
             </ul>
             <h3>Examples</h3>
             <ul>
               <li><a href="examples/basic.html">Basic viewer</a></li>
-              <!-- <li><a href="examples/imagearray.html">Image array</a></li> -->
+              <li><a href="examples/array.html">Image array</a></li>
               <li><a href="examples/dynamic.html">Dynamic image replacement</a></li>
-              <!-- <li><a href="examples/mousedrag.html">Mouse drag</a></li>
+              <li><a href="examples/mousedrag.html">Mouse drag</a></li>
               <li><a href="examples/touch.html">Touch support</a></li>
               <li><a href="examples/mousewheel.html">Mousewheel support</a></li>
+              <li><a href="examples/keyboard.html">Keyboard support</a></li>
               <li><a href="examples/hint.html">Hint on startup</a></li>
-              <li><a href="examples/lazy.html">Lazy loading</a></li>
-              <li><a href="examples/autoplay.html">Autoplay</a></li> -->
+              <li><a href="examples/loading.html">Lazy loading</a></li>
+              <li><a href="examples/spinner.html">Loading spinner</a></li>
+              <li><a href="examples/autoplay.html">Autoplay</a></li>
               <li><a href="examples/custom.html">Custom controls</a></li>
             </ul>
-            <p>More coming soon</p>
             <h2>Bugs / contributions</h2>
             <p>See <a href="https://github.com/lukemnet/tridi/issues">list of open issues</a> or <a href="https://github.com/lukemnet/tridi/issues/new">create a new issue / feature request</a></p>
             <p>To contribute, <a href="https://github.com/lukemnet/tridi">fork a repository</a> and submit a pull request.</p>
@@ -72,17 +73,19 @@ npm run build</code></pre>
     </div>
     
 
-    <script src="js/tridi.min.js"></script>
+    <script src="js/tridi.js"></script>
     <script>
       new Tridi({
         element: '#theContainer',
         location: './images/white',
         format: 'jpg',
         count: 36,
-        dragInterval: 2,
+        dragInterval: 1,
         hintOnStartup: true,
+        focusOnHintClose: true,
         lazy: false,
         draggable: true,
+        keys: true,
         scroll: true,
         passive: false,
         spinner: true,

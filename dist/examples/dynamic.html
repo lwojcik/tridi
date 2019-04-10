@@ -37,9 +37,9 @@
             <h2>Code</h2>
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-dynamic"&gt;&lt;/div&gt;
-&lt;div class="color-switch color-switch--white" title="Switch to white" tabindex="0"&gt;&lt;/div&gt;
-&lt;div class="color-switch color-switch--black" title="Switch to black" tabindex="0"&gt;&lt;/div&gt;
-&lt;div class="color-switch color-switch--red" title="Switch to red" tabindex="0"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--white" title="Switch to white"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--black" title="Switch to black"&gt;&lt;/div&gt;
+&lt;div class="color-switch color-switch--red" title="Switch to red"&gt;&lt;/div&gt;
             </code></pre>
             <h3>JavaScript</h3>
             <pre><code>var tridi = new Tridi({
@@ -90,11 +90,11 @@ switchToBlackBtn.addEventListener('touchstart', function() {
 switchToRedBtn.addEventListener('touchstart', function() {
   switchColor('red');
 });</code></pre>
+          <p><a href="../">&laquo; Back to main page</a></p>
         </div>
       </div>
-      <p><a href="../">&laquo; Back to main page</a></p>
     </div>
-    <script src="../js/tridi.js"></script>
+    <script src="../js/tridi.min.js"></script>
     <script>
       var tridi = new Tridi({
         element: '#tridi-dynamic',

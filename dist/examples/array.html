@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Basic usage</title>
+    <title>Tridi &mdash; Image array</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/tridi.css">
@@ -12,34 +12,38 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Basic usage</h1>
-            <div id="tridi-basic"></div>
+            <h1><a href="../">Tridi</a> &mdash; Image array</h1>
+            <div id="tridi-array"></div>
             <div>
-              <p>Basic Tridi viewer with minimum configuration. Supports mouse dragging and touch events. Loads all images immediately.</p>
-              <p>In this configuration Tridi assumes images are named by non-padded numbers from 1 to n (e.g. <code>1.png</code>, <code>2.png</code> etc.) and located in <code>imageLocation</code>. You can work around this by passing <a href="array.html">custom array as image source</a>.</p>
+              <p>Tridi offers an option to use custom arrays of image paths while initializing the container. To use this option, pass your image array to <code>images</code> property.</p>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-basic"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-array"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
-  element: '#tridi-basic',
-  location: './path/to/image/folder',
-  format: 'jpg',
-  count: 36,
+            <pre><code>var imgArray = new Array(36)
+  .join()
+  .split(',')
+  .map(function(item, index) {
+    return '../images/white/' + ++index + '.jpg';
+  });
+
+new Tridi({
+  element: '#tridi-array',
+  images: imgArray
 }).load();</code></pre>
-          <p>See <a href="../notes/api.html">API documentation</a> for all available options or <a href="../notes/styling.html">CSS styling</a> for a minimum viable stylesheet.</p>
           <p><a href="../">&laquo; Back to main page</a></p>
+
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
+      var imgArray = new Array(36).join().split(',').map(function(item, index){ return '../images/white/' + ++index + '.jpg';});
+
       new Tridi({
-        element: '#tridi-basic',
-        location: '../images/white',
-        format: 'jpg',
-        count: 36,
+        element: '#tridi-array',
+        images: imgArray
       }).load();
     </script>
 
