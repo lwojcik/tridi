@@ -42,6 +42,10 @@ See [Basic viewer](https://tridi.lukem.net/examples/basic.html) for a minimal vi
 
 See [tridi.lukem.net](https://tridi.lukem.net/) for complete documentation and examples.
 
+## Acknowledgements
+
+Tridi was loosely inspired by [3D-Product-Viewer-JavaScript-Plugin](https://github.com/Jeya-Prakash/3D-Product-Viewer-JavaScript-Plugin) by [Jeya Prakash](https://github.com/Jeya-Prakash).
+
 ## License
 
 Licensed under MIT License. See [LICENSE](https://github.com/lukemnet/tridi/blob/master/LICENSE) for more information.
