@@ -10,6 +10,8 @@ Tridi is a flexible JavaScript library for 360-degree 3D product visualizations 
 
 Works on mobile and desktop browsers (including IE 10 and IE 11).
 
+![Tridi in action (GIF)](https://raw.githubusercontent.com/lukemnet/tridi/master/dist/images/example.gif)
+
 ## Install
 
 ```
