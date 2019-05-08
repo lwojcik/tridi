@@ -15,7 +15,19 @@
             <div id="tridi-basic"></div>
             <div>
               <p>Basic Tridi viewer with minimum configuration. Supports mouse dragging and touch events. Loads all images immediately.</p>
-              <p>In this configuration Tridi assumes images are named by non-padded numbers from 1 to n (e.g. <code>1.png</code>, <code>2.png</code> etc.) and located in <code>imageLocation</code>. You can work around this by passing <a href="array.html">custom array as image source</a>.</p>
+              <h3>Required parameters:</h3>
+              <ul>
+                <li><code>element</code> - element for Tridi to use as a base container. Can be one of the following:
+                  <ul>
+                    <li>id or class of the element as a string (<code>#tridi-basic</code>, <code>.tridi-basic</code> etc.)</li>
+                    <li>DOM element (e.g. <code>document.querySelector('.tridi-container')</code>)</li>
+                  </ul>
+                </li>
+                <li><code>location</code> - path to images folder as a string without a trailing slash (e.g. <code>'./images</code>)</li>
+                <li><code>format</code> - file resolution (e.g. <code>'jpg'</code>)</li>
+                <li><code>count</code> - number of images to use</li>
+              </ul>
+              <p>In this configuration Tridi assumes images are named by non-padded numbers from 1 to n (e.g. <code>1.png</code>, <code>2.png</code> etc.) and located in the folder specified as <code>location</code> property. You can also pass <a href="array.html">custom array as image source</a>.</p>
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
