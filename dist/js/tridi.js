@@ -70,6 +70,8 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         Object.keys(options).forEach(function (key) {
             _this[key] = options[key];
+            if (options[key].constructor === Array)
+                _this.count = options[key].length;
         });
     };
     Tridi.prototype.getElem = function (cssClass, child) {
