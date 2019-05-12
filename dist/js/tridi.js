@@ -1,5 +1,5 @@
 /*
-  Tridi v1.0.0 - JavaScript 360 3D Product Viewer
+  Tridi v1.0.1 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -78,6 +78,8 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         Object.keys(options).forEach(function (key) {
             _this[key] = options[key];
+            if (options[key].constructor === Array)
+                _this.count = options[key].length;
         });
     };
     Tridi.prototype.getElem = function (cssClass, child) {

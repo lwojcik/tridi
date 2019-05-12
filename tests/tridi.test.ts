@@ -387,7 +387,15 @@ describe('Update', () => {
   test(`should return false for missing updatable options`, () => {
     const emptyOptionsObject = {};
     expect(() => tridiInstance.update(emptyOptionsObject)).not.toThrow();
-  })
+  });
+
+  test('should update image count if image array is passed as image source', () => {
+    const newImageArray = [ './images/1.jpg', './images/2.jpg', './images/3.jpg' ];
+    const newOptions = {
+      images: newImageArray,
+    }
+    expect(() => tridiInstance.update(newOptions)).not.toThrow();
+  });
 });
 
 describe('Event listeners', () => {
