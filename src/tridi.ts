@@ -36,13 +36,12 @@ interface TridiOptions {
   touch?: boolean;
   inverse?: boolean;
   playable?: boolean;
-  // onViewerGenerated
   // onViewerImageGenerated
   // onHintOnStartup
   // onLoadingScreen
   // onImagesPreloaded
-  // onEventsAttached
-  // onAutoplayStarted
+  // onAutoplayStart
+  // onAutoplayStop
   // onLoad
   // onNextMove
   // onPrevMove
@@ -196,7 +195,7 @@ class Tridi {
   private updateOptions(options: TridiOptions | TridiUpdatableOptions) {
     Object.keys(options).forEach(key => {
       this[key] = options[key];
-      if (options[key].constructor === Array) this.count = options[key].length;
+      if (key === 'images' && options[key]!.constructor === Array) this.count = options.images!.length;
     });
   }
 
