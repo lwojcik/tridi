@@ -36,6 +36,24 @@ interface TridiOptions {
   touch?: boolean;
   inverse?: boolean;
   playable?: boolean;
+  // onViewerGenerated
+  // onViewerImageGenerated
+  // onHintOnStartup
+  // onLoadingScreen
+  // onImagesPreloaded
+  // onEventsAttached
+  // onAutoplayStarted
+  // onLoad
+  // onNextMove
+  // onPrevMove
+  // onDragStart
+  // onDrag
+  // onDragEnd
+  // onUpdate
+  // onMouseEnter
+  // onMouseLeave
+  // onTouchStart
+  // onTouchEnd
 }
 
 interface TridiUpdatableOptions {
@@ -114,7 +132,7 @@ class Tridi {
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;
     this.mouseleaveDetect = options.mouseleaveDetect || false;
-    this.elementName = this.setElementName()!;
+    this.elementName = this.setElementName();
     this.imageIndex = 1;
     this.moveBuffer = [];
     this.dragActive = false;
@@ -124,14 +142,18 @@ class Tridi {
   }
 
   private setElementName = () => {
-    return typeof this.element === "string"
-      ? this.element.substr(1)
-      : this.element.getAttribute("id")
-        ? this.element.getAttribute("id")
-        : this.element.getAttribute("class")
-          ? this.element.getAttribute("class")
-          : "unnamedTridi";
+    const el = this.element;
+  
+    if (typeof el === "string") return el.substr(1);
+    if (el.getAttribute("id")) return el.getAttribute("id")!;
+    if (el.getAttribute("class")) return el.getAttribute("class")!;
+
+    return `unnamedTridi-${Math.floor(Math.random()*90000) + 10000}`;
   }
+
+  // private triggerEvent = (eventName:string) => {
+  //   if (this[eventName]) this[eventName]();
+  // }
 
   private validate = (options: TridiOptions) => {
     if (!options.element) {
