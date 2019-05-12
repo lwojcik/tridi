@@ -7,6 +7,16 @@
 */
 var Tridi = /** @class */ (function () {
     function Tridi(options) {
+        var _this = this;
+        this.setElementName = function () {
+            return typeof _this.element === "string"
+                ? _this.element.substr(1)
+                : _this.element.getAttribute("id")
+                    ? _this.element.getAttribute("id")
+                    : _this.element.getAttribute("class")
+                        ? _this.element.getAttribute("class")
+                        : "unnamedTridi";
+        };
         this.validate = function (options) {
             if (!options.element) {
                 console.error("'element' property is missing or invalid. Container element must be specified.");
@@ -51,12 +61,7 @@ var Tridi = /** @class */ (function () {
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 2;
         this.mouseleaveDetect = options.mouseleaveDetect || false;
-        this.elementName =
-            typeof this.element === "string"
-                ? this.element.substr(1)
-                : this.element.getAttribute("id") ||
-                    this.element.getAttribute("class") ||
-                    "unnamedTridi";
+        this.elementName = this.setElementName();
         this.imageIndex = 1;
         this.moveBuffer = [];
         this.dragActive = false;
@@ -82,12 +87,11 @@ var Tridi = /** @class */ (function () {
                 _this.count = options[key].length;
         });
     };
-    Tridi.prototype.getElem = function (cssClass, child) {
+    Tridi.prototype.getElem = function (cssClass) {
         if (typeof this.element === "string") {
-            return (document.querySelector("" + this.element + (child ? " " : "") + (cssClass ? cssClass : "")));
-        }
-        if (cssClass) {
-            return (this.element.querySelector("" + (child ? " " : "") + (cssClass ? cssClass : "")));
+            return cssClass
+                ? (document.querySelector(this.element + " " + cssClass))
+                : document.querySelector(this.element);
         }
         return this.element;
     };
@@ -95,19 +99,19 @@ var Tridi = /** @class */ (function () {
         return this.getElem();
     };
     Tridi.prototype.stash = function () {
-        return this.getElem(".tridi-stash", true);
+        return this.getElem(".tridi-stash");
     };
     Tridi.prototype.getHintOverlay = function () {
-        return this.getElem(".tridi-hint-overlay", true);
+        return this.getElem(".tridi-hint-overlay");
     };
     Tridi.prototype.getLoadingScreen = function () {
-        return this.getElem(".tridi-loading", true);
+        return this.getElem(".tridi-loading");
     };
     Tridi.prototype.image = function (whichImage) {
         return this.imgs()[whichImage - 1];
     };
     Tridi.prototype.viewerImage = function () {
-        return this.getElem(".tridi-viewer-image", true);
+        return this.getElem(".tridi-viewer-image");
     };
     Tridi.prototype.lazyLoad = function (callback, skip) {
         if (this.lazy && !skip) {

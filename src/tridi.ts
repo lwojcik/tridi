@@ -114,18 +114,23 @@ class Tridi {
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;
     this.mouseleaveDetect = options.mouseleaveDetect || false;
-    this.elementName =
-      typeof this.element === "string"
-        ? this.element.substr(1)
-        : this.element.getAttribute("id") ||
-          this.element.getAttribute("class") ||
-          "unnamedTridi";
+    this.elementName = this.setElementName()!;
     this.imageIndex = 1;
     this.moveBuffer = [];
     this.dragActive = false;
     this.intervals = [];
     this.timeouts = [];
     this.stashedImgs = 0;
+  }
+
+  private setElementName = () => {
+    return typeof this.element === "string"
+      ? this.element.substr(1)
+      : this.element.getAttribute("id")
+        ? this.element.getAttribute("id")
+        : this.element.getAttribute("class")
+          ? this.element.getAttribute("class")
+          : "unnamedTridi";
   }
 
   private validate = (options: TridiOptions) => {
@@ -173,20 +178,15 @@ class Tridi {
     });
   }
 
-  private getElem(cssClass?: string, child?: boolean) {
+  private getElem(cssClass?: string) {
     if (typeof this.element === "string") {
-      return <HTMLElement>(
-        document.querySelector(
-          `${this.element}${child ? " " : ""}${cssClass ? cssClass : ""}`
-        )
-      );
-    }
-    if (cssClass) {
-      return <HTMLElement>(
-        this.element.querySelector(
-          `${child ? " " : ""}${cssClass ? cssClass : ""}`
-        )
-      );
+      return cssClass
+        ? <HTMLElement>(
+            document.querySelector(
+              `${this.element} ${cssClass}`
+            )
+          )!
+        : <HTMLElement>document.querySelector(this.element)!;
     }
     return this.element;
   }
@@ -196,15 +196,15 @@ class Tridi {
   }
 
   private stash() {
-    return this.getElem(".tridi-stash", true);
+    return this.getElem(".tridi-stash");
   }
 
   private getHintOverlay() {
-    return this.getElem(".tridi-hint-overlay", true);
+    return this.getElem(".tridi-hint-overlay");
   }
 
   private getLoadingScreen() {
-    return this.getElem(".tridi-loading", true);
+    return this.getElem(".tridi-loading");
   }
 
   private image(whichImage: number) {
@@ -212,7 +212,7 @@ class Tridi {
   }
 
   private viewerImage() {
-    return <HTMLImageElement>this.getElem(".tridi-viewer-image", true);
+    return <HTMLImageElement>this.getElem(".tridi-viewer-image");
   }
 
   private lazyLoad(callback: Function, skip?: Boolean) {

@@ -70,6 +70,7 @@ declare class Tridi {
     private intervals;
     private timeouts;
     constructor(options: TridiOptions);
+    private setElementName;
     private validate;
     private validateUpdate;
     private updateOptions;
