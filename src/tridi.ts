@@ -161,6 +161,7 @@ class Tridi {
   private updateOptions(options: TridiOptions | TridiUpdatableOptions) {
     Object.keys(options).forEach(key => {
       this[key] = options[key];
+      if (options[key].constructor === Array) this.count = options[key].length;
     });
   }
 
