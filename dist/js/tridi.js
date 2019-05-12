@@ -7,6 +7,16 @@
 */
 var Tridi = /** @class */ (function () {
     function Tridi(options) {
+        var _this = this;
+        this.setElementName = function () {
+            return typeof _this.element === "string"
+                ? _this.element.substr(1)
+                : _this.element.getAttribute("id")
+                    ? _this.element.getAttribute("id")
+                    : _this.element.getAttribute("class")
+                        ? _this.element.getAttribute("class")
+                        : "unnamedTridi";
+        };
         this.validate = function (options) {
             if (!options.element) {
                 console.error("'element' property is missing or invalid. Container element must be specified.");
@@ -24,7 +34,9 @@ var Tridi = /** @class */ (function () {
         this.images = options.images || "numbered";
         this.format = options.format || undefined;
         this.location = options.location || "./images";
-        this.count = Array.isArray(this.images) ? this.images.length : options.count;
+        this.count = Array.isArray(this.images)
+            ? this.images.length
+            : options.count;
         this.draggable =
             typeof options.draggable !== "undefined" ? options.draggable : true;
         this.keys = options.keys || false;
@@ -40,7 +52,8 @@ var Tridi = /** @class */ (function () {
         this.resumeAutoplayOnMouseleave =
             options.resumeAutoplayOnMouseleave || false;
         this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
-        this.passive = typeof options.passive !== "undefined" ? options.passive : true;
+        this.passive =
+            typeof options.passive !== "undefined" ? options.passive : true;
         this.spinner = options.spinner || false;
         this.touch = typeof options.touch !== "undefined" ? options.touch : true;
         this.mousewheel = options.mousewheel || false;
@@ -48,7 +61,7 @@ var Tridi = /** @class */ (function () {
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 2;
         this.mouseleaveDetect = options.mouseleaveDetect || false;
-        this.elementName = this.element.substr(1);
+        this.elementName = this.setElementName();
         this.imageIndex = 1;
         this.moveBuffer = [];
         this.dragActive = false;
@@ -74,35 +87,38 @@ var Tridi = /** @class */ (function () {
                 _this.count = options[key].length;
         });
     };
-    Tridi.prototype.getElem = function (cssClass, child) {
-        return (document.querySelector("" + this.element + (child ? " " : "") + (cssClass ? cssClass : "")));
-    };
-    Tridi.prototype.container = function () {
-        return this.getElem();
+    Tridi.prototype.getElem = function (cssClass) {
+        if (typeof this.element === "string") {
+            return cssClass
+                ? (document.querySelector(this.element + " " + cssClass))
+                : document.querySelector(this.element);
+        }
+        return this.element;
     };
     Tridi.prototype.viewer = function () {
-        return this.getElem(".tridi-viewer");
+        return this.getElem();
     };
     Tridi.prototype.stash = function () {
-        return this.getElem(".tridi-stash", true);
+        return this.getElem(".tridi-stash");
     };
     Tridi.prototype.getHintOverlay = function () {
-        return this.getElem(".tridi-hint-overlay", true);
+        return this.getElem(".tridi-hint-overlay");
     };
     Tridi.prototype.getLoadingScreen = function () {
-        return this.getElem(".tridi-loading", true);
+        return this.getElem(".tridi-loading");
     };
     Tridi.prototype.image = function (whichImage) {
         return this.imgs()[whichImage - 1];
     };
     Tridi.prototype.viewerImage = function () {
-        return this.getElem(".tridi-viewer .tridi-viewer-image");
+        return this.getElem(".tridi-viewer-image");
     };
     Tridi.prototype.lazyLoad = function (callback, skip) {
         if (this.lazy && !skip) {
             this.viewerImage().addEventListener("click", callback);
-            if (this.touch)
+            if (this.touch) {
                 this.viewerImage().addEventListener("touchstart", callback, { passive: this.passive });
+            }
         }
         else {
             callback();
@@ -111,14 +127,16 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.imgs = function () {
         var _this = this;
         if (this.images === "numbered") {
-            return (Array.apply(null, { length: this.count }).map(function (_a, index) { return _this.location + "/" + (index + 1) + "." + _this.format.toLowerCase(); }));
+            return (Array.apply(null, { length: this.count }).map(function (_a, index) {
+                return _this.location + "/" + (index + 1) + "." + _this.format.toLowerCase();
+            }));
         }
         return this.images;
     };
     Tridi.prototype.generateViewer = function () {
-        var container = this.container();
-        if (container) {
-            container.className +=
+        var viewer = this.viewer();
+        if (viewer) {
+            viewer.className +=
                 " tridi-viewer" +
                     (" tridi-" + this.elementName + "-viewer") +
                     (" tridi-draggable-" + this.draggable) +
@@ -144,8 +162,8 @@ var Tridi = /** @class */ (function () {
         if (!this.stash()) {
             this.stashedImgs = 0;
             var stash = document.createElement("div");
-            stash.style.display = 'none';
-            stash.classList.add('tridi-stash');
+            stash.style.display = "none";
+            stash.classList.add("tridi-stash");
             this.viewer().appendChild(stash);
         }
     };
@@ -184,7 +202,7 @@ var Tridi = /** @class */ (function () {
                 document.addEventListener("touchstart", hintClickHandler_1);
             document.addEventListener("keydown", function (e) {
                 /* istanbul ignore next */
-                if (e.key === 'Enter')
+                if (e.key === "Enter")
                     hintClickHandler_1(e);
             });
         }
@@ -228,15 +246,11 @@ var Tridi = /** @class */ (function () {
         this.viewerImage().src = this.image(whichImage);
     };
     Tridi.prototype.nextFrame = function () {
-        this.imageIndex = this.imageIndex <= 1
-            ? this.count
-            : this.imageIndex - 1;
+        this.imageIndex = this.imageIndex <= 1 ? this.count : this.imageIndex - 1;
         this.viewerImage().src = this.image(this.imageIndex);
     };
     Tridi.prototype.prevFrame = function () {
-        this.imageIndex = this.imageIndex >= this.count
-            ? 1
-            : this.imageIndex + 1;
+        this.imageIndex = this.imageIndex >= this.count ? 1 : this.imageIndex + 1;
         this.viewerImage().src = this.image(this.imageIndex);
     };
     Tridi.prototype.nextMove = function () {
@@ -274,19 +288,23 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.startDragging = function () {
         this.dragActive = true;
-        this.viewer().classList.add('tridi-dragging');
+        this.viewer().classList.add("tridi-dragging");
     };
     Tridi.prototype.stopDragging = function () {
         this.dragActive = false;
-        this.viewer().classList.remove('tridi-dragging');
+        this.viewer().classList.remove("tridi-dragging");
     };
     Tridi.prototype.resetMoveBuffer = function () {
         this.moveBuffer.length = 0;
     };
     Tridi.prototype.attachCosmeticEvents = function () {
         var viewer = this.viewer();
-        viewer.addEventListener("mouseenter", function () { return viewer.classList.add("tridi-viewer-hovered"); });
-        viewer.addEventListener("mouseleave", function () { return viewer.classList.remove("tridi-viewer-hovered"); });
+        viewer.addEventListener("mouseenter", function () {
+            return viewer.classList.add("tridi-viewer-hovered");
+        });
+        viewer.addEventListener("mouseleave", function () {
+            return viewer.classList.remove("tridi-viewer-hovered");
+        });
     };
     Tridi.prototype.attachDragEvents = function () {
         var _this = this;
@@ -356,9 +374,9 @@ var Tridi = /** @class */ (function () {
         if (this.keys) {
             this.viewerImage().setAttribute("tabindex", "0");
             this.viewerImage().addEventListener("keydown", function (e) {
-                if (e.key === 'ArrowLeft')
+                if (e.key === "ArrowLeft")
                     _this.prevMove();
-                if (e.key === 'ArrowRight')
+                if (e.key === "ArrowRight")
                     _this.nextMove();
             });
         }
@@ -383,9 +401,7 @@ var Tridi = /** @class */ (function () {
         if (state) {
             this.clearTimeouts();
             if (this.intervals.length === 0) {
-                skipDelay
-                    ? this.setAutoplayInterval()
-                    : this.setAutoplayTimeout();
+                skipDelay ? this.setAutoplayInterval() : this.setAutoplayTimeout();
             }
         }
         else {
@@ -402,8 +418,9 @@ var Tridi = /** @class */ (function () {
             this.toggleAutoplay(true, true);
             if (this.stopAutoplayOnClick) {
                 this.viewerImage().addEventListener("mousedown", this.stopAutoplaySequence.bind(this));
-                if (this.touch)
+                if (this.touch) {
                     this.viewerImage().addEventListener("touchstart", this.stopAutoplaySequence.bind(this), { passive: this.passive });
+                }
             }
             if (this.stopAutoplayOnMouseenter) {
                 this.viewerImage().addEventListener("mouseenter", this.stopAutoplaySequence.bind(this));
@@ -483,6 +500,6 @@ var Tridi = /** @class */ (function () {
     return Tridi;
 }());
 /* istanbul ignore next */
-if (typeof module !== 'undefined')
+if (typeof module !== "undefined")
     module.exports = Tridi;
 //# sourceMappingURL=tridi.js.map

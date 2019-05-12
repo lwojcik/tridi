@@ -150,6 +150,50 @@ describe('Init options validation', () => {
     expect(() => setupTridi(containerId, options).load()).toThrow();
   });
 
+  test(`should accept HTML element with ID parapmeter as element property`, () => {
+    const customTridiElement = document.createElement('div');
+    customTridiElement.id = containerId;
+
+    const options = {
+      element: document.querySelector(`#${containerId}`),
+      location: './images/1',
+      format: 'jpg',
+      count: 5,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept HTML element with class property as element property`, () => {
+    const customTridiElement = document.createElement('div');
+    customTridiElement.classList.add(`css-class-${containerId}`);
+    document.body.appendChild(customTridiElement);
+
+    const options = {
+      element: document.querySelector(`.css-class-${containerId}`),
+      location: './images/1',
+      format: 'jpg',
+      count: 5,
+    };
+
+    console.log(document.querySelector(`.css-class-${containerId}`));
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
+  test(`should accept HTML element with no id or class property as element property`, () => {
+    const customTridiElement = document.createElement('div');
+
+    const options = {
+      element: customTridiElement,
+      location: './images/1',
+      format: 'jpg',
+      count: 5,
+    };
+
+    expect(() => setupTridi(containerId, options).load()).not.toThrow();
+  });
+
   test(`should throw when 'images' and 'format' properties are missing`, () => {
     const options = {
       element: `#${containerId}`,

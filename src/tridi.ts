@@ -10,7 +10,7 @@ type ImageArray = ReadonlyArray<string>;
 type NumberedImages = "numbered";
 interface TridiOptions {
   [key: string]: any;
-  element: string;
+  element: string | HTMLElement;
   images?: ImageArray | NumberedImages;
   format?: string;
   count?: number;
@@ -48,7 +48,7 @@ interface TridiUpdatableOptions {
 
 class Tridi {
   [key: string]: any;
-  element: string;
+  element: string | HTMLElement;
   images?: ImageArray | NumberedImages;
   format?: string;
   location?: string;
@@ -87,7 +87,9 @@ class Tridi {
     this.images = options.images || "numbered";
     this.format = options.format || undefined;
     this.location = options.location || "./images";
-    this.count = Array.isArray(this.images) ? this.images.length : options.count;
+    this.count = Array.isArray(this.images)
+      ? this.images.length
+      : options.count;
     this.draggable =
       typeof options.draggable !== "undefined" ? options.draggable : true;
     this.keys = options.keys || false;
@@ -103,7 +105,8 @@ class Tridi {
     this.resumeAutoplayOnMouseleave =
       options.resumeAutoplayOnMouseleave || false;
     this.resumeAutoplayDelay = options.resumeAutoplayDelay || 0;
-    this.passive = typeof options.passive !== "undefined" ? options.passive : true;
+    this.passive =
+      typeof options.passive !== "undefined" ? options.passive : true;
     this.spinner = options.spinner || false;
     this.touch = typeof options.touch !== "undefined" ? options.touch : true;
     this.mousewheel = options.mousewheel || false;
@@ -111,13 +114,23 @@ class Tridi {
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;
     this.mouseleaveDetect = options.mouseleaveDetect || false;
-    this.elementName = this.element.substr(1);
+    this.elementName = this.setElementName()!;
     this.imageIndex = 1;
     this.moveBuffer = [];
     this.dragActive = false;
     this.intervals = [];
     this.timeouts = [];
     this.stashedImgs = 0;
+  }
+
+  private setElementName = () => {
+    return typeof this.element === "string"
+      ? this.element.substr(1)
+      : this.element.getAttribute("id")
+        ? this.element.getAttribute("id")
+        : this.element.getAttribute("class")
+          ? this.element.getAttribute("class")
+          : "unnamedTridi";
   }
 
   private validate = (options: TridiOptions) => {
@@ -165,32 +178,33 @@ class Tridi {
     });
   }
 
-  private getElem(cssClass?: string, child?: boolean) {
-    return <HTMLElement>(
-      document.querySelector(
-        `${this.element}${child ? " " : ""}${cssClass ? cssClass : ""}`
-      )
-    );
-  }
-
-  private container() {
-    return this.getElem();
+  private getElem(cssClass?: string) {
+    if (typeof this.element === "string") {
+      return cssClass
+        ? <HTMLElement>(
+            document.querySelector(
+              `${this.element} ${cssClass}`
+            )
+          )!
+        : <HTMLElement>document.querySelector(this.element)!;
+    }
+    return this.element;
   }
 
   private viewer() {
-    return this.getElem(".tridi-viewer")!;
+    return this.getElem();
   }
 
   private stash() {
-    return this.getElem(".tridi-stash", true);
+    return this.getElem(".tridi-stash");
   }
 
   private getHintOverlay() {
-    return this.getElem(".tridi-hint-overlay", true);
+    return this.getElem(".tridi-hint-overlay");
   }
 
   private getLoadingScreen() {
-    return this.getElem(".tridi-loading", true);
+    return this.getElem(".tridi-loading");
   }
 
   private image(whichImage: number) {
@@ -198,13 +212,19 @@ class Tridi {
   }
 
   private viewerImage() {
-    return <HTMLImageElement>this.getElem(".tridi-viewer .tridi-viewer-image");
+    return <HTMLImageElement>this.getElem(".tridi-viewer-image");
   }
 
   private lazyLoad(callback: Function, skip?: Boolean) {
     if (this.lazy && !skip) {
-      this.viewerImage().addEventListener("click", (callback as EventListener));
-      if (this.touch) this.viewerImage().addEventListener("touchstart", (callback as EventListener), { passive: this.passive });
+      this.viewerImage().addEventListener("click", callback as EventListener);
+      if (this.touch) {
+        this.viewerImage().addEventListener(
+          "touchstart",
+          callback as EventListener,
+          { passive: this.passive }
+        );
+      }
     } else {
       callback();
     }
@@ -214,7 +234,8 @@ class Tridi {
     if (this.images === "numbered") {
       return <ReadonlyArray<string>>(
         Array.apply(null, { length: this.count }).map(
-          ({}, index: number) => `${this.location}/${index + 1}.${this.format!.toLowerCase()}`
+          ({}, index: number) =>
+            `${this.location}/${index + 1}.${this.format!.toLowerCase()}`
         )
       );
     }
@@ -222,9 +243,9 @@ class Tridi {
   }
 
   private generateViewer() {
-    const container = this.container();
-    if (container) {
-      container.className +=
+    const viewer = this.viewer();
+    if (viewer) {
+      viewer.className +=
         " tridi-viewer" +
         ` tridi-${this.elementName}-viewer` +
         ` tridi-draggable-${this.draggable}` +
@@ -237,13 +258,16 @@ class Tridi {
 
   private generateLoadingScreen() {
     const loadingScreen = document.createElement("div");
-    loadingScreen.className += `tridi-loading tridi-${this.elementName}-loading`;
+    loadingScreen.className += `tridi-loading tridi-${
+      this.elementName
+    }-loading`;
     loadingScreen.style.display = "none";
 
     const loadingSpinner = document.createElement("div");
-    loadingSpinner.className += `tridi-spinner tridi-${this.elementName}-spinner`;
+    loadingSpinner.className += `tridi-spinner tridi-${
+      this.elementName
+    }-spinner`;
     loadingScreen.appendChild(loadingSpinner);
-
     this.viewer().appendChild(loadingScreen);
   }
 
@@ -256,8 +280,8 @@ class Tridi {
       this.stashedImgs = 0;
 
       const stash = document.createElement("div");
-      stash.style.display = 'none';
-      stash.classList.add('tridi-stash');
+      stash.style.display = "none";
+      stash.classList.add("tridi-stash");
       this.viewer().appendChild(stash);
     }
   }
@@ -279,7 +303,9 @@ class Tridi {
       hint.className += `tridi-hint ${hintClassName}`;
 
       if (this.hintText) {
-        hint.innerHTML = `<span class="tridi-hint-text tridi-${this.elementName}-hint-text">${this.hintText}</span>`;
+        hint.innerHTML = `<span class="tridi-hint-text tridi-${
+          this.elementName
+        }-hint-text">${this.hintText}</span>`;
       }
 
       hintOverlay.appendChild(hint);
@@ -287,8 +313,12 @@ class Tridi {
       this.viewer().appendChild(hintOverlay);
 
       const hintClickHandler = (e: Event) => {
-        const isItHintOverlay = (e.target as HTMLElement).classList.contains(hintOverlayClassName);
-        const isItHint = (e.target as HTMLElement).classList.contains(hintClassName);
+        const isItHintOverlay = (e.target as HTMLElement).classList.contains(
+          hintOverlayClassName
+        );
+        const isItHint = (e.target as HTMLElement).classList.contains(
+          hintClassName
+        );
 
         if (isItHintOverlay || isItHint) {
           this.getHintOverlay().style.display = "none";
@@ -303,14 +333,19 @@ class Tridi {
 
       document.addEventListener("keydown", e => {
         /* istanbul ignore next */
-        if (e.key === 'Enter') hintClickHandler(e);
+        if (e.key === "Enter") hintClickHandler(e);
       });
     } else {
       callback();
     }
   }
 
-  private stashImage(stash: HTMLElement, imageSrc: string, index: number, callback: Function) {
+  private stashImage(
+    stash: HTMLElement,
+    imageSrc: string,
+    index: number,
+    callback: Function
+  ) {
     const img = new Image();
     img.src = imageSrc;
     img.className += `tridi-image tridi-image-${index + 1}`;
@@ -338,7 +373,9 @@ class Tridi {
     const firstImage = this.image(1);
     const viewerImage = new Image();
     viewerImage.src = firstImage;
-    viewerImage.className += `tridi-viewer-image tridi-${this.elementName}-viewer-image`;
+    viewerImage.className += `tridi-viewer-image tridi-${
+      this.elementName
+    }-viewer-image`;
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
@@ -349,17 +386,13 @@ class Tridi {
   }
 
   private nextFrame() {
-    this.imageIndex = this.imageIndex <= 1
-      ? this.count!
-      : this.imageIndex - 1;
+    this.imageIndex = this.imageIndex <= 1 ? this.count! : this.imageIndex - 1;
 
     this.viewerImage().src = this.image(this.imageIndex);
   }
 
   private prevFrame() {
-    this.imageIndex = this.imageIndex >= this.count!
-      ? 1
-      : this.imageIndex + 1;
+    this.imageIndex = this.imageIndex >= this.count! ? 1 : this.imageIndex + 1;
 
     this.viewerImage().src = this.image(this.imageIndex);
   }
@@ -405,12 +438,12 @@ class Tridi {
 
   private startDragging() {
     this.dragActive = true;
-    this.viewer().classList.add('tridi-dragging');
+    this.viewer().classList.add("tridi-dragging");
   }
 
   private stopDragging() {
     this.dragActive = false;
-    this.viewer().classList.remove('tridi-dragging');
+    this.viewer().classList.remove("tridi-dragging");
   }
 
   private resetMoveBuffer() {
@@ -419,9 +452,13 @@ class Tridi {
 
   private attachCosmeticEvents() {
     const viewer = this.viewer();
-    
-    viewer.addEventListener("mouseenter", () => viewer.classList.add("tridi-viewer-hovered"));
-    viewer.addEventListener("mouseleave", () => viewer.classList.remove("tridi-viewer-hovered"));
+
+    viewer.addEventListener("mouseenter", () =>
+      viewer.classList.add("tridi-viewer-hovered")
+    );
+    viewer.addEventListener("mouseleave", () =>
+      viewer.classList.remove("tridi-viewer-hovered")
+    );
   }
 
   private attachDragEvents() {
@@ -465,14 +502,22 @@ class Tridi {
     if (this.touch) {
       const viewerImage = this.viewerImage();
 
-      viewerImage.addEventListener("touchstart", e => {
-        this.startDragging();
-        this.rotateViewerImage(e);
-      }, { passive: true });
+      viewerImage.addEventListener(
+        "touchstart",
+        e => {
+          this.startDragging();
+          this.rotateViewerImage(e);
+        },
+        { passive: true }
+      );
 
-      viewerImage.addEventListener("touchmove", e => {
-        this.rotateViewerImage(e);
-      }, { passive: true });
+      viewerImage.addEventListener(
+        "touchmove",
+        e => {
+          this.rotateViewerImage(e);
+        },
+        { passive: true }
+      );
 
       viewerImage.addEventListener("touchend", () => {
         this.stopDragging();
@@ -483,10 +528,14 @@ class Tridi {
 
   private attachMousewheelEvents() {
     if (this.mousewheel) {
-      this.viewerImage().addEventListener("wheel", e => {
-        if (e.preventDefault && !this.passive) e.preventDefault();
-        e.deltaY / 120 > 0 ? this.nextMove() : this.prevMove();
-      }, { passive: this.passive });
+      this.viewerImage().addEventListener(
+        "wheel",
+        e => {
+          if (e.preventDefault && !this.passive) e.preventDefault();
+          e.deltaY / 120 > 0 ? this.nextMove() : this.prevMove();
+        },
+        { passive: this.passive }
+      );
     }
   }
 
@@ -494,8 +543,8 @@ class Tridi {
     if (this.keys) {
       this.viewerImage().setAttribute("tabindex", "0");
       this.viewerImage().addEventListener("keydown", e => {
-        if (e.key === 'ArrowLeft') this.prevMove();
-        if (e.key === 'ArrowRight') this.nextMove();
+        if (e.key === "ArrowLeft") this.prevMove();
+        if (e.key === "ArrowRight") this.nextMove();
       });
     }
   }
@@ -506,7 +555,10 @@ class Tridi {
   }
 
   private setAutoplayInterval() {
-    const autoplayInterval = window.setInterval(this.nextMove.bind(this), this.autoplaySpeed);
+    const autoplayInterval = window.setInterval(
+      this.nextMove.bind(this),
+      this.autoplaySpeed
+    );
     this.intervals.push(autoplayInterval);
   }
 
@@ -516,7 +568,10 @@ class Tridi {
   }
 
   private setAutoplayTimeout() {
-    const autoplayTimeout = window.setTimeout(this.setAutoplayInterval.bind(this), this.resumeAutoplayDelay);
+    const autoplayTimeout = window.setTimeout(
+      this.setAutoplayInterval.bind(this),
+      this.resumeAutoplayDelay
+    );
     this.timeouts.push(autoplayTimeout);
   }
 
@@ -525,9 +580,7 @@ class Tridi {
       this.clearTimeouts();
 
       if (this.intervals.length === 0) {
-        skipDelay
-          ? this.setAutoplayInterval()
-          : this.setAutoplayTimeout();
+        skipDelay ? this.setAutoplayInterval() : this.setAutoplayTimeout();
       }
     } else {
       this.clearIntervals();
@@ -544,12 +597,24 @@ class Tridi {
       this.toggleAutoplay(true, true);
 
       if (this.stopAutoplayOnClick) {
-        this.viewerImage().addEventListener("mousedown", this.stopAutoplaySequence.bind(this));
-        if (this.touch) this.viewerImage().addEventListener("touchstart", this.stopAutoplaySequence.bind(this), { passive: this.passive });
+        this.viewerImage().addEventListener(
+          "mousedown",
+          this.stopAutoplaySequence.bind(this)
+        );
+        if (this.touch) {
+          this.viewerImage().addEventListener(
+            "touchstart",
+            this.stopAutoplaySequence.bind(this),
+            { passive: this.passive }
+          );
+        }
       }
 
       if (this.stopAutoplayOnMouseenter) {
-        this.viewerImage().addEventListener("mouseenter", this.stopAutoplaySequence.bind(this));
+        this.viewerImage().addEventListener(
+          "mouseenter",
+          this.stopAutoplaySequence.bind(this)
+        );
       }
 
       if (this.resumeAutoplayOnMouseleave) {
@@ -636,4 +701,4 @@ class Tridi {
 }
 
 /* istanbul ignore next */
-if (typeof module !== 'undefined') module.exports = Tridi;
+if (typeof module !== "undefined") module.exports = Tridi;

@@ -2,7 +2,7 @@ declare type ImageArray = ReadonlyArray<string>;
 declare type NumberedImages = "numbered";
 interface TridiOptions {
     [key: string]: any;
-    element: string;
+    element: string | HTMLElement;
     images?: ImageArray | NumberedImages;
     format?: string;
     count?: number;
@@ -38,7 +38,7 @@ interface TridiUpdatableOptions {
 }
 declare class Tridi {
     [key: string]: any;
-    element: string;
+    element: string | HTMLElement;
     images?: ImageArray | NumberedImages;
     format?: string;
     location?: string;
@@ -70,11 +70,11 @@ declare class Tridi {
     private intervals;
     private timeouts;
     constructor(options: TridiOptions);
+    private setElementName;
     private validate;
     private validateUpdate;
     private updateOptions;
     private getElem;
-    private container;
     private viewer;
     private stash;
     private getHintOverlay;
