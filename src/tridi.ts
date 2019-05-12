@@ -140,18 +140,19 @@ class Tridi {
     this.stashedImgs = 0;
   }
 
-  private setElementName = () => {
+  private setElementName() {
     const el = this.element;
   
     if (typeof el === "string") return el.substr(1);
     if (el.getAttribute("id")) return el.getAttribute("id")!;
-    if (el.getAttribute("class")) return el.getAttribute("class")!;
+    if (el.getAttribute("class")) return el.getAttribute("class")!.split(" ")[0];
 
     return `unnamedTridi-${Math.floor(Math.random()*90000) + 10000}`;
   }
 
-  // private triggerEvent = (eventName:string) => {
-  //   if (this[eventName]) this[eventName]();
+  // private trigger = (eventName:string) => {
+  //    const ev = this[eventName];
+  //    if (ev) ev();
   // }
 
   private validate = (options: TridiOptions) => {
