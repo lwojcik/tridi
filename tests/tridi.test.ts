@@ -691,3 +691,179 @@ describe('Event listeners', () => {
     expect(() => hintOverlay.dispatchEvent(new TouchEvent('touchstart', { touches: [ { clientX: 100 } as Touch ] }))).not.toThrow();
   });
 });
+
+describe('Custom events', () => {
+  const containerId = 'tridi-test-container-7';
+
+  const options = {
+    element: `#${containerId}`,
+    format: 'jpg',
+    count: 5
+  };
+
+  test(`should accept 'onViewerGenerate' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onViewerGenerate: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onViewerImageGenerate' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onViewerImageGenerate: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onImagesPreload' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onImagesPreload: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onHintShow' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onHintShow: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onHintHide' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onHintHide: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+
+  test(`should accept 'onLoadingScreenShow' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onLoadingScreenShow: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onLoadingScreenHide' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onLoadingScreenHide: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onNextMove' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onNextMove: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onPrevMove' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onPrevMove: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onNextFrame' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onNextFrame: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onPrevFrame' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onPrevFrame: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onLoad' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onLoad: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onUpdate' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onUpdate: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onDragStart' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onDragStart: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+
+  test(`should accept 'onDragEnd' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onDragEnd: () => {
+        return false;
+      },
+    });
+
+    expect(() => tridi.load()).not.toThrow();
+  });
+});

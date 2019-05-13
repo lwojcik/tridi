@@ -71,7 +71,6 @@ var Tridi = /** @class */ (function () {
         this.onNextFrame = options.onNextFrame || undefined;
         this.onPrevFrame = options.onPrevFrame || undefined;
         this.onDragStart = options.onDragStart || undefined;
-        this.onDrag = options.onDragStart || undefined;
         this.onDragEnd = options.onDragEnd || undefined;
         this.onLoad = options.onLoad || undefined;
         this.onUpdate = options.onUpdate || undefined;
@@ -182,8 +181,9 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.setLoadingState = function (enable, noEvent) {
         this.getLoadingScreen().style.display = enable ? "block" : "none";
-        if (!noEvent)
+        if (!noEvent) {
             this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
+        }
     };
     Tridi.prototype.generateStash = function () {
         if (!this.stash()) {

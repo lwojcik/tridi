@@ -50,7 +50,6 @@ interface TridiOptions {
   onNextFrame?: Function | undefined;
   onPrevFrame?: Function | undefined;
   onDragStart?: Function | undefined;
-  onDrag?: Function | undefined;
   onDragEnd?: Function | undefined;
   onUpdate?: Function | undefined;
   onLoad?: Function | undefined;
@@ -164,7 +163,6 @@ class Tridi {
     this.onNextFrame = options.onNextFrame || undefined;
     this.onPrevFrame = options.onPrevFrame || undefined;
     this.onDragStart = options.onDragStart || undefined;
-    this.onDrag = options.onDragStart || undefined;
     this.onDragEnd = options.onDragEnd || undefined;
     this.onLoad = options.onLoad || undefined;
     this.onUpdate = options.onUpdate || undefined;
@@ -333,7 +331,10 @@ class Tridi {
 
   private setLoadingState(enable: boolean, noEvent?: boolean) {
     this.getLoadingScreen().style.display = enable ? "block" : "none";
-    if (!noEvent) this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
+
+    if (!noEvent) {
+      this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
+    }
   }
 
   private generateStash() {

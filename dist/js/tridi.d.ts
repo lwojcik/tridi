@@ -42,7 +42,6 @@ interface TridiOptions {
     onNextFrame?: Function | undefined;
     onPrevFrame?: Function | undefined;
     onDragStart?: Function | undefined;
-    onDrag?: Function | undefined;
     onDragEnd?: Function | undefined;
     onUpdate?: Function | undefined;
     onLoad?: Function | undefined;
