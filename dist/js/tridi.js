@@ -57,29 +57,24 @@ var Tridi = /** @class */ (function () {
         this.dragInterval = options.dragInterval || 1;
         this.touchDragInterval = options.touchDragInterval || 2;
         this.mouseleaveDetect = options.mouseleaveDetect || false;
-        this.onViewerGenerated = options.onViewerGenerated || undefined;
-        this.onViewerImageGenerated = options.onViewerImageGenerated || undefined;
+        this.onViewerGenerate = options.onViewerGenerate || undefined;
+        this.onViewerImageGenerate = options.onViewerImageGenerate || undefined;
         this.onHintShow = options.onHintShow || undefined;
         this.onHintHide = options.onHintHide || undefined;
         this.onLoadingScreenShow = options.onLoadingScreenShow || undefined;
         this.onLoadingScreenHide = options.onLoadingScreenHide || undefined;
-        this.onImagesPreloaded = options.onImagesPreloaded || undefined;
+        this.onImagesPreload = options.onImagesPreload || undefined;
         this.onAutoplayStart = options.onAutoplayStart || undefined;
         this.onAutoplayStop = options.onAutoplayStop || undefined;
-        this.onReady = options.onReady || undefined;
         this.onNextMove = options.onNextMove || undefined;
         this.onPrevMove = options.onPrevMove || undefined;
         this.onNextFrame = options.onNextFrame || undefined;
         this.onPrevFrame = options.onPrevFrame || undefined;
-        // onDragStart
-        // onDrag
-        // onDragEnd
-        // onUpdate
-        // onMouseEnter
-        // onMouseLeave
-        // onTouchStart
-        // onTouchEnd
+        this.onDragStart = options.onDragStart || undefined;
+        this.onDrag = options.onDragStart || undefined;
+        this.onDragEnd = options.onDragEnd || undefined;
         this.onLoad = options.onLoad || undefined;
+        this.onUpdate = options.onUpdate || undefined;
         this.elementName = this.setElementName();
         this.imageIndex = 1;
         this.moveBuffer = [];
@@ -174,7 +169,7 @@ var Tridi = /** @class */ (function () {
                     (" tridi-hintOnStartup-" + this.hintOnStartup) +
                     (" tridi-lazy-" + this.lazy);
         }
-        this.trigger('onViewerGenerated');
+        this.trigger('onViewerGenerate');
     };
     Tridi.prototype.generateLoadingScreen = function () {
         var loadingScreen = document.createElement("div");
@@ -262,7 +257,7 @@ var Tridi = /** @class */ (function () {
                     _this.stashedImgs += 1;
                     if (_this.stashedImgs === images.length) {
                         _this.setLoadingState(false, true);
-                        _this.trigger('onImagesPreloaded');
+                        _this.trigger('onImagesPreload');
                     }
                 });
             });
@@ -277,7 +272,7 @@ var Tridi = /** @class */ (function () {
         viewerImage.setAttribute("draggable", "false");
         viewerImage.setAttribute("alt", "");
         viewer.innerHTML = "" + viewerImage.outerHTML + viewer.innerHTML;
-        this.trigger('onViewerImageGenerated');
+        this.trigger('onViewerImageGenerate');
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
         this.viewerImage().src = this.image(whichImage);
@@ -330,10 +325,12 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.startDragging = function () {
         this.dragActive = true;
         this.viewer().classList.add("tridi-dragging");
+        this.trigger('onDragStart');
     };
     Tridi.prototype.stopDragging = function () {
         this.dragActive = false;
         this.viewer().classList.remove("tridi-dragging");
+        this.trigger('onDragEnd');
     };
     Tridi.prototype.resetMoveBuffer = function () {
         this.moveBuffer.length = 0;
@@ -533,6 +530,7 @@ var Tridi = /** @class */ (function () {
             this.updateViewerImage(syncFrame ? this.imageIndex : 1);
             this.attachEvents();
             this.setLoadingState(false);
+            this.trigger('onUpdate');
         }
     };
     Tridi.prototype.load = function () {

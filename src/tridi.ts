@@ -36,27 +36,23 @@ interface TridiOptions {
   touch?: boolean;
   inverse?: boolean;
   playable?: boolean;
-  onViewerGenerated?: Function | undefined;
-  onViewerImageGenerated?: Function | undefined;
+  onViewerGenerate?: Function | undefined;
+  onViewerImageGenerate?: Function | undefined;
   onHintShow?: Function | undefined;
   onHintHide?: Function | undefined; 
   onLoadingScreenShow: Function | undefined;
   onLoadingScreenHide: Function | undefined;
-  onImagesPreloaded?: Function | undefined;
+  onImagesPreload?: Function | undefined;
   onAutoplayStart?: Function | undefined;
   onAutoplayStop?: Function | undefined;
   onNextMove?: Function | undefined;
   onPrevMove?: Function | undefined;
   onNextFrame?: Function | undefined;
   onPrevFrame?: Function | undefined;
-  // onDragStart
-  // onDrag
-  // onDragEnd
-  // onUpdate
-  // onMouseEnter
-  // onMouseLeave
-  // onTouchStart
-  // onTouchEnd
+  onDragStart?: Function | undefined;
+  onDrag?: Function | undefined;
+  onDragEnd?: Function | undefined;
+  onUpdate?: Function | undefined;
   onLoad?: Function | undefined;
 }
 
@@ -94,27 +90,23 @@ class Tridi {
   touch?: boolean;
   mousewheel?: boolean;
   inverse?: boolean;
-  onViewerGenerated?: Function | undefined;
-  onViewerImageGenerated?: Function | undefined;
+  onViewerGenerate?: Function | undefined;
+  onViewerImageGenerate?: Function | undefined;
   onHintShow?: Function | undefined;
   onHintHide?: Function | undefined;
   onLoadingScreenShow: Function | undefined;
   onLoadingScreenHide: Function | undefined;
-  onImagesPreloaded?: Function | undefined;
+  onImagesPreload?: Function | undefined;
   onAutoplayStart?: Function | undefined;
   onAutoplayStop?: Function | undefined;
   onNextMove?: Function | undefined;
   onPrevMove?: Function | undefined;
   onNextFrame?: Function | undefined;
   onPrevFrame?: Function | undefined;
-  // onDragStart
-  // onDrag
-  // onDragEnd
-  // onUpdate
-  // onMouseEnter
-  // onMouseLeave
-  // onTouchStart
-  // onTouchEnd
+  onDragStart?: Function | undefined;
+  onDrag?: Function | undefined;
+  onDragEnd?: Function | undefined;
+  onUpdate?: Function | undefined;
   onLoad?: Function | undefined;
   private elementName: string;
   private stashedImgs: number;
@@ -158,29 +150,24 @@ class Tridi {
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;
     this.mouseleaveDetect = options.mouseleaveDetect || false;
-    this.onViewerGenerated = options.onViewerGenerated || undefined;
-    this.onViewerImageGenerated = options.onViewerImageGenerated || undefined;
+    this.onViewerGenerate = options.onViewerGenerate || undefined;
+    this.onViewerImageGenerate = options.onViewerImageGenerate || undefined;
     this.onHintShow = options.onHintShow || undefined;
     this.onHintHide = options.onHintHide || undefined;
     this.onLoadingScreenShow = options.onLoadingScreenShow || undefined;
     this.onLoadingScreenHide = options.onLoadingScreenHide || undefined;
-    this.onImagesPreloaded = options.onImagesPreloaded || undefined;
+    this.onImagesPreload = options.onImagesPreload || undefined;
     this.onAutoplayStart = options.onAutoplayStart || undefined;
     this.onAutoplayStop = options.onAutoplayStop || undefined;
-    this.onReady = options.onReady || undefined;
     this.onNextMove = options.onNextMove || undefined;
     this.onPrevMove = options.onPrevMove || undefined;
     this.onNextFrame = options.onNextFrame || undefined;
     this.onPrevFrame = options.onPrevFrame || undefined;
-    // onDragStart
-    // onDrag
-    // onDragEnd
-    // onUpdate
-    // onMouseEnter
-    // onMouseLeave
-    // onTouchStart
-    // onTouchEnd
+    this.onDragStart = options.onDragStart || undefined;
+    this.onDrag = options.onDragStart || undefined;
+    this.onDragEnd = options.onDragEnd || undefined;
     this.onLoad = options.onLoad || undefined;
+    this.onUpdate = options.onUpdate || undefined;
     this.elementName = this.setElementName();
     this.imageIndex = 1;
     this.moveBuffer = [];
@@ -326,7 +313,7 @@ class Tridi {
         ` tridi-hintOnStartup-${this.hintOnStartup}` +
         ` tridi-lazy-${this.lazy}`;
     }
-    this.trigger('onViewerGenerated');
+    this.trigger('onViewerGenerate');
   }
 
   private generateLoadingScreen() {
@@ -346,7 +333,6 @@ class Tridi {
 
   private setLoadingState(enable: boolean, noEvent?: boolean) {
     this.getLoadingScreen().style.display = enable ? "block" : "none";
-
     if (!noEvent) this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
   }
 
@@ -442,7 +428,7 @@ class Tridi {
           this.stashedImgs += 1;
           if (this.stashedImgs === images.length) {
             this.setLoadingState(false, true);
-            this.trigger('onImagesPreloaded');
+            this.trigger('onImagesPreload');
           }
         });
       });
@@ -460,7 +446,7 @@ class Tridi {
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
-    this.trigger('onViewerImageGenerated');
+    this.trigger('onViewerImageGenerate');
   }
 
   private updateViewerImage(whichImage: number) {
@@ -523,11 +509,13 @@ class Tridi {
   private startDragging() {
     this.dragActive = true;
     this.viewer().classList.add("tridi-dragging");
+    this.trigger('onDragStart');
   }
 
   private stopDragging() {
     this.dragActive = false;
     this.viewer().classList.remove("tridi-dragging");
+    this.trigger('onDragEnd');
   }
 
   private resetMoveBuffer() {
@@ -776,6 +764,7 @@ class Tridi {
       this.updateViewerImage(syncFrame ? this.imageIndex : 1);
       this.attachEvents();
       this.setLoadingState(false);
+      this.trigger('onUpdate');
     }
   }
 
