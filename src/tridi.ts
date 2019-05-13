@@ -690,22 +690,18 @@ class Tridi {
         );
       }
 
+      const handleAutoplayToggle = (e: Event) => {
+        if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
+          this.toggleAutoplay(true);
+        }
+      }
+
       if (this.resumeAutoplayOnMouseleave) {
         const viewerImage = this.viewerImage();
 
-        viewerImage.addEventListener("mouseleave", e => {
-          if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
-            this.toggleAutoplay(true);
-          }
-        });
+        viewerImage.addEventListener("mouseleave", handleAutoplayToggle);
 
-        if (this.touch) {
-          viewerImage.addEventListener("touchend", e => {
-            if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
-              this.toggleAutoplay(true);
-            }
-          });
-        }
+        if (this.touch) viewerImage.addEventListener("touchend", handleAutoplayToggle);
       }
     }
   }

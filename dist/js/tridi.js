@@ -464,20 +464,16 @@ var Tridi = /** @class */ (function () {
             if (this.stopAutoplayOnMouseenter) {
                 this.viewerImage().addEventListener("mouseenter", this.stopAutoplaySequence.bind(this));
             }
+            var handleAutoplayToggle = function (e) {
+                if (!e.target.classList.contains("tridi-btn")) {
+                    _this.toggleAutoplay(true);
+                }
+            };
             if (this.resumeAutoplayOnMouseleave) {
                 var viewerImage = this.viewerImage();
-                viewerImage.addEventListener("mouseleave", function (e) {
-                    if (!e.target.classList.contains("tridi-btn")) {
-                        _this.toggleAutoplay(true);
-                    }
-                });
-                if (this.touch) {
-                    viewerImage.addEventListener("touchend", function (e) {
-                        if (!e.target.classList.contains("tridi-btn")) {
-                            _this.toggleAutoplay(true);
-                        }
-                    });
-                }
+                viewerImage.addEventListener("mouseleave", handleAutoplayToggle);
+                if (this.touch)
+                    viewerImage.addEventListener("touchend", handleAutoplayToggle);
             }
         }
     };
