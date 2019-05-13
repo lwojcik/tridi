@@ -12,7 +12,7 @@
       <div class="row">
           <div class="col-sm">
             <h1><a href="../">Tridi</a> &mdash; Custom events</h1>
-            <div id="tridi-autoplay"></div>
+            <div id="tridi-events"></div>
             <div>
               <p>Lorem upsum</p>
             </div>
@@ -24,19 +24,64 @@
         </div>
       </div>
     </div>
-    <script src="../js/tridi.min.js"></script>
+    <script src="../js/tridi.js"></script>
     <script>
       new Tridi({
-        element: '#tridi-autoplay',
+        element: '#tridi-events',
         location: '../images/white',
         format: 'jpg',
         count: 36,
+        hintOnStartup: true,
+        lazy: true,
         autoplay: true,
         autoplaySpeed: 40,
         stopAutoplayOnClick: true,
         stopAutoplayOnMouseenter: true,
         resumeAutoplayOnMouseleave: true,
-        resumeAutoplayDelay: 1000
+        resumeAutoplayDelay: 1000,
+        hintText: '&nbsp;',
+        onViewerGenerated: function() {
+          console.log('Viewer generated');
+        },
+        onViewerImageGenerated: function() {
+          console.log('Viewer image generated');
+        },
+        onImagesPreloaded: function() {
+          console.log('Images preloaded');
+        },
+        onHintShow: function() {
+          console.log('Hint on startup shown');
+        },
+        onHintHide: function() {
+          console.log('Hint on startup hidden');
+        },
+        onLoadingScreenShow: function() {
+          console.log('Loading screen shown');
+        },
+        onLoadingScreenHide: function() {
+          console.log('Loading screen hidden');
+        },
+        // onNextMove: function() {
+        //   console.log('Next move');
+        // },
+        // onPrevMove: function() {
+        //   console.log('Previous move');
+        // },
+        // onNextFrame: function() {
+        //   console.log('Next frame');
+        // },
+        // onPrevFrame: function() {
+        //   console.log('Previous frame');
+        // },
+        onLoad: function() {
+          console.log('Tridi loaded');
+        },
+        onAutoplayStart: function() {
+          console.log('Autoplay started');
+        },
+        onAutoplayStop: function() {
+          console.log('Autoplay stopped');
+        }
       }).load();
     </script>
 

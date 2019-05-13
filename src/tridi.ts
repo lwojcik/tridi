@@ -36,15 +36,19 @@ interface TridiOptions {
   touch?: boolean;
   inverse?: boolean;
   playable?: boolean;
-  // onViewerImageGenerated
-  // onHintOnStartup
-  // onLoadingScreen
-  // onImagesPreloaded
-  // onAutoplayStart
-  // onAutoplayStop
-  // onLoad
-  // onNextMove
-  // onPrevMove
+  onViewerGenerated?: Function | undefined;
+  onViewerImageGenerated?: Function | undefined;
+  onHintShow?: Function | undefined;
+  onHintHide?: Function | undefined; 
+  onLoadingScreenShow: Function | undefined;
+  onLoadingScreenHide: Function | undefined;
+  onImagesPreloaded?: Function | undefined;
+  onAutoplayStart?: Function | undefined;
+  onAutoplayStop?: Function | undefined;
+  onNextMove?: Function | undefined;
+  onPrevMove?: Function | undefined;
+  onNextFrame?: Function | undefined;
+  onPrevFrame?: Function | undefined;
   // onDragStart
   // onDrag
   // onDragEnd
@@ -53,6 +57,7 @@ interface TridiOptions {
   // onMouseLeave
   // onTouchStart
   // onTouchEnd
+  onLoad?: Function | undefined;
 }
 
 interface TridiUpdatableOptions {
@@ -89,6 +94,28 @@ class Tridi {
   touch?: boolean;
   mousewheel?: boolean;
   inverse?: boolean;
+  onViewerGenerated?: Function | undefined;
+  onViewerImageGenerated?: Function | undefined;
+  onHintShow?: Function | undefined;
+  onHintHide?: Function | undefined;
+  onLoadingScreenShow: Function | undefined;
+  onLoadingScreenHide: Function | undefined;
+  onImagesPreloaded?: Function | undefined;
+  onAutoplayStart?: Function | undefined;
+  onAutoplayStop?: Function | undefined;
+  onNextMove?: Function | undefined;
+  onPrevMove?: Function | undefined;
+  onNextFrame?: Function | undefined;
+  onPrevFrame?: Function | undefined;
+  // onDragStart
+  // onDrag
+  // onDragEnd
+  // onUpdate
+  // onMouseEnter
+  // onMouseLeave
+  // onTouchStart
+  // onTouchEnd
+  onLoad?: Function | undefined;
   private elementName: string;
   private stashedImgs: number;
   private imageIndex: number;
@@ -131,6 +158,29 @@ class Tridi {
     this.dragInterval = options.dragInterval || 1;
     this.touchDragInterval = options.touchDragInterval || 2;
     this.mouseleaveDetect = options.mouseleaveDetect || false;
+    this.onViewerGenerated = options.onViewerGenerated || undefined;
+    this.onViewerImageGenerated = options.onViewerImageGenerated || undefined;
+    this.onHintShow = options.onHintShow || undefined;
+    this.onHintHide = options.onHintHide || undefined;
+    this.onLoadingScreenShow = options.onLoadingScreenShow || undefined;
+    this.onLoadingScreenHide = options.onLoadingScreenHide || undefined;
+    this.onImagesPreloaded = options.onImagesPreloaded || undefined;
+    this.onAutoplayStart = options.onAutoplayStart || undefined;
+    this.onAutoplayStop = options.onAutoplayStop || undefined;
+    this.onReady = options.onReady || undefined;
+    this.onNextMove = options.onNextMove || undefined;
+    this.onPrevMove = options.onPrevMove || undefined;
+    this.onNextFrame = options.onNextFrame || undefined;
+    this.onPrevFrame = options.onPrevFrame || undefined;
+    // onDragStart
+    // onDrag
+    // onDragEnd
+    // onUpdate
+    // onMouseEnter
+    // onMouseLeave
+    // onTouchStart
+    // onTouchEnd
+    this.onLoad = options.onLoad || undefined;
     this.elementName = this.setElementName();
     this.imageIndex = 1;
     this.moveBuffer = [];
@@ -150,10 +200,10 @@ class Tridi {
     return `unnamedTridi-${Math.floor(Math.random()*90000) + 10000}`;
   }
 
-  // private trigger = (eventName:string) => {
-  //    const ev = this[eventName];
-  //    if (ev) ev();
-  // }
+  private trigger = (eventName:string) => {
+     const ev = this[eventName];
+     if (ev) ev();
+  }
 
   private validate = (options: TridiOptions) => {
     if (!options.element) {
@@ -194,7 +244,7 @@ class Tridi {
   }
 
   private updateOptions(options: TridiOptions | TridiUpdatableOptions) {
-    Object.keys(options).forEach(key => {
+    Object.keys(options).map(key => {
       this[key] = options[key];
       if (key === 'images' && options[key]!.constructor === Array) this.count = options.images!.length;
     });
@@ -276,6 +326,7 @@ class Tridi {
         ` tridi-hintOnStartup-${this.hintOnStartup}` +
         ` tridi-lazy-${this.lazy}`;
     }
+    this.trigger('onViewerGenerated');
   }
 
   private generateLoadingScreen() {
@@ -293,8 +344,10 @@ class Tridi {
     this.viewer().appendChild(loadingScreen);
   }
 
-  private setLoadingState(enable: boolean) {
+  private setLoadingState(enable: boolean, noEvent?: boolean) {
     this.getLoadingScreen().style.display = enable ? "block" : "none";
+
+    if (!noEvent) this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
   }
 
   private generateStash() {
@@ -334,6 +387,8 @@ class Tridi {
 
       this.viewer().appendChild(hintOverlay);
 
+      this.trigger('onHintShow');
+
       const hintClickHandler = (e: Event) => {
         const isItHintOverlay = (e.target as HTMLElement).classList.contains(
           hintOverlayClassName
@@ -347,6 +402,7 @@ class Tridi {
           callback();
           /* istanbul ignore next */
           if (this.focusOnHintClose) this.viewerImage().focus();
+          this.trigger('onHintHide');
         }
       };
 
@@ -380,11 +436,14 @@ class Tridi {
     const images = this.imgs();
 
     if (stash && images) {
-      images.forEach((image, index) => {
+      images.map((image, index) => {
         /* istanbul ignore next */
         this.stashImage(stash, image, index, () => {
           this.stashedImgs += 1;
-          if (this.stashedImgs === images.length) this.setLoadingState(false);
+          if (this.stashedImgs === images.length) {
+            this.setLoadingState(false, true);
+            this.trigger('onImagesPreloaded');
+          }
         });
       });
     }
@@ -401,6 +460,7 @@ class Tridi {
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
+    this.trigger('onViewerImageGenerated');
   }
 
   private updateViewerImage(whichImage: number) {
@@ -409,21 +469,23 @@ class Tridi {
 
   private nextFrame() {
     this.imageIndex = this.imageIndex <= 1 ? this.count! : this.imageIndex - 1;
-
     this.viewerImage().src = this.image(this.imageIndex);
+    this.trigger('onNextFrame');
   }
 
   private prevFrame() {
     this.imageIndex = this.imageIndex >= this.count! ? 1 : this.imageIndex + 1;
-
     this.viewerImage().src = this.image(this.imageIndex);
+    this.trigger('onPrevFrame');
   }
 
   private nextMove() {
+    this.trigger('onNextMove');
     return this.inverse ? this.prevFrame() : this.nextFrame();
   }
 
   private prevMove() {
+    this.trigger('onPrevMove');
     return this.inverse ? this.nextFrame() : this.prevFrame();
   }
 
@@ -572,7 +634,7 @@ class Tridi {
   }
 
   private clearIntervals() {
-    this.intervals.forEach(clearInterval);
+    this.intervals.map(clearInterval);
     this.intervals.length = 0;
   }
 
@@ -585,7 +647,7 @@ class Tridi {
   }
 
   private clearTimeouts() {
-    this.timeouts.forEach(clearTimeout);
+    this.timeouts.map(clearTimeout);
     this.timeouts.length = 0;
   }
 
@@ -607,6 +669,7 @@ class Tridi {
     } else {
       this.clearIntervals();
     }
+    this.trigger(state ? 'onAutoplayStart' : 'onAutoplayStop');
   }
 
   private stopAutoplaySequence() {
@@ -679,12 +742,12 @@ class Tridi {
         this.setLoadingState(true);
         this.generateStash();
         this.populateStash();
-        this.setLoadingState(true);
         this.attachEvents();
         this.startAutoplay();
         this.setLoadingState(false);
       });
     });
+    this.trigger('onLoad');
   }
 
   next() {
@@ -710,7 +773,6 @@ class Tridi {
       this.destroyStash();
       this.generateStash();
       this.populateStash();
-      this.setLoadingState(true);
       this.updateViewerImage(syncFrame ? this.imageIndex : 1);
       this.attachEvents();
       this.setLoadingState(false);

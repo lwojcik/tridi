@@ -28,6 +28,20 @@ interface TridiOptions {
     touch?: boolean;
     inverse?: boolean;
     playable?: boolean;
+    onViewerGenerated?: Function | undefined;
+    onViewerImageGenerated?: Function | undefined;
+    onHintShow?: Function | undefined;
+    onHintHide?: Function | undefined;
+    onLoadingScreenShow: Function | undefined;
+    onLoadingScreenHide: Function | undefined;
+    onImagesPreloaded?: Function | undefined;
+    onAutoplayStart?: Function | undefined;
+    onAutoplayStop?: Function | undefined;
+    onNextMove?: Function | undefined;
+    onPrevMove?: Function | undefined;
+    onNextFrame?: Function | undefined;
+    onPrevFrame?: Function | undefined;
+    onLoad?: Function | undefined;
 }
 interface TridiUpdatableOptions {
     [key: string]: any;
@@ -62,6 +76,20 @@ declare class Tridi {
     touch?: boolean;
     mousewheel?: boolean;
     inverse?: boolean;
+    onViewerGenerated?: Function | undefined;
+    onViewerImageGenerated?: Function | undefined;
+    onHintShow?: Function | undefined;
+    onHintHide?: Function | undefined;
+    onLoadingScreenShow: Function | undefined;
+    onLoadingScreenHide: Function | undefined;
+    onImagesPreloaded?: Function | undefined;
+    onAutoplayStart?: Function | undefined;
+    onAutoplayStop?: Function | undefined;
+    onNextMove?: Function | undefined;
+    onPrevMove?: Function | undefined;
+    onNextFrame?: Function | undefined;
+    onPrevFrame?: Function | undefined;
+    onLoad?: Function | undefined;
     private elementName;
     private stashedImgs;
     private imageIndex;
@@ -71,6 +99,7 @@ declare class Tridi {
     private timeouts;
     constructor(options: TridiOptions);
     private setElementName;
+    private trigger;
     private validate;
     private validateUpdate;
     private updateOptions;
