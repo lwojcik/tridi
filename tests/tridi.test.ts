@@ -617,6 +617,18 @@ describe('Event listeners', () => {
     }).not.toThrow();
   });
 
+  test(`should do nothing when draggable is to to false`, () => {
+    setupTridi(containerId, {
+      ...options,
+      draggable: false,
+    }).load();
+
+    const viewerImage = document.querySelector(`#${containerId} .tridi-viewer-image`)!;
+    expect(() => {
+      viewerImage.dispatchEvent(new MouseEvent('mousemove', { clientX: 100 }));
+    }).not.toThrow();
+  });
+
   test(`should handle 'mouseleave' event correctly when 'mouseleaveDetect' option is set to true`, () => {
     setupTridi(containerId, {
       ...options,
