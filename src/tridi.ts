@@ -300,17 +300,14 @@ class Tridi {
   }
 
   private generateViewer() {
-    const viewer = this.viewer();
-    if (viewer) {
-      viewer.className +=
-        " tridi-viewer" +
-        ` tridi-${this.elementName}-viewer` +
-        ` tridi-draggable-${this.draggable}` +
-        ` tridi-touch-${this.touch}` +
-        ` tridi-mousewheel-${this.mousewheel}` +
-        ` tridi-hintOnStartup-${this.hintOnStartup}` +
-        ` tridi-lazy-${this.lazy}`;
-    }
+    this.viewer().className +=
+      " tridi-viewer" +
+      ` tridi-${this.elementName}-viewer` +
+      ` tridi-draggable-${this.draggable}` +
+      ` tridi-touch-${this.touch}` +
+      ` tridi-mousewheel-${this.mousewheel}` +
+      ` tridi-hintOnStartup-${this.hintOnStartup}` +
+      ` tridi-lazy-${this.lazy}`;
     this.trigger('onViewerGenerate');
   }
 
@@ -332,9 +329,7 @@ class Tridi {
   private setLoadingState(enable: boolean, noEvent?: boolean) {
     this.getLoadingScreen().style.display = enable ? "block" : "none";
 
-    if (!noEvent) {
-      this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
-    }
+    (!noEvent) && this.trigger(enable ? 'onLoadingScreenShow' : 'onLoadingScreenHide');
   }
 
   private generateStash() {
@@ -422,25 +417,22 @@ class Tridi {
     const stash = this.stash();
     const images = this.imgs();
 
-    if (stash && images) {
-      images.map((image, index) => {
-        /* istanbul ignore next */
-        this.stashImage(stash, image, index, () => {
-          this.stashedImgs += 1;
-          if (this.stashedImgs === images.length) {
-            this.setLoadingState(false, true);
-            this.trigger('onImagesPreload');
-          }
-        });
+    (stash && images) && images.map((image, index) => {
+      /* istanbul ignore next */
+      this.stashImage(stash, image, index, () => {
+        this.stashedImgs += 1;
+        if (this.stashedImgs === images.length) {
+          this.setLoadingState(false, true);
+          this.trigger('onImagesPreload');
+        }
       });
-    }
+    });
   }
 
   private generateViewerImage() {
     const viewer = this.viewer();
-    const firstImage = this.image(1);
     const viewerImage = new Image();
-    viewerImage.src = firstImage;
+    viewerImage.src = this.image(1);
     viewerImage.className += `tridi-viewer-image tridi-${
       this.elementName
     }-viewer-image`;
@@ -498,13 +490,11 @@ class Tridi {
     const oldMove = this.moveBuffer[0];
     const newMove = this.moveBuffer[1];
 
-    if (threshold) {
-      if (newMove < oldMove) {
+      if (threshold && (newMove < oldMove)) {
         this.nextMove();
-      } else if (newMove > oldMove) {
+      } else if (threshold && (newMove > oldMove)) {
         this.prevMove();
       }
-    }
   }
 
   private startDragging() {
@@ -692,9 +682,7 @@ class Tridi {
       }
 
       const handleAutoplayToggle = (e: Event) => {
-        if (!(e.target as HTMLElement).classList.contains("tridi-btn")) {
-          this.toggleAutoplay(true);
-        }
+        (!(e.target as HTMLElement).classList.contains("tridi-btn")) && this.toggleAutoplay(true);
       }
 
       if (this.resumeAutoplayOnMouseleave) {
