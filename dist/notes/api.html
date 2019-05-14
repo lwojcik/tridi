@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; API options and methods</title>
+    <title>Tridi &mdash; API options, methods, events</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; API options and methods</h1>
+            <h1><a href="../">Tridi</a> &mdash; API <a href="#options">options</a>, <a href="#methods">methods</a>, <a href="#events">events</a></h1>
             <h2 id="options"><a href="#options">Options</a></h2>
             <table class="table">
               <thead>
@@ -252,7 +252,7 @@
                 </tr>
               </tbody>
             </table>
-            <h2 id="updatable"><a href="#methods">Methods</a></h2>
+            <h2 id="methods"><a href="#methods">Methods</a></h2>
             <p>All methods require class initialization before they can be used:</p>
             <pre><code>new Tridi({ ...options }).load();</code></pre>
             <table class="table">
@@ -268,24 +268,104 @@
                   <td>Load Tridi container after Tridi class initialization</td>
                 </tr>
                 <tr id="update">
-                  <td><code>update(options, syncFrame?)</code></td>
+                  <td><code>update(options,&nbsp;syncFrame?)</code></td>
                   <td>Update Tridi container with updatable options. Use <code>syncFrame</code> to synchronize frames between image sequences. See <a href="../examples/dynamic.html">Dynamic image replacement</a></td>
                 </tr>
                 <tr id="autoplayStart">
                   <td><code>autoplayStart()</code></td>
-                  <td>Start autoplay sequence. See <a href="../examples/custom.html">custom events</a></td>
+                  <td>Start autoplay sequence. See <a href="../examples/custom.html">custom controls</a></td>
                 </tr>
                 <tr id="autoplayStop">
                   <td><code>autoplayStop()</code></td>
-                  <td>Stop autoplay sequence. See <a href="../examples/custom.html">custom events</a></td>
+                  <td>Stop autoplay sequence. See <a href="../examples/custom.html">custom controls</a></td>
                 </tr>
                 <tr id="next">
                   <td><code>next()</code></td>
-                  <td>Load next image in the sequence. See <a href="../examples/custom.html">custom events</a></td>
+                  <td>Load next image in the sequence. See <a href="../examples/custom.html">custom controls</a></td>
                 </tr>
                 <tr id="prev">
                   <td><code>prev()</code></td>
-                  <td>Load previous image in the sequence. See <a href="../examples/custom.html">custom events</a></td>
+                  <td>Load previous image in the sequence. See <a href="../examples/custom.html">custom controls</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <h2 id="events"><a href="#events">Events</a></h2>
+            <p>Custom callback functions can be attached to the following lifecycle events. Unless stated otherwise, callbacks are executed <b>after</b> the event occurs.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="onViewerGenerate">
+                  <td><code>onViewerGenerate</code></td>
+                  <td>Viewer container is generated, i.e. prepared for loading images and attaching events</td>
+                </tr>
+                <tr id="onViewerImageGenerate">
+                  <td><code>onViewerImageGenerate</code></td>
+                  <td>First viewer image is loaded</td>
+                </tr>
+                <tr id="onHintShow">
+                  <td><code>onHintShow</code></td>
+                  <td><a href="../examples/hint.html">Hint on startup</a> is shown</td>
+                </tr>
+                <tr id="onHintHide">
+                  <td><code>onHintHide</code></td>
+                  <td><a href="../examples/hint.html">Hint on startup</a> is hidden after user interaction</td>
+                </tr>
+                <tr id="onLoadingScreenShow">
+                  <td><code>onLoadingScreenShow</code></td>
+                  <td><a href="../examples/spinner.html">Loading spinner</a> is shown</td>
+                </tr>
+                <tr id="onLoadingScreenHide">
+                  <td><code>onLoadingScreenHide</code></td>
+                  <td><a href="../examples/spinner.html">Loading spinner</a> is hidden</td>
+                </tr>
+                <tr id="onImagesPreload">
+                  <td><code>onImagesPreload</code></td>
+                  <td>All source images are preloaded</td>
+                </tr>
+                <tr id="onAutoplayStart">
+                  <td><code>onAutoplayStart</code></td>
+                  <td><a href="../examples/autoplay.html">Autoplay</a> starts or resumes</td>
+                </tr>
+                <tr id="onAutoplayStop">
+                  <td><code>onAutoplayStop</code></td>
+                  <td><a href="../examples/autoplay.html">Autoplay</a> stops</td>
+                </tr>
+                <tr id="onNextMove">
+                  <td><code>onNextMove</code></td>
+                  <td>Next image is loaded (obeying <code>inverse</code> option)</td>
+                </tr>
+                <tr id="onPrevMove">
+                  <td><code>onPrevMove</code></td>
+                  <td>Previous image is loaded (obeying <code>inverse</code> option)</td>
+                </tr>
+                <tr id="onNextFrame">
+                  <td><code>onNextFrame</code></td>
+                  <td>Next image is loaded following the order in the image source (indifferent to <code>inverse</code> option)</td>
+                </tr>
+                <tr id="onPrevFrame">
+                  <td><code>onPrevFrame</code></td>
+                  <td>Previous image is loaded according to the order in the image source (indifferent to <code>inverse</code> option)</td>
+                </tr>
+                <tr id="onDragStart">
+                  <td><code>onDragStart</code></td>
+                  <td>Image rotation sequence (dragging) starts</td>
+                </tr>
+                <tr id="onDragEnd">
+                  <td><code>onDragEnd</code></td>
+                  <td>Image rotation sequence (dragging) ends</td>
+                </tr>
+                <tr id="onLoad">
+                  <td><code>onLoad</code></td>
+                  <td>All initial loading steps (container setup, attaching events) were executed. Note that this may fire before all source images are preloaded</td>
+                </tr>
+                <tr id="onUpdate">
+                  <td><code>onUpdate</code></td>
+                  <td><a href="../examples/dynamic.html">Container update</a> finished according to specified configuration. Note that this may fire before all source images are preloaded</td>
                 </tr>
               </tbody>
             </table>
