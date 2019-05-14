@@ -49,7 +49,6 @@
     console.log('Hint on startup shown');
   },
   onHintHide: function() {
-    document.querySelector('.tridi-external-controls').style.visibility = 'visible';
     console.log('Hint on startup hidden');
   },
   onLoadingScreenShow: function() {
@@ -88,7 +87,7 @@
         </div>
       </div>
     </div>
-    <script src="../js/tridi.js"></script>
+    <script src="../js/tridi.min.js"></script>
     <script>
       var tridi = new Tridi({
         element: '#tridi-events',
