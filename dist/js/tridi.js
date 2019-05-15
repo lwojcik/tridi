@@ -257,6 +257,7 @@ var Tridi = /** @class */ (function () {
         });
     };
     Tridi.prototype.generateViewerImage = function () {
+        var _this = this;
         var viewer = this.viewer();
         var viewerImage = new Image();
         viewerImage.src = this.image(1);
@@ -264,7 +265,8 @@ var Tridi = /** @class */ (function () {
         viewerImage.setAttribute("draggable", "false");
         viewerImage.setAttribute("alt", "");
         viewer.innerHTML = "" + viewerImage.outerHTML + viewer.innerHTML;
-        this.trigger('onViewerImageGenerate');
+        /* istanbul ignore next */
+        viewerImage.onload = function () { return _this.trigger('onViewerImageGenerate'); };
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
         this.viewerImage().src = this.image(whichImage);
