@@ -439,7 +439,7 @@ class Tridi {
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
-    this.trigger('onViewerImageGenerate');
+    viewerImage.onload = () => this.trigger('onViewerImageGenerate');
   }
 
   private updateViewerImage(whichImage: number) {
