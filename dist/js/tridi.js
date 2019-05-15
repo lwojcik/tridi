@@ -1,5 +1,5 @@
 /*
-  Tridi v1.1.1 - JavaScript 360 3D Product Viewer
+  Tridi v1.1.2 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -236,10 +236,10 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.stashImage = function (stash, imageSrc, index, callback) {
         var img = new Image();
-        img.src = imageSrc;
-        img.className += "tridi-image tridi-image-" + (index + 1);
-        stash.innerHTML += img.outerHTML;
         img.onload = callback.bind(this);
+        img.className += "tridi-image tridi-image-" + (index + 1);
+        img.src = imageSrc;
+        stash.innerHTML += img.outerHTML;
     };
     Tridi.prototype.populateStash = function () {
         var _this = this;
@@ -260,13 +260,13 @@ var Tridi = /** @class */ (function () {
         var _this = this;
         var viewer = this.viewer();
         var viewerImage = new Image();
-        viewerImage.src = this.image(1);
+        /* istanbul ignore next */
+        viewerImage.onload = function () { return _this.trigger('onViewerImageGenerate'); };
         viewerImage.className += "tridi-viewer-image tridi-" + this.elementName + "-viewer-image";
         viewerImage.setAttribute("draggable", "false");
         viewerImage.setAttribute("alt", "");
+        viewerImage.src = this.image(1);
         viewer.innerHTML = "" + viewerImage.outerHTML + viewer.innerHTML;
-        /* istanbul ignore next */
-        viewerImage.onload = function () { return _this.trigger('onViewerImageGenerate'); };
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
         this.viewerImage().src = this.image(whichImage);

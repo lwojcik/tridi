@@ -1,5 +1,5 @@
 /*
-  Tridi v1.1.1 - JavaScript 360 3D Product Viewer
+  Tridi v1.1.2 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
@@ -407,10 +407,10 @@ class Tridi {
     callback: Function
   ) {
     const img = new Image();
-    img.src = imageSrc;
-    img.className += `tridi-image tridi-image-${index + 1}`;
-    stash.innerHTML += img.outerHTML;
     img.onload = callback.bind(this);
+    img.className += `tridi-image tridi-image-${index + 1}`;
+    img.src = imageSrc;
+    stash.innerHTML += img.outerHTML;
   }
 
   private populateStash() {
@@ -432,15 +432,15 @@ class Tridi {
   private generateViewerImage() {
     const viewer = this.viewer();
     const viewerImage = new Image();
-    viewerImage.src = this.image(1);
+    /* istanbul ignore next */
+    viewerImage.onload = () => this.trigger('onViewerImageGenerate');
     viewerImage.className += `tridi-viewer-image tridi-${
       this.elementName
     }-viewer-image`;
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
+    viewerImage.src = this.image(1);
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
-    /* istanbul ignore next */
-    viewerImage.onload = () => this.trigger('onViewerImageGenerate');
   }
 
   private updateViewerImage(whichImage: number) {
