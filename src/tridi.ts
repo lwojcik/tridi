@@ -439,6 +439,7 @@ class Tridi {
     viewerImage.setAttribute("draggable", "false");
     viewerImage.setAttribute("alt", "");
     viewer.innerHTML = `${viewerImage.outerHTML}${viewer.innerHTML}`;
+    /* istanbul ignore next */
     viewerImage.onload = () => this.trigger('onViewerImageGenerate');
   }
 

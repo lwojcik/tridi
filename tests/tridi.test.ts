@@ -728,7 +728,7 @@ describe('Custom events', () => {
     const tridi = setupTridi(containerId, {
       ...options,
       onViewerImageGenerate: () => {
-        return false;
+        return 0;
       },
     });
 

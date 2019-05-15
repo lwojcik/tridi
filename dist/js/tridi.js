@@ -265,6 +265,7 @@ var Tridi = /** @class */ (function () {
         viewerImage.setAttribute("draggable", "false");
         viewerImage.setAttribute("alt", "");
         viewer.innerHTML = "" + viewerImage.outerHTML + viewer.innerHTML;
+        /* istanbul ignore next */
         viewerImage.onload = function () { return _this.trigger('onViewerImageGenerate'); };
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
