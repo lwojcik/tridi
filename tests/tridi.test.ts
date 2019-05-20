@@ -735,6 +735,19 @@ describe('Custom events', () => {
     expect(() => tridi.load()).not.toThrow();
   });
 
+  test(`should accept 'onViewerImageGenerate' event callback`, () => {
+    const tridi = setupTridi(containerId, {
+      ...options,
+      onViewerImageUpdate: () => {
+        return 0;
+      },
+    });
+
+    tridi.load();
+
+    expect(() => tridi.update(options)).not.toThrow();
+  });
+
   test(`should accept 'onImagesPreload' event callback`, () => {
     const tridi = setupTridi(containerId, {
       ...options,

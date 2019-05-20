@@ -59,6 +59,7 @@ var Tridi = /** @class */ (function () {
         this.mouseleaveDetect = options.mouseleaveDetect || false;
         this.onViewerGenerate = options.onViewerGenerate || undefined;
         this.onViewerImageGenerate = options.onViewerImageGenerate || undefined;
+        this.onViewerImageUpdate = options.onViewerImageUpdate || undefined;
         this.onHintShow = options.onHintShow || undefined;
         this.onHintHide = options.onHintHide || undefined;
         this.onLoadingScreenShow = options.onLoadingScreenShow || undefined;
@@ -269,6 +270,9 @@ var Tridi = /** @class */ (function () {
         viewer.innerHTML = "" + viewerImage.outerHTML + viewer.innerHTML;
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
+        var _this = this;
+        /* istanbul ignore next */
+        this.viewerImage().onload = function () { return _this.trigger('onViewerImageUpdate'); };
         this.viewerImage().src = this.image(whichImage);
     };
     Tridi.prototype.nextFrame = function () {

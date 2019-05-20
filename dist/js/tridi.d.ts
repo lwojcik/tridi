@@ -30,6 +30,7 @@ interface TridiOptions {
     playable?: boolean;
     onViewerGenerate?: Function | undefined;
     onViewerImageGenerate?: Function | undefined;
+    onViewerImageUpdate?: Function | undefined;
     onHintShow?: Function | undefined;
     onHintHide?: Function | undefined;
     onLoadingScreenShow: Function | undefined;
@@ -81,6 +82,7 @@ declare class Tridi {
     inverse?: boolean;
     onViewerGenerate?: Function | undefined;
     onViewerImageGenerate?: Function | undefined;
+    onViewerImageUpdate?: Function | undefined;
     onHintShow?: Function | undefined;
     onHintHide?: Function | undefined;
     onLoadingScreenShow: Function | undefined;

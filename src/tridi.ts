@@ -38,6 +38,7 @@ interface TridiOptions {
   playable?: boolean;
   onViewerGenerate?: Function | undefined;
   onViewerImageGenerate?: Function | undefined;
+  onViewerImageUpdate?: Function | undefined;
   onHintShow?: Function | undefined;
   onHintHide?: Function | undefined; 
   onLoadingScreenShow: Function | undefined;
@@ -91,6 +92,7 @@ class Tridi {
   inverse?: boolean;
   onViewerGenerate?: Function | undefined;
   onViewerImageGenerate?: Function | undefined;
+  onViewerImageUpdate?: Function | undefined;
   onHintShow?: Function | undefined;
   onHintHide?: Function | undefined;
   onLoadingScreenShow: Function | undefined;
@@ -151,6 +153,7 @@ class Tridi {
     this.mouseleaveDetect = options.mouseleaveDetect || false;
     this.onViewerGenerate = options.onViewerGenerate || undefined;
     this.onViewerImageGenerate = options.onViewerImageGenerate || undefined;
+    this.onViewerImageUpdate = options.onViewerImageUpdate || undefined;
     this.onHintShow = options.onHintShow || undefined;
     this.onHintHide = options.onHintHide || undefined;
     this.onLoadingScreenShow = options.onLoadingScreenShow || undefined;
@@ -444,6 +447,8 @@ class Tridi {
   }
 
   private updateViewerImage(whichImage: number) {
+    /* istanbul ignore next */
+    this.viewerImage().onload = () => this.trigger('onViewerImageUpdate');
     this.viewerImage().src = this.image(whichImage);
   }
 
