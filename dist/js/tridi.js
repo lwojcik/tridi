@@ -271,6 +271,7 @@ var Tridi = /** @class */ (function () {
     };
     Tridi.prototype.updateViewerImage = function (whichImage) {
         var _this = this;
+        /* istanbul ignore next */
         this.viewerImage().onload = function () { return _this.trigger('onViewerImageUpdate'); };
         this.viewerImage().src = this.image(whichImage);
     };

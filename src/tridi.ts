@@ -447,6 +447,7 @@ class Tridi {
   }
 
   private updateViewerImage(whichImage: number) {
+    /* istanbul ignore next */
     this.viewerImage().onload = () => this.trigger('onViewerImageUpdate');
     this.viewerImage().src = this.image(whichImage);
   }
