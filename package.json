@@ -41,7 +41,7 @@
     "jest-dom": "3.4.0",
     "prettier": "1.17.0",
     "rimraf": "2.6.3",
-    "serve": "11.0.0",
+    "serve": "11.0.1",
     "ts-jest": "24.0.2",
     "ts-loader": "6.0.0",
     "tslint": "5.16.0",
@@ -49,6 +49,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
     "typescript": "3.4.5",
-    "uglify-js": "3.5.15"
+    "uglify-js": "3.6.0"
   }
 }
