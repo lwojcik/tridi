@@ -1,4 +1,4 @@
-import 'jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect';
 const tridi = require('../src/tridi');
 
 console = <any>{
