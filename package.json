@@ -36,7 +36,7 @@
   },
   "homepage": "https://tridi.lukem.net",
   "devDependencies": {
-    "@types/jest": "24.0.25",
+    "@types/jest": "25.1.0",
     "@types/node": "13.1.7",
     "jest": "24.8.0",
     "@testing-library/jest-dom": "5.0.1",
