@@ -1,4 +1,5 @@
 # These rules will change if you change your site’s custom domains or HTTPS settings
 
 # Redirect default Netlify subdomain to primary domain
+https://tridi.netlify.app/* https://tridi.lukem.net/:splat 301!
 https://tridi.netlify.com/* https://tridi.lukem.net/:splat 301!
