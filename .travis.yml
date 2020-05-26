@@ -14,8 +14,9 @@ matrix:
     - os: windows
 
 node_js:
-  - 'lts/*'
-  - 'node'
+  - '10'
+  - '12'
+  - '14'
 
 install:
   - npm install
