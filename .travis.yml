@@ -18,6 +18,11 @@ node_js:
   - '12'
   - '14'
 
+notifications:
+  email:
+    on_failure: change
+    on_success: never
+
 install:
   - npm install
   - npm install -g codecov
