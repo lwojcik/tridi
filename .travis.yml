@@ -3,20 +3,8 @@ env:
     - CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
 
 language: node_js
-
-os:
-  - linux
-  - osx
-  - windows
-
-matrix:
-  allow_failures:
-    - os: windows
-
-node_js:
-  - '10'
-  - '12'
-  - '14'
+os: linux
+node_js: 'lts/*'
 
 notifications:
   email:
@@ -28,10 +16,9 @@ install:
   - npm install -g codecov
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then chmod +x ./cc-test-reporter; fi
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then ./cc-test-reporter before-build; fi
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - node --version
@@ -42,4 +29,4 @@ script:
   - npm run build
 
 after_script:
-  - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
