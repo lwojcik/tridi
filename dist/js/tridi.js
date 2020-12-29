@@ -296,9 +296,10 @@ var Tridi = /** @class */ (function () {
     Tridi.prototype.rotateViewerImage = function (e) {
         var touch = e.touches;
         var interval = (touch ? this.touchDragInterval : this.dragInterval);
-        var eventX = e.touches
+        var clientX = e.touches
             ? e.touches[0].clientX
             : e.clientX;
+        var eventX = Math.floor(clientX);
         var coord = eventX - this.viewerImage().offsetLeft;
         if (this.moveBuffer.length < 2) {
             this.moveBuffer.push(coord);
@@ -308,13 +309,13 @@ var Tridi = /** @class */ (function () {
             this.moveBuffer[1] = coord;
             this.moveBuffer[0] = tmp;
         }
-        var threshold = !(coord % interval);
+        var threshold = coord % interval === 0;
         var oldMove = this.moveBuffer[0];
         var newMove = this.moveBuffer[1];
-        if (threshold && (newMove < oldMove)) {
+        if (threshold && newMove < oldMove) {
             this.nextMove();
         }
-        else if (threshold && (newMove > oldMove)) {
+        else if (threshold && newMove > oldMove) {
             this.prevMove();
         }
     };
@@ -329,7 +330,7 @@ var Tridi = /** @class */ (function () {
         this.trigger('onDragEnd');
     };
     Tridi.prototype.resetMoveBuffer = function () {
-        this.moveBuffer.length = 0;
+        this.moveBuffer = [];
     };
     Tridi.prototype.attachCosmeticEvents = function () {
         var viewer = this.viewer();

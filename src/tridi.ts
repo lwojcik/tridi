@@ -478,10 +478,11 @@ class Tridi {
     const touch = (e as TouchEvent).touches;
     const interval = (touch ? this.touchDragInterval : this.dragInterval)!;
 
-    const eventX = (e as TouchEvent).touches
+    const clientX = (e as TouchEvent).touches
       ? (e as TouchEvent).touches[0].clientX
       : (e as MouseEvent).clientX;
 
+    const eventX = Math.floor(clientX);
     const coord = eventX - this.viewerImage().offsetLeft;
 
     if (this.moveBuffer.length < 2) {
@@ -492,15 +493,15 @@ class Tridi {
       this.moveBuffer[0] = tmp;
     }
 
-    const threshold = !(coord % interval);
+    const threshold = coord % interval === 0;
     const oldMove = this.moveBuffer[0];
     const newMove = this.moveBuffer[1];
 
-      if (threshold && (newMove < oldMove)) {
-        this.nextMove();
-      } else if (threshold && (newMove > oldMove)) {
-        this.prevMove();
-      }
+    if (threshold && newMove < oldMove) {
+      this.nextMove();
+    } else if (threshold && newMove > oldMove) {
+      this.prevMove();
+    }
   }
 
   private startDragging() {
@@ -516,7 +517,7 @@ class Tridi {
   }
 
   private resetMoveBuffer() {
-    this.moveBuffer.length = 0;
+    this.moveBuffer = [];
   }
 
   private attachCosmeticEvents() {
