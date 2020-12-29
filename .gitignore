@@ -42,3 +42,5 @@ src/*.js
 
 # generated docs
 docs/
+
+package-lock.json
