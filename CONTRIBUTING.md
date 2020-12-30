@@ -75,7 +75,7 @@ It's possible to create new snapshots in test assertions with help of [`toMatchS
 
 If a code change modifies one or more existing snapshots or makes any of the existing snapshots obsolete, snapshot changes have to be reviewed and accepted manually before proceeding. Accepting snapshot changes is done by running `npm test -- -u`. Resulting changes must be committed to Git.
 
-Each run of `npm test` command generates human-readable coverage report which can be accessed locally in a web browser by opening `/path/to/twitch-ebs-tools/coverage/lcov-report/index.html`. Those reports often provide hints on how to fill coverage gaps.
+Each run of `npm test` command generates human-readable coverage report which can be accessed locally in a web browser by opening `/path/to/tridi/coverage/lcov-report/index.html`. Those reports often provide hints on how to fill coverage gaps.
 
 Note that automated unit tests are powerful tool for quick quality control, but they don't replace the need for integration testing against real-life contexts. In other words, be sure to test your changes in a real life scenario. :)
 
