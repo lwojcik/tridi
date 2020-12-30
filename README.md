@@ -1,9 +1,7 @@
 # Tridi
 [![npm (latest)](https://img.shields.io/npm/v/tridi/latest.svg)](https://www.npmjs.com/package/tridi)
-[![Travis Build Status](https://travis-ci.com/lukemnet/tridi.svg?branch=master)](https://travis-ci.com/lukemnet/tridi)
-[![Maintainability](https://api.codeclimate.com/v1/badges/04ddfa1de2e976e880b6/maintainability)](https://codeclimate.com/github/lukemnet/tridi/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/04ddfa1de2e976e880b6/test_coverage)](https://codeclimate.com/github/lukemnet/tridi/test_coverage)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/h427w8jgqks4qm9h/branch/master?svg=true)](https://ci.appveyor.com/project/lwojcik/tridi/branch/master)
+[![codecov](https://codecov.io/gh/lukemnet/tridi/branch/master/graph/badge.svg?token=3c2TX2NWAE)](https://codecov.io/gh/lukemnet/tridi)
 
 Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images.
 
