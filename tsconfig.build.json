@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "./dist/js",
-    "module": "none",
+    "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
     "declaration": true,
@@ -20,7 +20,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "lib": ["es2016", "dom", "es5"]
+    "lib": ["es2016", "dom", "es5"],
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*"
