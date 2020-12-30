@@ -1,3 +1,4 @@
+"use strict";
 /*
   Tridi v1.2.0 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
@@ -5,6 +6,7 @@
   Homepage: https://tridi.lukem.net
   GitHub: http://github.com/lukemnet/tridi
 */
+Object.defineProperty(exports, "__esModule", { value: true });
 var Tridi = /** @class */ (function () {
     function Tridi(options) {
         var _this = this;
@@ -529,7 +531,9 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
+exports.default = Tridi;
 /* istanbul ignore next */
-if (typeof module !== "undefined")
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = Tridi;
+}
 //# sourceMappingURL=tridi.js.map

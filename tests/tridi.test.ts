@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect';
-const tridi = require('../src/tridi');
+import Tridi, { TridiOptions }from '../src/tridi';
 
 console = <any>{
   log: jest.fn(),
@@ -26,7 +26,7 @@ const setupTridi = (containerId: string, options: object) => {
   const tridiContainer = document.createElement('div');
   tridiContainer.id = containerId;
   document.body.appendChild(tridiContainer);
-  return new tridi(options);
+  return new Tridi(options as TridiOptions);
 }
 
 describe('Tridi class', () => {  
@@ -41,11 +41,11 @@ describe('Tridi class', () => {
   const tridiInstance = setupTridi(containerId, options);
 
   test('should be defined', () => {
-    expect(tridi).toBeDefined();
+    expect(Tridi).toBeDefined();
   });
 
   test('should be instantiable', () => {
-    expect(tridiInstance).toBeInstanceOf(tridi);
+    expect(tridiInstance).toBeInstanceOf(Tridi);
   })
 
   test('should expose load() method', () => {
