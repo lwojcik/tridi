@@ -39,6 +39,18 @@ See [Basic viewer](https://tridi.lukem.net/examples/basic.html) for a minimal vi
 
 See [tridi.lukem.net](https://tridi.lukem.net/) for complete documentation and examples.
 
+## Contributions
+
+Contributions of any kind are welcome.
+
+You can contribute to Tridi by:
+
+* submiting bug reports or feature suggestions
+* improving documentation
+* submitting pull requests
+
+Before contributing be sure to read [Contributing Guidelines](https://github.com/lukemnet/tridi/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/lukemnet/tridi/blob/master/CODE_OF_CONDUCT.md).
+
 ## Acknowledgements
 
 Tridi was loosely inspired by [3D-Product-Viewer-JavaScript-Plugin](https://github.com/Jeya-Prakash/3D-Product-Viewer-JavaScript-Plugin) by [Jeya Prakash](https://github.com/Jeya-Prakash).
