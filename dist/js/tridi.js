@@ -1,6 +1,6 @@
 "use strict";
 /*
-  Tridi v1.2.0 - JavaScript 360 3D Product Viewer
+  Tridi v1.2.1 - JavaScript 360 3D Product Viewer
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
