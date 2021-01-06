@@ -3,9 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/h427w8jgqks4qm9h/branch/master?svg=true)](https://ci.appveyor.com/project/lwojcik/tridi/branch/master)
 [![codecov](https://codecov.io/gh/lukemnet/tridi/branch/master/graph/badge.svg?token=3c2TX2NWAE)](https://codecov.io/gh/lukemnet/tridi)
 
-Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images.
-
-Works on mobile and desktop browsers (including IE 10 and IE 11).
+Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images. Works on mobile and desktop browsers.
 
 ![Tridi in action (GIF)](https://raw.githubusercontent.com/lukemnet/tridi/master/dist/images/example.gif)
 

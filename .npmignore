@@ -11,6 +11,7 @@ appveyor.yml
 .travis.yml
 jest.config.js
 setupJest.ts
+dist/v1
 dist/_redirects
 dist/css/bootstrap-grid.min.css
 dist/css/index.css

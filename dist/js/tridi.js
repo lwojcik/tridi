@@ -7,6 +7,7 @@
   GitHub: http://github.com/lukemnet/tridi
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.create = exports.Tridi = void 0;
 var Tridi = /** @class */ (function () {
     function Tridi(options) {
         var _this = this;
@@ -531,9 +532,7 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
-exports.default = Tridi;
-/* istanbul ignore next */
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = Tridi;
-}
+exports.Tridi = Tridi;
+var create = function (options) { return new Tridi(options); };
+exports.create = create;
 //# sourceMappingURL=tridi.js.map

@@ -64,7 +64,7 @@ interface TridiUpdatableOptions {
   location?: string;
 }
 
-class Tridi {
+export class Tridi {
   [key: string]: any;
   element: string | HTMLElement;
   images?: ImageArray | NumberedImages;
@@ -765,9 +765,4 @@ class Tridi {
   }
 }
 
-export default Tridi;
-
-/* istanbul ignore next */
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-  module.exports = Tridi;
-}
+export const create = (options: TridiOptions) => new Tridi(options);
