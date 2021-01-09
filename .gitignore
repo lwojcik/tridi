@@ -44,3 +44,5 @@ src/*.js
 docs/
 
 package-lock.json
+
+dist/js
