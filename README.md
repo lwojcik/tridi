@@ -21,7 +21,17 @@ npm install tridi
 * [Production-ready version](https://tridi.lukem.net/js/tridi.min.js) &mdash; minified JS code
 
 ## Quick start
-Add Tridi to your site:
+Import Tridi as a module:
+
+```js
+import * as Tridi from 'tridi';
+// or:
+import { Tridi } from 'tridi';
+// or:
+const Tridi = require('tridi');
+```
+
+Or add Tridi to your site via a traditional script tag:
 
 ```HTML
 <script src="path/to/tridi.js"></script>
