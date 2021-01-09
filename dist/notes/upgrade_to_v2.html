@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi v2 &mdash; Image array</title>
+    <title>Tridi v2 &mdash; Update to v2.x</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,51 +11,38 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi v2</a> &mdash; Image array</h1>
+            <h1><a href="../">Tridi v2</a> &mdash; Upgrade to version 2.x</h1>
             <div class="version-disclaimer">
               <p>Looking for older version? Read <a href="/v1/"><b>Tridi v1 documentation</b></a> or <a href="/notes/upgrade_to_v2.html"><b>how to upgrade to version 2.x</b></a></p>
             </div>
-            <div id="tridi-array"></div>
-            <div>
-              <p>Tridi offers an option to use custom arrays of image paths while initializing the container. To use this option, pass your image array to <code>images</code> property.</p>
-            </div>
-            <h2>Code</h2>
-            <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-array"&gt;&lt;/div&gt;</code></pre>
-            <h3>JavaScript</h3>
-            <pre><code>const imgArray = new Array(36)
-  .join()
-  .split(',')
-  .map(function(item, index) {
-    return '../images/white/' + ++index + '.jpg';
-  });
+            <p>In version 2.0, Tridi exports a <code>create</code> factory function accepting options object instead of a class. Apart from that, the whole API remains compatible with 1.x version.<p>
+            <h2>Basic example - version 1.x:</h2>
+            <pre><code>// we initialize a class and invoke load() function to render the viewer
+
+new Tridi({
+  element: '#tridi-basic',
+  location: './path/to/images',
+  format: 'jpg',
+  count: 36,
+}).load();
+</code></pre>
+
+            <h2>Basic example - version 2.x:</h2>
+            <pre><code>// call create() with options object to set up the viewer
 
 const tridiInstance = Tridi.create({
-  element: '#tridi-array',
-  images: imgArray,
+  element: '#tridi-basic',
+  location: './path/to/images',
+  format: 'jpg',
+  count: 36,
 });
 
+// render the viewer
 tridiInstance.load();</code></pre>
-          <p><a href="../">&laquo; Back to main page</a></p>
-
+            <p><a href="../">&laquo; Back to main page</a>
         </div>
       </div>
     </div>
-    <script src="../js/tridi.min.js"></script>
-    <script>
-      const imgArray =
-        new Array(36)
-          .join()
-          .split(',')
-          .map((item, index) => '../images/white/' + ++index + '.jpg');
-
-      const tridiInstance = Tridi.create({
-        element: '#tridi-array',
-        images: imgArray,
-      });
-
-      tridiInstance.load();
-    </script>
 
     <!-- Fork me on GitHub-->
 

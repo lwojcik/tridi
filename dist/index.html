@@ -14,7 +14,7 @@
             <h1><a href="./index.html">Tridi v2</a> - JavaScript 360 3D Product Viewer</h1>
             <div class="badges"><a class="npmBtn" href="https://www.npmjs.com/package/tridi"><img alt="npm (tag)" src="https://img.shields.io/npm/v/tridi/latest.svg"></a></div>
             <div class="version-disclaimer">
-              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+              <p>Looking for older version? Read <a href="/v1/"><b>Tridi v1 documentation</b></a> or <a href="/notes/upgrade_to_v2.html"><b>how to upgrade to version 2</b></a></p>
             </div>
             <div id="theContainer"></div>
 
@@ -49,6 +49,7 @@ npm run build</code></pre>
             <ul>
               <li><a href="notes/api.html">API options, methods, events</a></li>
               <li><a href="notes/styling.html">CSS styling</a></li>
+              <li><a href="notes/upgrade_to_v2.html">Upgrade to version 2.x</a></li>
             </ul>
             <h3>Examples</h3>
             <ul>
@@ -81,7 +82,7 @@ npm run build</code></pre>
 
     <script src="js/tridi.min.js"></script>
     <script>
-      var tridiInstance = Tridi.create({
+      const tridiInstance = Tridi.create({
         element: '#theContainer',
         location: './images/white',
         format: 'jpg',
