@@ -3,7 +3,7 @@ src
 .vscode
 tsconfig.json
 tslint.json
-tsconfig.build.json
+tsconfig.eslint.json
 .prettierrc
 tests
 coverage
@@ -25,3 +25,5 @@ CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 .mergify.yml
 webpack.config.js
+.eslintignore
+.eslintrc
