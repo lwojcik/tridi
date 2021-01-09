@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "jest"
+  ],
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:jest/all"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "rules": {
+    "no-console": "off",
+    "implicit-arrow-linebreak": "off",
+    "prefer-promise-reject-errors": "off",
+    "jest/lowercase-name": "off",
+    "linebreak-style": "off",
+    "jest/prefer-expect-assertions": [
+      "error",
+      {
+        "onlyFunctionsWithAsyncKeyword": true
+      }
+    ],
+    "jest/no-hooks": "off"
+  }
+}
