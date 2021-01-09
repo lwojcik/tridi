@@ -32,9 +32,9 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-autoplay"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-autoplay',
-  location: '../images/white',
+  location: './path/to/images',
   format: 'jpg',
   count: 36,
   autoplay: true,
@@ -43,7 +43,9 @@
   stopAutoplayOnMouseenter: true,
   resumeAutoplayOnMouseleave: true,
   resumeAutoplayDelay: 1000
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
 
         </div>
@@ -51,7 +53,7 @@
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-autoplay',
         location: '../images/white',
         format: 'jpg',
@@ -62,7 +64,9 @@
         stopAutoplayOnMouseenter: true,
         resumeAutoplayOnMouseleave: true,
         resumeAutoplayDelay: 1000
-      }).load();
+      });
+
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

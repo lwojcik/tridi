@@ -47,20 +47,22 @@
   /* ... */
 }</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-spinner',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
   spinner: true,
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-spinner',
         location: '../images/white',
         format: 'jpg',
@@ -68,7 +70,9 @@
         draggable: false,
         touch: false,
         spinner:true,
-      }).load();
+      });
+      
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

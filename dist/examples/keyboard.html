@@ -27,28 +27,32 @@
             </div>
             <h2>Code</h2>
             <h3>HTML</h3>
-            <pre><code>&lt;div id="tridi-mousewheel"&gt;&lt;/div&gt;</code></pre>
+            <pre><code>&lt;div id="tridi-keys"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-keys',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
   keys: true
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-keys',
         location: '../images/white',
         format: 'jpg',
         count: 36,
         keys: true
-      }).load();
+      });
+      
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

@@ -23,17 +23,19 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-array"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>var imgArray = new Array(36)
+            <pre><code>const imgArray = new Array(36)
   .join()
   .split(',')
   .map(function(item, index) {
     return '../images/white/' + ++index + '.jpg';
   });
 
-new Tridi({
+const tridiInstance = Tridi.create({
   element: '#tridi-array',
-  images: imgArray
-}).load();</code></pre>
+  images: imgArray,
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
 
         </div>
@@ -41,12 +43,18 @@ new Tridi({
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      var imgArray = new Array(36).join().split(',').map(function(item, index){ return '../images/white/' + ++index + '.jpg';});
+      const imgArray =
+        new Array(36)
+          .join()
+          .split(',')
+          .map((item, index) => '../images/white/' + ++index + '.jpg');
 
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-array',
-        images: imgArray
-      }).load();
+        images: imgArray,
+      });
+
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

@@ -44,21 +44,21 @@
 &lt;div class="color-switch color-switch--red" title="Switch to red"&gt;&lt;/div&gt;
             </code></pre>
             <h3>JavaScript</h3>
-            <pre><code>var tridi = new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-dynamic',
   imageLocation: '../images/white',
   imageFormat: 'jpg',
   imageCount: 36,
 });
 
-tridi.load();
+tridiInstance.load();
 
-var switchToWhiteBtn = document.querySelector('.color-switch--white');
-var switchToBlackBtn = document.querySelector('.color-switch--black');
-var switchToRedBtn = document.querySelector('.color-switch--red');
+const switchToWhiteBtn = document.querySelector('.color-switch--white');
+const switchToBlackBtn = document.querySelector('.color-switch--black');
+const switchToRedBtn = document.querySelector('.color-switch--red');
 
-var switchColor = function(color) {
-  tridi.update({
+const switchColor = function(color) {
+  tridiInstance.update({
     location: '../images/' + color,
     format: 'jpg',
     count: 36,
@@ -98,21 +98,21 @@ switchToRedBtn.addEventListener('touchstart', function() {
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      var tridi = new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-dynamic',
         location: '../images/white',
         format: 'jpg',
         count: 36,
       });
 
-      tridi.load();
+      tridiInstance.load();
 
-      var switchToWhiteBtn = document.querySelector('.color-switch--white');
-      var switchToBlackBtn = document.querySelector('.color-switch--black');
-      var switchToRedBtn = document.querySelector('.color-switch--red');
+      const switchToWhiteBtn = document.querySelector('.color-switch--white');
+      const switchToBlackBtn = document.querySelector('.color-switch--black');
+      const switchToRedBtn = document.querySelector('.color-switch--red');
 
-      var switchColor = function(color) {
-        tridi.update({
+      const switchColor = function(color) {
+        tridiInstance.update({
           location: '../images/' + color,
           format: 'jpg',
           count: 36,

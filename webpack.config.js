@@ -36,8 +36,10 @@ module.exports = {
       new TerserPlugin({
         include: /\.min\.js$/,
         parallel: true,
-        extractComments: true,
         terserOptions: {
+          format: {
+            comments: /License/i,
+          },
           parse: {},
           compress: {},
           mangle: {

@@ -31,9 +31,9 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-events"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-events',
-  location: '../images/white',
+  location: './path/to/images',
   format: 'jpg',
   count: 36,
   hintOnStartup: true,
@@ -87,7 +87,9 @@
   onDragEnd: function() {
     console.log('Drag ended');
   }
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
 
         </div>
@@ -95,7 +97,7 @@
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      var tridi = new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-events',
         location: '../images/white',
         format: 'jpg',
@@ -154,14 +156,14 @@
         }
       });
 
-      tridi.load();
+      tridiInstance.load();
 
-      var switchToWhiteBtn = document.querySelector('.color-switch--white');
-      var switchToBlackBtn = document.querySelector('.color-switch--black');
-      var switchToRedBtn = document.querySelector('.color-switch--red');
+      const switchToWhiteBtn = document.querySelector('.color-switch--white');
+      const switchToBlackBtn = document.querySelector('.color-switch--black');
+      const switchToRedBtn = document.querySelector('.color-switch--red');
 
-      var switchColor = function(color) {
-        tridi.update({
+      const switchColor = function(color) {
+        tridiInstance.update({
           location: '../images/' + color,
           format: 'jpg',
           count: 36,

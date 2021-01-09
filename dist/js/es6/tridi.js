@@ -529,5 +529,6 @@ var Tridi = /** @class */ (function () {
     };
     return Tridi;
 }());
+export { Tridi };
 export var create = function (options) { return new Tridi(options); };
 //# sourceMappingURL=tridi.js.map

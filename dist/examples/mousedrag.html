@@ -31,20 +31,22 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-drag"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-drag',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
   dragInterval: 1
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-drag',
         location: '../images/white',
         format: 'jpg',
@@ -52,6 +54,8 @@
         draggable: true,
         dragInterval: 2,
       }).load();
+
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

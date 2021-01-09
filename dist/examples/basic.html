@@ -36,12 +36,14 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-basic"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-basic',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p>See <a href="../notes/api.html">API documentation</a> for all available options or <a href="../notes/styling.html">CSS styling</a> for a minimum viable stylesheet.</p>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
