@@ -26,8 +26,6 @@ Import Tridi as a module:
 ```js
 import * as Tridi from 'tridi';
 // or:
-import { Tridi } from 'tridi';
-// or:
 const Tridi = require('tridi');
 ```
 
