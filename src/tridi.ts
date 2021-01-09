@@ -42,8 +42,8 @@ export interface TridiOptions {
   onViewerImageUpdate?: Function | undefined;
   onHintShow?: Function | undefined;
   onHintHide?: Function | undefined;
-  onLoadingScreenShow: Function | undefined;
-  onLoadingScreenHide: Function | undefined;
+  onLoadingScreenShow?: Function | undefined;
+  onLoadingScreenHide?: Function | undefined;
   onImagesPreload?: Function | undefined;
   onAutoplayStart?: Function | undefined;
   onAutoplayStop?: Function | undefined;
