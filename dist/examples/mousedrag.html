@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Mouse drag</title>
+    <title>Tridi v2 &mdash; Mouse drag</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,7 +11,10 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Mouse drag</h1>
+            <h1><a href="../">Tridi v2</a> &mdash; Mouse drag</h1>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
             <div id="tridi-drag"></div>
             <div>
               <p>Tridi supports mouse drag events out of the box. This setting can be disabled by passing <code>false</code> to <code>draggable</code> option. If you want to disable all drag events entirely, remember to set <code>touch</code> to <code>false</code> as well.</p>
@@ -28,20 +31,22 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-drag"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-drag',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
   dragInterval: 1
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
       </div>
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-drag',
         location: '../images/white',
         format: 'jpg',
@@ -49,6 +54,8 @@
         draggable: true,
         dragInterval: 2,
       }).load();
+
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

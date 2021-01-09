@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Custom controls</title>
+    <title>Tridi v2 &mdash; Custom controls</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,7 +11,10 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Custom controls</h1>
+            <h1><a href="../">Tridi v2</a> &mdash; Custom controls</h1>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
             <div id="tridi-custom"></div>
             <div class="tridi-external-controls">
               <div class="custom-control custom-control-prev" title="Previous frame" tabindex="0">Previous frame</div>
@@ -40,54 +43,54 @@
 &lt;div class="custom-control-stop"&gt;Stop autoplay&lt;/div&gt;
             </code></pre>
             <h3>JavaScript</h3>
-            <pre><code>var tridi = new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-dynamic',
   imageLocation: './path/to/images',
   imageFormat: 'jpg',
   imageCount: 36,
 });
 
-tridi.load();
+tridiInstance.load();
 
-var prevBtn = document.querySelector('.custom-control-prev');
-var nextBtn = document.querySelector('.custom-control-next');
-var startBtn = document.querySelector('.custom-control-start');
-var stopBtn = document.querySelector('.custom-control-stop');
+const prevBtn = document.querySelector('.custom-control-prev');
+const nextBtn = document.querySelector('.custom-control-next');
+const startBtn = document.querySelector('.custom-control-start');
+const stopBtn = document.querySelector('.custom-control-stop');
 
 // Click events
 
 prevBtn.addEventListener('click', function() {
-  tridi.prev();
+  tridiInstance.prev();
 })
 
 nextBtn.addEventListener('click', function() {
-  tridi.next();
+  tridiInstance.next();
 })
 
 startBtn.addEventListener('click', function() {
-  tridi.autoplayStart();
+  tridiInstance.autoplayStart();
 });
 
 stopBtn.addEventListener('click', function() {
-  tridi.autoplayStop();
+  tridiInstance.autoplayStop();
 });
 
 // Touch events
 
 prevBtn.addEventListener('touchend', function() {
-  tridi.prev();
+  tridiInstance.prev();
 }, { passive: true });
 
 nextBtn.addEventListener('touchend', function() {
-  tridi.next();
+  tridiInstance.next();
 }, { passive: true });
 
 startBtn.addEventListener('touchend', function() {
-  tridi.autoplayStart();
+  tridiInstance.autoplayStart();
 }, { passive: true });
 
 stopBtn.addEventListener('touchend', function() {
-  tridi.autoplayStop();
+  tridiInstance.autoplayStop();
 }, { passive: true });
 </code></pre>
         </div>
@@ -96,66 +99,66 @@ stopBtn.addEventListener('touchend', function() {
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      var tridi = new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-custom',
         location: '../images/white',
         format: 'jpg',
         count: 36
       });
 
-      tridi.load();
+      tridiInstance.load();
 
-      var prevBtn = document.querySelector('.custom-control-prev');
-      var nextBtn = document.querySelector('.custom-control-next');
-      var startBtn = document.querySelector('.custom-control-start');
-      var stopBtn = document.querySelector('.custom-control-stop');
+      const prevBtn = document.querySelector('.custom-control-prev');
+      const nextBtn = document.querySelector('.custom-control-next');
+      const startBtn = document.querySelector('.custom-control-start');
+      const stopBtn = document.querySelector('.custom-control-stop');
 
       prevBtn.addEventListener('click', function() {
-        tridi.prev();
+        tridiInstance.prev();
       })
 
       prevBtn.addEventListener('touchend', function() {
-        tridi.prev();
+        tridiInstance.prev();
       }, { passive: true });
 
       prevBtn.addEventListener('keydown', function(e) {
-        if (e.which === 13) tridi.prev();
+        if (e.which === 13) tridiInstance.prev();
       })
 
       nextBtn.addEventListener('click', function() {
-        tridi.next();
+        tridiInstance.next();
       })
 
       nextBtn.addEventListener('touchend', function() {
-        tridi.next();
+        tridiInstance.next();
       }, { passive: true });
 
       nextBtn.addEventListener('keydown', function(e) {
-        if (e.which === 13) tridi.next();
+        if (e.which === 13) tridiInstance.next();
       })
 
       startBtn.addEventListener('click', function() {
-        tridi.autoplayStart();
+        tridiInstance.autoplayStart();
       });
 
       startBtn.addEventListener('touchend', function() {
-        tridi.autoplayStart();
+        tridiInstance.autoplayStart();
       }, { passive: true });
 
       startBtn.addEventListener('keydown', function(e) {
-        if (e.which === 13) tridi.autoplayStart();
+        if (e.which === 13) tridiInstance.autoplayStart();
       });
 
       stopBtn.addEventListener('click', function() {
-        tridi.autoplayStop();
+        tridiInstance.autoplayStop();
       });
 
       stopBtn.addEventListener('touchend', function() {
-        tridi.autoplayStop();
+        tridiInstance.autoplayStop();
       }, { passive: true });
 
       stopBtn.addEventListener('keydown', function(e) {
-        if (e.which === 13) tridi.autoplayStop();
+        if (e.which === 13) tridiInstance.autoplayStop();
       });
     </script>
 

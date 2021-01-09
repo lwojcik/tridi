@@ -19,7 +19,9 @@ dist/images
 dist/notes
 dist/index.html
 dist/nortonsw_4e0d7bb0-da42-0.html
+dist/v1
 AUTHORS
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 .mergify.yml
+webpack.config.js

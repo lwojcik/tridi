@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Basic usage</title>
+    <title>Tridi v2 &mdash; Basic usage</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,7 +11,10 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Basic usage</h1>
+            <h1><a href="../">Tridi v2</a> &mdash; Basic usage</h1>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
             <div id="tridi-basic"></div>
             <div>
               <p>Basic Tridi viewer with minimum configuration. Supports mouse dragging and touch events. Loads all images immediately.</p>
@@ -33,12 +36,14 @@
             <h3>HTML</h3>
             <pre><code>&lt;div id="tridi-basic"&gt;&lt;/div&gt;</code></pre>
             <h3>JavaScript</h3>
-            <pre><code>new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-basic',
   location: './path/to/image/folder',
   format: 'jpg',
   count: 36,
-}).load();</code></pre>
+});
+
+tridiInstance.load();</code></pre>
           <p>See <a href="../notes/api.html">API documentation</a> for all available options or <a href="../notes/styling.html">CSS styling</a> for a minimum viable stylesheet.</p>
           <p><a href="../">&laquo; Back to main page</a></p>
         </div>
@@ -46,12 +51,13 @@
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-basic',
         location: '../images/white',
         format: 'jpg',
         count: 36,
-      }).load();
+      });
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->

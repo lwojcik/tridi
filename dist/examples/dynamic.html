@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; Dynamic image replacement</title>
+    <title>Tridi v2 &mdash; Dynamic image replacement</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,7 +11,10 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; Dynamic image replacement</h1>
+            <h1><a href="../">Tridi v2</a> &mdash; Dynamic image replacement</h1>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
             <div id="tridi-dynamic"></div>
             <div class="tridi-external-controls">
               <div class="color-switch color-switch--white" title="Switch to white" tabindex="0"></div>
@@ -41,21 +44,21 @@
 &lt;div class="color-switch color-switch--red" title="Switch to red"&gt;&lt;/div&gt;
             </code></pre>
             <h3>JavaScript</h3>
-            <pre><code>var tridi = new Tridi({
+            <pre><code>const tridiInstance = Tridi.create({
   element: '#tridi-dynamic',
   imageLocation: '../images/white',
   imageFormat: 'jpg',
   imageCount: 36,
 });
 
-tridi.load();
+tridiInstance.load();
 
-var switchToWhiteBtn = document.querySelector('.color-switch--white');
-var switchToBlackBtn = document.querySelector('.color-switch--black');
-var switchToRedBtn = document.querySelector('.color-switch--red');
+const switchToWhiteBtn = document.querySelector('.color-switch--white');
+const switchToBlackBtn = document.querySelector('.color-switch--black');
+const switchToRedBtn = document.querySelector('.color-switch--red');
 
-var switchColor = function(color) {
-  tridi.update({
+const switchColor = function(color) {
+  tridiInstance.update({
     location: '../images/' + color,
     format: 'jpg',
     count: 36,
@@ -95,21 +98,21 @@ switchToRedBtn.addEventListener('touchstart', function() {
     </div>
     <script src="../js/tridi.min.js"></script>
     <script>
-      var tridi = new Tridi({
+      const tridiInstance = Tridi.create({
         element: '#tridi-dynamic',
         location: '../images/white',
         format: 'jpg',
         count: 36,
       });
 
-      tridi.load();
+      tridiInstance.load();
 
-      var switchToWhiteBtn = document.querySelector('.color-switch--white');
-      var switchToBlackBtn = document.querySelector('.color-switch--black');
-      var switchToRedBtn = document.querySelector('.color-switch--red');
+      const switchToWhiteBtn = document.querySelector('.color-switch--white');
+      const switchToBlackBtn = document.querySelector('.color-switch--black');
+      const switchToRedBtn = document.querySelector('.color-switch--red');
 
-      var switchColor = function(color) {
-        tridi.update({
+      const switchColor = function(color) {
+        tridiInstance.update({
           location: '../images/' + color,
           format: 'jpg',
           count: 36,

@@ -1,0 +1,220 @@
+/*
+  Minimum viable styles for Tridi
+*/
+
+.tridi-viewer,
+.tridi-viewer * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  outline: none;
+}
+
+.tridi-draggable-true {
+  cursor: grab;
+}
+
+.tridi-viewer {
+  border: 4px solid #ededed;
+  overflow: hidden; 
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tridi-viewer-image {
+  width: 100%;
+  margin: auto;
+  animation: fadeIn 0.5s ease forwards;
+  border:2px solid #ededed;
+}
+
+.tridi-viewer-image:focus {
+  border:2px solid #999;
+}
+
+.tridi-stash {
+  display: none;
+}
+
+/* Hint */
+
+.tridi-hint-overlay {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: rgba(237, 237, 237, 0.3);
+  z-index: 100;
+  cursor: pointer;
+}
+
+.tridi-hint {
+  width: 80px;
+  height: 80px;
+  background:#333;
+  opacity: 1;
+  color:#fff;
+  border-radius: 50%;
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+  -webkit-transition: box-shadow .1s; /* Safari */
+  transition: box-shadow .1s;
+}
+
+.tridi-hint:before,
+.tridi-hint:after {
+  content:'';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.tridi-hint:before {
+  border-width: 15px 15px 15px 0;
+  border-color: transparent #fff transparent transparent;
+  left: 9px;
+}
+
+.tridi-hint:after {
+  border-width: 15px 0 15px 15px;
+  border-color: transparent transparent transparent #fff;
+  right: 9px;
+}
+
+.tridi-hint-text {
+  display: block;
+  font-size: 34px;
+  height: 34px;
+  font-weight: bold;
+  width: 80%;
+  text-align: center;
+  position: absolute;
+  top:-16px;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+}
+
+.tridi-hint-overlay:hover .tridi-hint,
+.tridi-hint-overlay:focus .tridi-hint {
+  box-shadow: 0 0 16px 1px #333;
+}
+
+/* Loading state */
+
+.tridi-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+}
+
+.tridi-spinner,
+.tridi-spinner:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.tridi-spinner {
+  margin: auto;
+  font-size: 10px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+
+/* Animations */
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}

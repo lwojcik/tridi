@@ -1,6 +1,6 @@
 declare type ImageArray = ReadonlyArray<string>;
 declare type NumberedImages = "numbered";
-interface TridiOptions {
+export interface TridiOptions {
     [key: string]: any;
     element: string | HTMLElement;
     images?: ImageArray | NumberedImages;
@@ -54,7 +54,7 @@ interface TridiUpdatableOptions {
     count?: number;
     location?: string;
 }
-declare class Tridi {
+export declare class Tridi {
     [key: string]: any;
     element: string | HTMLElement;
     images?: ImageArray | NumberedImages;
@@ -161,3 +161,5 @@ declare class Tridi {
     update(options: TridiUpdatableOptions, syncFrame?: boolean): void;
     load(): void;
 }
+export declare const create: (options: TridiOptions) => Tridi;
+export {};

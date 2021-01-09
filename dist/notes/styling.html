@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; CSS Styling</title>
+    <title>Tridi v2 &mdash; CSS Styling</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="../css/tridi.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -11,11 +11,14 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="../">Tridi</a> &mdash; CSS Styling</h1>
-            <p>In a default configuraiton. Tridi does not require CSS styles to work correctly. Examples in the documentation use minimum stylesheet specified in <a href="../css/tridi.css"><code>tridi.css</code></a>. You can use this stylesheet as a starting point for your customizations.</p>
-            <p>To make styling easier, Tridi generates CSS classes which can be used to target specific container elements generated inside a Tridi container.</p>
+            <h1><a href="../">Tridi v2</a> &mdash; CSS Styling</h1>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
+            <p>Tridi provides minimum CSS stylesheet specified in <a href="../css/tridi.css"><code>tridi.css</code></a> which can serve as a starting point for your customizations.</p>
+            <p>Additionally, Tridi generates CSS classes which can be used to target specific elements inside a viewer container.</p>
             <h2>State-specific CSS classes</h2>
-            <p>Each Tridi container gets a set of CSS classes denoting certain configuration options:</p>
+            <p>Each Tridi container uses the following set of CSS classes denoting certain configuration options:</p>
             <ul>
               <li><code>.tridi-draggable-{true|false}</code> - derived from <a href="api.html#draggable"><code>draggable</code></a> option</li>
               <li><code>.tridi-touch-{true|false}</code> - derived from <a href="api.html#touch"><code>touch</code></a> option</li>

@@ -8,7 +8,7 @@
 
 type ImageArray = ReadonlyArray<string>;
 type NumberedImages = "numbered";
-interface TridiOptions {
+export interface TridiOptions {
   [key: string]: any;
   element: string | HTMLElement;
   images?: ImageArray | NumberedImages;
@@ -64,7 +64,7 @@ interface TridiUpdatableOptions {
   location?: string;
 }
 
-class Tridi {
+export class Tridi {
   [key: string]: any;
   element: string | HTMLElement;
   images?: ImageArray | NumberedImages;
@@ -765,5 +765,4 @@ class Tridi {
   }
 }
 
-/* istanbul ignore next */
-if (typeof module !== "undefined") module.exports = Tridi;
+export const create = (options: TridiOptions) => new Tridi(options);

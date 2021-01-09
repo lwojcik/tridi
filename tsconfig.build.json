@@ -2,17 +2,15 @@
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "./dist/js",
-    "module": "none",
+    "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
     "declaration": true,
     "noImplicitAny": true,
-    "outFile": "./dist/js/tridi.min.js",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
-    "alwaysStrict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -20,7 +18,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "lib": ["es2016", "dom", "es5"]
+    "lib": ["es2016", "dom", "es5"],
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*"

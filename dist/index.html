@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tridi &mdash; JavaScript 360 3D Image Viewer</title>
+    <title>Tridi v2 &mdash; JavaScript 360 3D Image Viewer</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <link rel="stylesheet" href="css/tridi.css">
     <link rel="stylesheet" href="css/index.css">
@@ -11,12 +11,15 @@
     <div class="container">
       <div class="row">
           <div class="col-sm">
-            <h1><a href="./">Tridi</a> - JavaScript 360 3D Product Viewer</h1>
+            <h1><a href="./index.html">Tridi v2</a> - JavaScript 360 3D Product Viewer</h1>
             <div class="badges"><a class="npmBtn" href="https://www.npmjs.com/package/tridi"><img alt="npm (tag)" src="https://img.shields.io/npm/v/tridi/latest.svg"></a></div>
+            <div class="version-disclaimer">
+              <p>Looking for older version? <a href="/v1/"><b>Read Tridi v1 documentation here</b></a></p>
+            </div>
             <div id="theContainer"></div>
+
             <div>
             <p>Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images.</p>
-            <p>Works on mobile and desktop browsers (including IE 10 and IE 11).</p>
             <h2>Install from npm</h2>
             <pre><code>npm install tridi</code></pre>
             <h2>Manual build</h2>
@@ -29,12 +32,14 @@ npm run build</code></pre>
             <h2>Download</h2>
             <ul>
               <li><a href="https://github.com/lukemnet/tridi/releases/latest">Latest release</a> &mdash; full package from GitHub</li>
-              <li><a href="https://raw.githubusercontent.com/lukemnet/tridi/master/src/tridi.ts">Source code</a> &mdash; contains full uncompiled TypeScript source code</li>
+              <li><a href="https://raw.githubusercontent.com/lukemnet/tridi/v1/src/tridi.ts">Source code</a> &mdash; contains full uncompiled TypeScript source code</li>
               <li><a href="js/tridi.js">Compiled version</a> &mdash; contains unminified JS code</li>
               <li><a href="js/tridi.min.js">Production-ready version</a> &mdash; minified JS code</li>
             </ul>
             <h2 id="quickstart">Quick start</h2>
-            <p>Add Tridi to your site:</p>
+            <p>Install via npm:</p>
+            <pre><code>npm install --save tridi</code></pre>
+            <p>Or add Tridi to your site via a traditional <code>&lt;script&gt;</code> tag:</p>
             <pre><code>&lt;script src="path/to/tridi.js"&gt;&lt;/script&gt;</code></pre>
             <p>For minimum styling add <a href="css/tridi.css"><code>tridi.css</code></a> to <code>head</code> section of your page:</p>
             <pre><code>&lt;link rel="stylesheet" href="path/to/tridi.css"&gt;</code></pre>
@@ -73,11 +78,10 @@ npm run build</code></pre>
       </div>
       </div>
     </div>
-    
 
     <script src="js/tridi.min.js"></script>
     <script>
-      new Tridi({
+      var tridiInstance = Tridi.create({
         element: '#theContainer',
         location: './images/white',
         format: 'jpg',
@@ -100,7 +104,8 @@ npm run build</code></pre>
         stopAutoplayOnMouseenter: true,
         resumeAutoplayOnMouseleave: true,
         resumeAutoplayDelay: 1000
-      }).load();
+      });
+      tridiInstance.load();
     </script>
 
     <!-- Fork me on GitHub-->
