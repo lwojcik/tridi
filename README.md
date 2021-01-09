@@ -41,6 +41,12 @@ For minimum styling add [tridi.css](https://tridi.lukem.net/css/tridi.css) to he
 
 See [Basic viewer](https://tridi.lukem.net/examples/basic.html) for a minimal viable example.
 
+## Using React?
+
+Check out [react-tridi](https://github.com/nevestuan/react-tridi) by [Tuan Pham](https://github.com/nevestuan) which implements Tridi as a fully fledged React component.
+
+For a thin component wrapper on top of the original library, see [react-tridi-wrapper](https://www.npmjs.com/package/react-tridi-wrapper).</p>
+
 ## Documentation
 
 See [tridi.lukem.net](https://tridi.lukem.net/) for complete documentation and examples.
