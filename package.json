@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "JavaScript 360 3D Product Viewer",
   "main": "dist/js/tridi.min.js",
-  "types": "dist/js/tridi.min.d.ts",
+  "types": "dist/js/tridi.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "clean": "rimraf dist/js/*",
