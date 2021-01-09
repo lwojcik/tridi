@@ -1,5 +1,5 @@
 declare type ImageArray = ReadonlyArray<string>;
-declare type NumberedImages = "numbered";
+declare type NumberedImages = 'numbered';
 export interface TridiOptions {
     [key: string]: any;
     element: string | HTMLElement;
