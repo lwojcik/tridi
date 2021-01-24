@@ -12,7 +12,9 @@ pull_request_rules:
         strict: true
   - name: Automatic merge of Snyk dependency upgrades (me)
     conditions:
-      - "author=snyk-bot"
+      - "author=lwojcik"
+      - "title~=[Snyk]"
+      - "title~=Upgrade"
       - "-conflict"
       - "status-success=continuous-integration/appveyor/branch"
       - "status-success=continuous-integration/appveyor/pr"
