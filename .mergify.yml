@@ -1,5 +1,16 @@
 pull_request_rules:
-  - name: Automatic merge of Snyk dependency upgrades
+  - name: Automatic merge of Snyk dependency upgrades (bot)
+    conditions:
+      - "author=snyk-bot"
+      - "-conflict"
+      - "status-success=continuous-integration/appveyor/branch"
+      - "status-success=continuous-integration/appveyor/pr"
+      - "status-success=security/snyk (lukemnet)"
+    actions:
+      merge:
+        method: squash
+        strict: true
+  - name: Automatic merge of Snyk dependency upgrades (me)
     conditions:
       - "author=snyk-bot"
       - "-conflict"
