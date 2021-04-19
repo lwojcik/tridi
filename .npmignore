@@ -12,6 +12,7 @@ appveyor.yml
 jest.config.js
 setupJest.ts
 dist/_redirects
+dist/_headers
 dist/css/bootstrap-grid.min.css
 dist/css/index.css
 dist/examples
