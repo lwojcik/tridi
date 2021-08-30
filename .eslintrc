@@ -6,6 +6,7 @@
     "jest"
   ],
   "extends": [
+    "airbnb-base",
     "airbnb-typescript/base",
     "plugin:jest/all"
   ],
