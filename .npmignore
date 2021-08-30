@@ -28,3 +28,4 @@ CONTRIBUTING.md
 webpack.config.js
 .eslintignore
 .eslintrc
+.nvmrc
