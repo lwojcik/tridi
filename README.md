@@ -1,11 +1,11 @@
 # Tridi
 [![npm (latest)](https://img.shields.io/npm/v/tridi/latest.svg)](https://www.npmjs.com/package/tridi)
-[![Build status](https://ci.appveyor.com/api/projects/status/h427w8jgqks4qm9h/branch/master?svg=true)](https://ci.appveyor.com/project/lwojcik/tridi/branch/master)
-[![codecov](https://codecov.io/gh/lukemnet/tridi/branch/master/graph/badge.svg?token=3c2TX2NWAE)](https://codecov.io/gh/lukemnet/tridi)
+[![Build status](https://ci.appveyor.com/api/projects/status/clyylps63lqs8x2k/branch/master?svg=true)](https://ci.appveyor.com/project/lwojcik/tridi/branch/master)
+[![codecov](https://codecov.io/gh/tridijs/tridi/branch/master/graph/badge.svg?token=3c2TX2NWAE)](https://codecov.io/gh/tridijs/tridi)
 
 Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images. Works on mobile and desktop browsers.
 
-![Tridi in action (GIF)](https://raw.githubusercontent.com/lukemnet/tridi/master/dist/images/example.gif)
+![Tridi in action (GIF)](https://raw.githubusercontent.com/tridijs/tridi/master/dist/images/example.gif)
 
 ## Install
 
@@ -15,8 +15,8 @@ npm install tridi
 
 ## Download
 
-* [Latest release](https://github.com/lukemnet/tridi/releases/latest) &mdash; full package from GitHub
-* [Source code](https://raw.githubusercontent.com/lukemnet/tridi/master/src/tridi.ts) &mdash; contains full uncompiled TypeScript source code
+* [Latest release](https://github.com/tridijs/tridi/releases/latest) &mdash; full package from GitHub
+* [Source code](https://raw.githubusercontent.com/tridijs/tridi/master/src/tridi.ts) &mdash; contains full uncompiled TypeScript source code
 * [Compiled version](https://tridi.lukem.net/js/tridi.js) &mdash; contains unminified JS code
 * [Production-ready version](https://tridi.lukem.net/js/tridi.min.js) &mdash; minified JS code
 
@@ -61,7 +61,7 @@ You can contribute to Tridi by:
 * improving documentation
 * submitting pull requests
 
-Before contributing be sure to read [Contributing Guidelines](https://github.com/lukemnet/tridi/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/lukemnet/tridi/blob/master/CODE_OF_CONDUCT.md).
+Before contributing be sure to read [Contributing Guidelines](https://github.com/tridijs/tridi/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/tridijs/tridi/blob/master/CODE_OF_CONDUCT.md).
 
 ## Acknowledgements
 
@@ -69,4 +69,4 @@ Tridi was loosely inspired by [3D-Product-Viewer-JavaScript-Plugin](https://gith
 
 ## License
 
-Licensed under MIT License. See [LICENSE](https://github.com/lukemnet/tridi/blob/master/LICENSE) for more information.
+Licensed under MIT License. See [LICENSE](https://github.com/tridijs/tridi/blob/master/LICENSE) for more information.
