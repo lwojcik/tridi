@@ -298,10 +298,11 @@ export class Tridi {
           )
         )!
         : <HTMLElement>document.querySelector(this.element)!;
-    } else if (typeof this.element === 'object' && cssClass !== undefined) {
-      return this.element.querySelector(cssClass);
     }
-    return this.element;
+    if (typeof this.element === 'object' && cssClass !== undefined) {
+      return <HTMLElement> this.element.querySelector(cssClass);
+    }
+    return <HTMLElement> this.element;
   }
 
   private viewer() {
