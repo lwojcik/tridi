@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukemnet/tridi.git"
+    "url": "git+https://github.com/tridijs/tridi.git"
   },
   "keywords": [
     "3d",
@@ -31,7 +31,7 @@
   "author": "Łukasz Wójcik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lukemnet/tridi/issues"
+    "url": "https://github.com/tridijs/tridi/issues"
   },
   "homepage": "https://tridi.lukem.net",
   "devDependencies": {

@@ -3,7 +3,7 @@
   Author: Lukasz Wojcik
   License: MIT
   Homepage: https://tridi.lukem.net
-  GitHub: http://github.com/lukemnet/tridi
+  GitHub: http://github.com/tridijs/tridi
 */
 var Tridi = /** @class */ (function () {
     function Tridi(options) {

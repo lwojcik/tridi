@@ -10,7 +10,7 @@ You can contribute to the project in many ways:
 
 ## Bug reports
 
-If you encounter unexpected behavior, design flaw or any other kind of error that needs to be fixed, feel free to file a bug report in [Issues section on GitHub](https://github.com/lukemnet/tridi/issues).
+If you encounter unexpected behavior, design flaw or any other kind of error that needs to be fixed, feel free to file a bug report in [Issues section on GitHub](https://github.com/tridijs/tridi/issues).
 
 There is no specific format you have to follow while filing your report. However, it's highly advisable you include at least some of following information:
 
@@ -34,7 +34,7 @@ Feel free to submit any relevant fixes regardless of how trivial they may seem.
 
 ## Pull requests
 
-Code patches that add features or fix bugs can be sent as [pull requests on GitHub](https://github.com/lukemnet/tridi/pulls).
+Code patches that add features or fix bugs can be sent as [pull requests on GitHub](https://github.com/tridijs/tridi/pulls).
 
 To make the process of merging your pull request as quick as possible, be sure to read and follow the guidelines below:
 
@@ -48,11 +48,11 @@ To make the process of merging your pull request as quick as possible, be sure t
 
 * Pull requests are merged to `master` branch via squash-and-merge strategy. There are no specific requirements about quality and quantity of commits within feature branches.
 
-* Feel free to add yourself to [AUTHORS](https://github.com/lukemnet/tridi/blob/master/AUTHORS) file if you haven't done so.
+* Feel free to add yourself to [AUTHORS](https://github.com/tridijs/tridi/blob/master/AUTHORS) file if you haven't done so.
 
 ## Technical information
 
-This section intends to explain how the project works from the developer's point of view. If you have any questions that weren't answered here, feel free to [submit an issue on GitHub](https://github.com/lukemnet/tridi/issues).
+This section intends to explain how the project works from the developer's point of view. If you have any questions that weren't answered here, feel free to [submit an issue on GitHub](https://github.com/tridijs/tridi/issues).
 
 ### Development
 
@@ -81,4 +81,4 @@ Note that automated unit tests are powerful tool for quick quality control, but 
 
 ### Releases
 
-Whenever possible, Tridi follows [semantic versioning](https://semver.org/) for all releases available in [Releases section on GitHub](https://github.com/lukemnet/tridi/releases) and on [NPM package manager](https://www.npmjs.com/package/tridi). The project is considered production-ready and it doesn't follow any specific release schedule.
+Whenever possible, Tridi follows [semantic versioning](https://semver.org/) for all releases available in [Releases section on GitHub](https://github.com/tridijs/tridi/releases) and on [NPM package manager](https://www.npmjs.com/package/tridi). The project is considered production-ready and it doesn't follow any specific release schedule.
