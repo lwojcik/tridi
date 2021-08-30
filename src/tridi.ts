@@ -299,7 +299,10 @@ export class Tridi {
         )!
         : <HTMLElement>document.querySelector(this.element)!;
     }
-    return this.element;
+    if (typeof this.element === 'object' && cssClass !== undefined) {
+      return <HTMLElement> this.element.querySelector(cssClass);
+    }
+    return <HTMLElement> this.element;
   }
 
   private viewer() {

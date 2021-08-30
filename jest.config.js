@@ -15,6 +15,7 @@ module.exports = {
     "node"
   ],
   "collectCoverage": true,
+  "testEnvironment": "jsdom",
   "coverageThreshold": {
     "global": {
       "branches": 100,
