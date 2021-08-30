@@ -298,7 +298,8 @@ export class Tridi {
           )
         )!
         : <HTMLElement>document.querySelector(this.element)!;
-    } else if (typeof this.element === 'object' && cssClass !== undefined) {
+    }
+    if (typeof this.element === 'object' && cssClass !== undefined) {
       return this.element.querySelector(cssClass);
     }
     return this.element;
