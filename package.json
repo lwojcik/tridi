@@ -48,7 +48,7 @@
     "jest": "^27.1.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
-    "serve": "^12.0.0",
+    "serve": "^13.0.2",
     "terser-webpack-plugin": "^5.1.4",
     "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
