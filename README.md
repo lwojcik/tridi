@@ -1,7 +1,6 @@
 # Tridi
-[![npm (latest)](https://img.shields.io/npm/v/tridi/latest.svg)](https://www.npmjs.com/package/tridi)
-[![Build status](https://ci.appveyor.com/api/projects/status/clyylps63lqs8x2k/branch/master?svg=true)](https://ci.appveyor.com/project/lwojcik/tridi/branch/master)
-[![codecov](https://codecov.io/gh/tridijs/tridi/branch/master/graph/badge.svg?token=3c2TX2NWAE)](https://codecov.io/gh/tridijs/tridi)
+
+**This library is no longer supported or maintained.**
 
 Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images. Works on mobile and desktop browsers.
 
@@ -17,8 +16,6 @@ npm install tridi
 
 * [Latest release](https://github.com/tridijs/tridi/releases/latest) &mdash; full package from GitHub
 * [Source code](https://raw.githubusercontent.com/tridijs/tridi/master/src/tridi.ts) &mdash; contains full uncompiled TypeScript source code
-* [Compiled version](https://tridi.lukem.net/js/tridi.js) &mdash; contains unminified JS code
-* [Production-ready version](https://tridi.lukem.net/js/tridi.min.js) &mdash; minified JS code
 
 ## Quick start
 Import Tridi as a module:
@@ -34,34 +31,19 @@ Or add Tridi to your site via a traditional script tag:
 ```HTML
 <script src="path/to/tridi.js"></script>
 ```
-For minimum styling add [tridi.css](https://tridi.lukem.net/css/tridi.css) to head section of your page:
+For minimum styling add [tridi.css](https://raw.githubusercontent.com/tridijs/tridi/master/dist/css/tridi.css) to head section of your page:
+
 ```HTML
 <link rel="stylesheet" href="path/to/tridi.css">
 ```
-
-See [Basic viewer](https://tridi.lukem.net/examples/basic.html) for a minimal viable example.
 
 ## Using React?
 
 Check out [react-tridi](https://github.com/nevestuan/react-tridi) by [Tuan Pham](https://github.com/nevestuan) which implements Tridi as a fully fledged React component.
 
-For a thin component wrapper on top of the original library, see [react-tridi-wrapper](https://www.npmjs.com/package/react-tridi-wrapper).</p>
-
 ## Documentation
 
-See [tridi.lukem.net](https://tridi.lukem.net/) for complete documentation and examples.
-
-## Contributions
-
-Contributions of any kind are welcome.
-
-You can contribute to Tridi by:
-
-* submiting bug reports or feature suggestions
-* improving documentation
-* submitting pull requests
-
-Before contributing be sure to read [Contributing Guidelines](https://github.com/tridijs/tridi/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/tridijs/tridi/blob/master/CODE_OF_CONDUCT.md).
+Documentation site is no longer available, but its content can still be found in [dist folder](https://github.com/tridijs/tridi/tree/master/dist). 
 
 ## Acknowledgements
 
