@@ -1,6 +1,6 @@
 # Tridi
 
-**This library is no longer supported or maintained. [Read the full story on my blog](https://www.offbeatbits.com/that-tiny-javascript-library-that-couldnt/)**
+**This library is no longer supported or maintained. [Read the story of Tridi on my blog &raquo;](https://www.offbeatbits.com/that-tiny-javascript-library-that-couldnt/)**
 
 Tridi is a flexible JavaScript library for 360-degree 3D product visualizations based on series of images. Works on mobile and desktop browsers.
 
