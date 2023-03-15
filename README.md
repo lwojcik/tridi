@@ -48,7 +48,3 @@ Documentation site is no longer available, but its content can still be found in
 ## Acknowledgements
 
 Tridi was loosely inspired by [3D-Product-Viewer-JavaScript-Plugin](https://github.com/Jeya-Prakash/3D-Product-Viewer-JavaScript-Plugin) by [Jeya Prakash](https://github.com/Jeya-Prakash).
-
-## License
-
-Licensed under MIT License. See [LICENSE](https://github.com/tridijs/tridi/blob/master/LICENSE) for more information.
